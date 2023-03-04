@@ -1,0 +1,5 @@
+Botão Login HTML:
+
+<form class="d-flex" style="margin: 5px; margin-left: 0px;">
+    <a href="login.html"><button class="btn btn-primary" type="button">Login</button></a>
+</form>
