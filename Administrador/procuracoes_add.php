@@ -76,7 +76,7 @@ if (!empty($_POST['nprocesso'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="procuracoes_add.php" method="POST">
+                <form action="procuracoes_create.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
@@ -263,7 +263,7 @@ if (!empty($_POST['nprocesso'])) {
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Próximo</button></a>
+                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Concluir</button></a>
                                 </div>
                             </div>
                         </div>
