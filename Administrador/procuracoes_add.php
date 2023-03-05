@@ -76,7 +76,7 @@ if (!empty($_POST['nprocesso'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="procuracoes_create.php" method="POST">
+                <form action="procuracoes_view.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
@@ -176,7 +176,7 @@ if (!empty($_POST['nprocesso'])) {
                                 <label for="nomeadvogado"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Outorgado</h6>
                                     </b></label>
-                                <select class="form-select" name="nomecliente" id="nomecliente">
+                                <select class="form-select" name="nomeadvogado" id="nomeadvogado">
                                     <?php
                                     include_once('conexao_adm.php');
 
@@ -251,6 +251,7 @@ if (!empty($_POST['nprocesso'])) {
                         </div>
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
+                    <input type="hidden" name="sexo" value="<?php echo $sexo ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
@@ -263,7 +264,7 @@ if (!empty($_POST['nprocesso'])) {
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Concluir</button></a>
+                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Próximo</button></a>
                                 </div>
                             </div>
                         </div>
