@@ -40,6 +40,22 @@ $result = $conn->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+        .sidebar::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background-color: #fff;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #4d79ff;
+            border-radius: 10px;
+            opacity: 0.1;
+            /* Define a opacidade da barra de rolagem */
+        }
+    </style>
     <title>Fraga e Melo Advogados Associados</title>
 </head>
 

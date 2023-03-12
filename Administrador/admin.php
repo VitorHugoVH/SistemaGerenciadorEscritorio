@@ -87,6 +87,40 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Fraga e Melo Advogados Associados</title>
+  <style>
+    /*INICIO ESTILO BARRA DE ROLAGEM NAVBAR*/
+
+    .sidebar::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background-color: #4d79ff;
+      border-radius: 10px;
+      opacity: 0.1;
+      /* Define a opacidade da barra de rolagem */
+    }
+
+    /*FIM ESTILO BARRA DE ROLAGEM NAVBAR*/
+
+    .comp::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .comp::-webkit-scrollbar-track {
+      background-color: lightgray;
+    }
+
+    .comp::-webkit-scrollbar-thumb {
+      background-color: #4d79ff;
+      border-radius: 10px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 
 <body>
@@ -226,7 +260,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
     </div>
     <!--FIM NAV BAR-->
     <!--INÍCIO NAVEGAÇÃO-->
-    <div class="sidebar" style="overflow-y: auto;">
+    <div class="sidebar" style="overflow-y: scroll; ">
       <div class="profile">
         <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
         <h3>Advocacia</h3>
@@ -330,7 +364,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
             <a href="equipe.php" class="links">
               <span class="icon"><i class="fas fa-file"></i></span>
               <span class="item">Arquivos</span>
-              <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
               </svg>
             </a>
@@ -342,7 +376,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
               </a>
             </li>
             <li>
-              <a href="declaracao.php" class="links" style="width: 100%;">
+              <a href="declaracoes.php" class="links" style="width: 100%;">
                 <span class="item2" style="margin-left: 15%;">Declaração</span>
               </a>
             </li>

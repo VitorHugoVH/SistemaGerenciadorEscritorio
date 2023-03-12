@@ -13,7 +13,6 @@ require_once 'dompdf/autoload.inc.php';
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
-use FontLib\Table\Type\head;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf(['enable_remote' => true]);

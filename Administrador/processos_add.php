@@ -128,6 +128,22 @@ if (isset($_POST['enviar'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background-color: #fff;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #4d79ff;
+            border-radius: 10px;
+            opacity: 0.1;
+            /* Define a opacidade da barra de rolagem */
+        }
+    </style>
     <title>Fraga e Melo Advogados Associados</title>
 </head>
 
@@ -138,7 +154,7 @@ if (isset($_POST['enviar'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="procuracoes_create.php" method="POST">
+                <form action="" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">

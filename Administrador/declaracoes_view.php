@@ -1,5 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+<?php
+include_once('conexao_adm.php');
+
+//DADOS PROCURAÇÃO
+
+if (isset($_POST['enviar'])) {
+
+    $nomecliente = $_POST['nomecliente'];
+    $sexo = $_POST['sexo'];
+    $nacionalidade = $_POST['nacionalidade'];
+    $estadocivil = $_POST['estadocivil'];
+    $profissao = $_POST['profissaocliente'];
+    $portador = "portador";
+    $cedula = $_POST['rg'];
+    $cpf = $_POST['cpf'];
+    $endereco = $_POST['endereco'];
+    $dia = date('d');
+    $mes = date('M');
+    $ano = date('Y');
+
+    //FUNÇÃO MES PORTUGUÊS
+
+    $mes_extenso = array(
+        'Jan' => 'Janeiro',
+        'Feb' => 'Fevereiro',
+        'Mar' => 'Março',
+        'Apr' => 'Abril',
+        'May' => 'Maio',
+        'Jun' => 'Junho',
+        'Jul' => 'Julho',
+        'Aug' => 'Agosto',
+        'Nov' => 'Novembro',
+        'Sep' => 'Setembro',
+        'Oct' => 'Outubro',
+        'Dec' => 'Dezembro'
+    );
+
+
+    //FORMATAÇÃO ESTADO CIVIL
+
+    switch ($estadocivil) {
+        case 'Solteiro(a)':
+            $estadocivil = 'solteiro';
+            break;
+        case 'Casado(a)':
+            $estadocivil = 'casado';
+            break;
+        case 'Separado(a) judicialmente':
+            $estadocivil = 'separado';
+            break;
+        case 'Divorciado(a)':
+            $estadocivil = 'divorciado';
+            break;
+        case 'Viúvo(a)':
+            $estadocivil = 'viúvo';
+            break;
+        case 'União estável':
+            $estadocivil = 'união estável';
+    }
+
+    //FORMATAÇÃO SEXO CARACTERES
+
+    if ($sexo == 'Feminino') {
+
+        //NACIONALIDADE
+        $letrafinalnacionalidade = substr($nacionalidade, -1);
+        $nacionalidade = str_replace($letrafinalnacionalidade, 'a', $nacionalidade);
+
+        //ESTADO CIVIL
+        if ($estadocivil != 'união estável') {
+            $letrafinalestadocivil = substr($estadocivil, -1);
+            $estadocivil = str_replace($letrafinalestadocivil, 'a', $estadocivil);
+        } else {
+            $estadocivil = $estadocivil;
+        }
+
+        //PROFISSAO
+        $letrafinalprofissao = substr($profissao, -1);
+        $profissao = str_replace($letrafinalprofissao, 'a', $profissao);
+
+        //PORTADOR
+        $letrafinalportador = substr($portador, -1);
+        $portador = str_replace($letrafinalportador, 'a', $portador);
+    }
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +98,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/35qnw3mr7vfcivpkll7h2mly3vod8u7kh8ujfb0q3qur0e4j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -29,6 +116,13 @@
             /* Define a opacidade da barra de rolagem */
         }
     </style>
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            plugins: 'autoresize',
+            menubar: false,
+        });
+    </script>
     <title>Fraga e Melo Advogados Associados</title>
 </head>
 
@@ -38,105 +132,64 @@
             <div class="top_navbar">
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="bloco3">
-                            <h3 class="text-muted">Clientes</h3>
-                            <?php
-                            include_once('conexao_adm.php');
+            <div class="container" id='main'>
+                <form action="declaracoes_create.php" method="POST" target="_blanck">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="bloco3">
+                                <h3 class="text-muted">Criar declaração</h3>
+                            </div>
+                        </div>
+                        <div class="col-2">
 
-                            $sqlqT = "SELECT * FROM clientes";
-                            $resultqT = $conn->query($sqlqT);
-
-                            $quantidade = 0;
-                            while ($qt = mysqli_fetch_assoc($resultqT)) {
-                                $quantidade += 1;
-                            }
-                            ?>
-                            <small class="text-muted">Exibindo <?php echo $quantidade; ?> resultado(s)</small>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div id="enviar">
-                            <a href="clientes_add.php"><button type="button" class="btn btn-success" id='add1'>Adicionar</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bloco">
-                    <p>Busca</p>
-                    <form action="" method="GET">
+                    <div class="bloco4">
                         <div class="row">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Termo de busca" aria-label="Recipient's username" aria-describedby="basic-addon2" name="termo" id="termo">
-                                <div class="input-group-append">
-                                    <input type="submit" value="Buscar" class="btn btn-secondary" name="buscar" id="buscar">
+                            <div class="titulo">
+                                <h4 class="title"><b> Visualizar declaração</b></h4>
+                            </div>
+                        </div>
+                        <div class="campos">
+                            <textarea id="editor" name="descricao">
+                                <h3 style="text-align: center;">DECLARAÇÃO</h3>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><b><?php echo mb_strtoupper($nomecliente) ?>,</b> <?php echo mb_strtolower($nacionalidade) ?>, <?php echo mb_strtolower($estadocivil) ?>, <?php echo mb_strtolower($profissao) ?>, portador da cédula de
+                                identidade de nº <?php echo $cedula ?>, inscrito no CPF sob o nº <?php echo $cpf ?>, residente e domiciliado
+                                na <?php echo $endereco ?>, neste Estado, declara que é pobre na acepção da
+                                palavra e não doispõe de condições financeiras de arcar com as despesas e custas processuais
+                                sem prejuízo do sustento próprio.
+                                </p>
+                                <p style="text-align: center;">Porto Alegre/RS, <?php echo $dia ?> de <?php echo $mes_extenso["$mes"] ?> de <?php echo $ano ?></p>
+                                <br>
+                                <hr style="width: 60%; color: black;">
+                                <p style="text-align: center;"><b><?php echo mb_strtoupper($nomecliente) ?></b></p>
+                            </textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
+                    <input type="hidden" name="nomecliente" id="nomecliente" value="<?php echo $nomecliente ?>">
+                    <div class="final">
+                        <div class="row">
+                            <div class="col-8">
+
+                            </div>
+                            <div class="col-2">
+                                <div id="voltar">
+                                    <a href="declaracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div id="voltar">
+                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Concluir</button></a>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <?php
-                include_once('conexao_adm.php');
-
-                $sql = "SELECT * FROM clientes";
-
-                if (!empty($_GET['termo'])) {
-                    $termo = $_GET['termo'];
-                    $sql = "SELECT * FROM clientes WHERE nomecliente OR email1 OR numero1 OR login LIKE '%$termo%' ORDER BY id ASC";
-                } else {
-                    $sql = "SELECT * FROM clientes ORDER BY id ASC";
-                }
-
-                $result = $conn->query($sql);
-                ?>
-                <div class="bloco">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered" style="white-space: nowrap;">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Login</th>
-                                    <th>Telefone</th>
-                                    <th>E-mail</th>
-                                    <th>Opções</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                include_once('conexao_adm.php');
-
-                                while ($data_client = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $data_client['nomecliente'] . "</td>";
-                                    echo "<td>" . $data_client['login'] . "</td>";
-                                    echo "<td>" . "(" . $data_client['ddd1'] . ")" . $data_client['numero1'] . "</td>";
-                                    echo "<td>" . $data_client['email1'] . "</td>";
-                                    echo "  <td>
-                                            <a class='btn btn-sm btn-primary' href='clientes_edit.php?id=$data_client[id]'>
-                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pen-fill' viewBox='0 0 16 16'>
-                                                    <path d='m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z'/>
-                                                </svg>
-                                            </a>
-                                            <a class='btn btn-light' href='processos.php?statusfiltro=Todos&buscanome=$data_client[nomecliente]&termobusca='>
-                                                <i class='fa-solid fa-scale-balanced' width='16' height='16'></i>
-                                            </a>
-                                            <a class='btn btn-sm btn-danger' href='clientes_delete.php?id=$data_client[id]' onclick='confirma()'>
-                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
-                                                    <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
-                                                </svg>
-                                            </a>
-                                        </td>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!--INÍCIO NAVEGAÇÃO-->
-        <div class="sidebar" style="overflow-y: scroll; ">
+        <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
                 <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
@@ -214,7 +267,7 @@
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="equipe.php" class="active">
+                        <a href="equipe.php" class="links">
                             <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -237,7 +290,7 @@
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="equipe.php" class="links">
+                        <a href="equipe.php" class="active">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -274,12 +327,5 @@
         <!--FIM NAVEGAÇÃO-->
     </div>
 </body>
-<script>
-    function confirma(id) {
-        if (confirm("Deseja realmente excluir este processo?")) {
-            location.href = "processos_delete.php?id=" + id;
-        }
-    }
-</script>
 
 </html>
