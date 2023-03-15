@@ -1,7 +1,9 @@
 <?php
+session_start();
+$_SESSION['logged'] = false;
 include('config.php');
 
-if(empty($_POST['usuario']) || empty($_POST['senha'])) {
+if (empty($_POST['usuario']) || empty($_POST['senha'])) {
     header('Location: login.php');
     exit();
 }
@@ -15,13 +17,11 @@ $result = mysqli_query($conexao, $query);
 
 $row = mysqli_num_rows($result);
 
-if($row == 1){
-    $_SESSION['usuario'] = $usuario;
+if ($row == 1) {
+    $_SESSION['usuariologado'] = $usuario;
+    $_SESSION['senhalogado'] = $senha;
+    $_SESSION['logged'] = true;
     header('Location: Administrador/admin.php');
-    exit();
-}else {
+} else {
     header('Location: login.php');
-    exit();
 }
-
-?>
