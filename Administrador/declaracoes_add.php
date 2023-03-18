@@ -40,6 +40,18 @@ if (!empty($_POST['nprocesso'])) {
 <!DOCTYPE html>
 <html lang="pt-br">
 
+<?php
+
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

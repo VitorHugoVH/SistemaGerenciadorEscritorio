@@ -1,6 +1,14 @@
 <?php
     include_once('conexao_adm.php');
 
+    // VERIFICAÇÃO LOGIN
+    session_start();
+    $logged = $_SESSION['logged'] ?? NULL;
+
+    if (!$logged) {
+    header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+    };
+
     if(isset($_POST['enviar'])){
 
         $id = $_POST['id'];

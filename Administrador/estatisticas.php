@@ -1,3 +1,14 @@
+<?php
+
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

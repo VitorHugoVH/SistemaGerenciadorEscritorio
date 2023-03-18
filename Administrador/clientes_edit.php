@@ -1,6 +1,14 @@
 <?php
 include_once('conexao_adm.php');
 
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
 $id = $_GET['id'];
 
 if (!empty($_GET['id'])) {
@@ -735,7 +743,7 @@ if (!empty($_GET['id'])) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="equipe.php" class="links">
+                        <a href="equipe.php" class="active">
                             <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -745,7 +753,7 @@ if (!empty($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="clientes.php" class="links" style="width: 100%;">
+                            <a href="clientes.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>

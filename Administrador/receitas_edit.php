@@ -1,6 +1,14 @@
 <?php
 include_once('conexao_adm.php');
 
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
 $id = $_GET['id'];
 
 if (!empty($_GET['id'])) {
@@ -332,7 +340,7 @@ if (!empty($_GET['id'])) {
                             </a>
                         </li>
                         <li>
-                            <a href="receitas.php" class="links">
+                            <a href="receitas.php" class="active">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>

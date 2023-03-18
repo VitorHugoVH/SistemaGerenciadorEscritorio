@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +57,7 @@
                         </div>
                         <div class="col-2">
                             <div id="voltar">
-                                <a href="processos.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
+                                <a href="advogados.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
                             </div>
                         </div>
                     </div>
@@ -684,7 +694,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="advogados.php" class="links" style="width: 100%;">
+                            <a href="advogados.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>

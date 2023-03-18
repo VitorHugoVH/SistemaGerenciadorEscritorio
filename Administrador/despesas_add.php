@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -267,7 +279,7 @@
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="despesas.php" class="links" style="width: 100%;">
+                            <a href="despesas.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>

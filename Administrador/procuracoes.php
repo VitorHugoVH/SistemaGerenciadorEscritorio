@@ -1,3 +1,14 @@
+<?php
+
+// VERIFICAÇÃO LOGIN
+session_start();
+$logged = $_SESSION['logged'] ?? NULL;
+
+if (!$logged) {
+  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+};
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -55,12 +66,17 @@
                                 <h4 class="title"><b>Selecione o processo:</b></h4>
                             </div>
                             <div class="campos">
-                                <select class="form-select" name="nprocesso" id="nprocesso">
-                                    <?php
-                                    include_once('conexao_adm.php');
+                                <?php
+                                include_once('conexao_adm.php');
 
-                                    $sqlProcesso = "SELECT * FROM processo ORDER BY id ASC";
-                                    $resultProcesso = $conn->query($sqlProcesso);
+                                $sqlProcesso = "SELECT * FROM processo ORDER BY id ASC";
+                                $resultProcesso = $conn->query($sqlProcesso);
+                                $verificacao = true;
+
+                                if (mysqli_num_rows($resultProcesso) > 0) {
+                                    $verificacao = true;
+
+                                    echo "<select class='form-select' name='nprocesso' id='nprocesso'>";
 
                                     while ($data_pro = mysqli_fetch_assoc($resultProcesso)) {
 
@@ -70,8 +86,22 @@
 
                                         echo '<option value="' . $idprocesso . '">' . $nomecliente . ' - ' . $classeprocesso . '</option>';
                                     }
-                                    ?>
-                                </select>
+
+                                    echo "</select>";
+                                } else {
+                                    echo "
+                                    <div class='row'>
+                                        <div class='col-4'>
+                                            <small>Nenhum processo cadastrado</small>
+                                        </div>
+                                        <div class='col-2'></div>
+                                        <div class='col-3'></div>
+                                        <div class='col-3'>
+                                            <a href='processos.php'><button type='button' class='btn btn-outline-secondary'>Cadastrar processo</button></a>
+                                        </div>
+                                    </div>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -203,7 +233,7 @@
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="procuracoes.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
