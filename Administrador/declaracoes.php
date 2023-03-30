@@ -8,7 +8,7 @@ session_start();
 $logged = $_SESSION['logged'] ?? NULL;
 
 if (!$logged) {
-  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+    header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
 ?>
@@ -90,6 +90,9 @@ if (!$logged) {
 
                                     echo "</select>";
                                 } else {
+
+                                    $verificacao = false;
+
                                     echo "
                                     <div class='row'>
                                         <div class='col-4'>
@@ -113,9 +116,15 @@ if (!$logged) {
 
                             </div>
                             <div class="col-2">
-                                <div id="voltar">
-                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Próximo</button></a>
-                                </div>
+                                <?php
+
+                                if ($verificacao == true) {
+
+                                    echo "<div id='voltar'>
+                                            <a href='agenda_tarefas.php'><button type='submit' class='btn btn-success' name='enviar' id='salvar'>Próximo</button></a>
+                                        </div>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

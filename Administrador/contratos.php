@@ -5,11 +5,11 @@
 
 // VERIFICAÇÃO LOGIN
 session_start();
-$logged = $_SESSION['logged'] ?? NULL;
+$logged = $_SESSION['logged'] ?? null;
 
 if (!$logged) {
-  header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
-};
+    header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
+}
 
 ?>
 
@@ -34,7 +34,7 @@ if (!$logged) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="contrato_add.php" method="POST">
+                <form action="contratos_add.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
@@ -51,36 +51,61 @@ if (!$logged) {
                                 <h4 class="title"><b>Selecione o processo:</b></h4>
                             </div>
                             <div class="campos">
-                                <select class="form-select" name="nprocesso" id="nprocesso">
-                                    <?php
-                                    include_once('conexao_adm.php');
+                                <?php
+                                include_once 'conexao_adm.php';
 
-                                    $sqlProcesso = "SELECT * FROM processo ORDER BY id ASC";
-                                    $resultProcesso = $conn->query($sqlProcesso);
+                                $sqlProcesso = 'SELECT * FROM processo ORDER BY id ASC';
+                                $resultProcesso = $conn->query($sqlProcesso);
+                                $verificacao = true;
+
+                                if (mysqli_num_rows($resultProcesso) > 0) {
+                                    $verificacao = true;
+
+                                    echo "<select class='form-select' name='nprocesso' id='nprocesso'>";
 
                                     while ($data_pro = mysqli_fetch_assoc($resultProcesso)) {
-
                                         $nomecliente = $data_pro['nomecliente'];
                                         $classeprocesso = $data_pro['classe'];
                                         $idprocesso = $data_pro['id'];
 
                                         echo '<option value="' . $idprocesso . '">' . $nomecliente . ' - ' . $classeprocesso . '</option>';
                                     }
-                                    ?>
-                                </select>
+
+                                    echo '</select>';
+                                } else {
+                                    $verificacao = false;
+                                    echo " 
+                                    <div class='row'>
+                                        <div class='col-4'>
+                                            <small>Nenhum processo cadastrado</small>
+                                        </div>
+                                        <div class='col-2'></div>
+                                        <div class='col-3'></div>
+                                        <div class='col-3'>
+                                        <a href='processos.php'><button type='button' class='btn btn-outline-secondary'>Cadastrar processo</button></a>
+                                        </div>
+                                    </div>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
+                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y'); ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-10">
 
                             </div>
                             <div class="col-2">
-                                <div id="voltar">
-                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Próximo</button></a>
-                                </div>
+                                <?php
+
+                                if ($verificacao == true) {
+
+                                    echo "<div id='voltar'>
+                                            <a href='agenda_tarefas.php'><button type='submit' class='btn btn-success' name='enviar' id='salvar'>Próximo</button></a>
+                                        </div>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
