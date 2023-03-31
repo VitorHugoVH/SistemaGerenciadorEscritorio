@@ -118,7 +118,7 @@ if (!empty($_POST['nprocesso'])) {
             </div>
             <div class="campos">
               <label for="nomecliente"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Outorgante</h6>
+                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Contratante</h6>
                 </b></label>
               <select class="form-select" name="nomecliente" id="nomecliente">
                   <?php
@@ -140,65 +140,8 @@ if (!empty($_POST['nprocesso'])) {
               </select>
             </div>
             <div class="campos">
-              <label for="nacionalidade"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nacionalidade</h6>
-                </b></label>
-              <select class="form-select" name="nacionalidade" id="nacionalidade">
-                <option <?= ($nacionalidade == 'brasileiro') ? 'selected' : ' ' ?>>brasileiro</option>
-                <option <?= ($nacionalidade == 'argentino') ? 'selected' : ' ' ?>>argentino</option>
-                <option <?= ($nacionalidade == 'colombiano') ? 'selected' : ' ' ?>>colombiano</option>
-                <option <?= ($nacionalidade == 'peruano') ? 'selected' : ' ' ?>>peruano</option>
-                <option <?= ($nacionalidade == 'chileno') ? 'selected' : ' ' ?>>chileno</option>
-                <option <?= ($nacionalidade == 'equatoriano') ? 'selected' : ' ' ?>>equatoriano</option>
-                <option <?= ($nacionalidade == 'uruguaiano') ? 'selected' : ' ' ?>>uruguaiano</option>
-                <option <?= ($nacionalidade == 'venezuelano') ? 'selected' : ' ' ?>>venezuelano</option>
-                <option <?= ($nacionalidade == 'boliviano') ? 'selected' : ' ' ?>>boliviano</option>
-                <option <?= ($nacionalidade == 'guianense') ? 'selected' : ' ' ?>>guianense</option>
-                <option <?= ($nacionalidade == 'surinamense') ? 'selected' : ' ' ?>>surinamense</option>
-                <option <?= ($nacionalidade == 'paraguaiano') ? 'selected' : ' ' ?>>paraguaiano</option>
-                <option <?= ($nacionalidade == 'franco-guianense') ? 'selected' : ' ' ?>>franco-guianense</option>
-              </select>
-            </div>
-            <div class="campos">
-              <label for="estadocivil"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Estado civil</h6>
-                </b></label>
-              <select class="form-select" name="estadocivil" id="estadocivil">
-                <option <?= ($estadocivil == 'Solteiro(a)') ? 'selected' : ' ' ?>>Solteiro(a)</option>
-                <option <?= ($estadocivil == 'Casado(a)') ? 'selected' : ' ' ?>>Casado(a)</option>
-                <option <?= ($estadocivil == 'Separado(a) judicialmente') ? 'selected' : ' ' ?>>Separado(a) judicialmente</option>
-                <option <?= ($estadocivil == 'Divorciado(a)') ? 'selected' : ' ' ?>>Divorciado(a)</option>
-                <option <?= ($estadocivil == 'Viúvo(a)') ? 'selected' : ' ' ?>>Viúvo(a)</option>
-                <option <?= ($estadocivil == 'União estável') ? 'selected' : ' ' ?>>União estável</option>
-              </select>
-            </div>
-            <div class="campos">
-              <label for="profissao"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Profissão do cliente</h6>
-                </b></label>
-              <input type="text" name="profissaocliente" id="profissaocliente" class="form-control" placeholder="Profissão do cliente" value="<?php echo $profissao ?>">
-            </div>
-            <div class="campos">
-              <label for="rg"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">RG do cliente</h6>
-                </b></label>
-              <input type="text" class="form-control" id="rg" name="rg" onkeypress="$(this).mask('00.000.000-0');" placeholder="00.000.000-0" value="<?php echo $rg ?>">
-            </div>
-            <div class="campos">
-              <label for="cpf"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">CPF do cliente</h6>
-                </b></label>
-              <input type="text" class="form-control" id="cpf" name="cpf" onkeypress="$(this).mask('000.000.000-00');" placeholder="000.000.000-00" value="<?php echo $cpf ?>">
-            </div>
-            <div class="campos">
-              <label for="endereco"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Endereço</h6>
-                </b></label>
-              <input type="text" name="endereco" id="endereco" class="form-control" value="<?php echo $endereco ?>" placeholder="Endereço do cliente">
-            </div>
-            <div class="campos">
               <label for="nomeadvogado"><b>
-                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Outorgado</h6>
+                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Contratado</h6>
                 </b></label>
               <select class="form-select" name="nomeadvogado" id="nomeadvogado">
                   <?php
@@ -257,6 +200,62 @@ if (!empty($_POST['nprocesso'])) {
                 </div>
               </div>
             </div>
+            <div class="campos">
+              <label for="nomeadvogado"><b>
+                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº Identificação processo</h6>
+                </b></label>
+              <input type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0" oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" required>
+              <script>
+                  // seleciona o input com id "cnj"
+                  const cnjInput = document.querySelector("#cnj");
+
+                  // adiciona o event listener para "input"
+                  cnjInput.addEventListener("input", function() {
+                      // obtém o valor atual do input
+                      let value = this.value;
+                      // remove todos os caracteres que não são números ou letras
+                      value = value.replace(/[^\w]/gi, "");
+                      // adiciona os pontos e o hífen na posição correta
+                      if (value.length > 4) {
+                          value = value.substr(0, 4) + "." + value.substr(4);
+                      }
+                      if (value.length > 7) {
+                          value = value.substr(0, 7) + "." + value.substr(7);
+                      }
+                      if (value.length > 13) {
+                          value = value.substr(0, 13) + "-" + value.substr(13);
+                      }
+                      // atualiza o valor do input com a máscara aplicada
+                      this.value = value;
+                  });
+              </script>
+            </div>
+            <div class="campos">
+              <label for="nomeadvogado"><b>
+                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº da Vara</h6>
+                </b></label>
+                <input type="text" maxlength="7" class="form-control" name="numerovara" id="numerovara" placeholder="0000000ª" onkeyup="formatarVara(this)">
+                <script>
+                    function formatarVara(input) {
+                        // remove caracteres não numéricos
+                        let num = input.value.replace(/[^\d]/g, '');
+
+                        // adiciona 'ª' como último caractere, se houver número
+                        if (num) {
+                            num += 'ª';
+                        }
+
+                        // atualiza o valor do input com a string formatada
+                        input.value = num;
+                    }
+                </script>
+            </div>
+            <div class="campos">
+              <label for="nomeadvogado"><b>
+                  <h6 style="font-family: arial, sans-serif; font-size: 16px;">Órgão Judicial</h6>
+                </b></label>
+                <input type="text" class="form-control" name="orgaojudicial" id="orgaojudicial" placeholder="Ex: Tribunal de Justiça do Estado de São Paulo">
+            </div>
             <!---Javascript Falecido--->
             <div id="falecidoarea" style="  margin-top: 1%; margin-bottom: 2%; display: none;">
               <label class="form-label">Nome do falecido</label>
@@ -283,7 +282,7 @@ if (!empty($_POST['nprocesso'])) {
             </div>
             <div class="col-2">
               <div id="voltar">
-                <a href="procuracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
+                <a href="procuracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Voltar</button></a>
               </div>
             </div>
             <div class="col-2">
