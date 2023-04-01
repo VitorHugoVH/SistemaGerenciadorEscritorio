@@ -282,7 +282,7 @@ if (!empty($_POST['nprocesso'])) {
             </div>
             <div class="col-2">
               <div id="voltar">
-                <a href="procuracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Voltar</button></a>
+                <a href="contratos.php"><button type="button" class="btn btn-secondary" id='salvar'>Voltar</button></a>
               </div>
             </div>
             <div class="col-2">
