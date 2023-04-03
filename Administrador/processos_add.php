@@ -18,8 +18,10 @@ if (isset($_POST['enviar'])) {
     $classe = $_POST['classeprocesso'];
     $natureza = $_POST['naturezaprocesso'];
     $nprocesso = $_POST['nprocesso'];
+    $numerovara = $_POST['numerovara'];
     $dataa = $_POST['dateabertura'];
     $valor = $_POST['valorcausa'];
+    $parcelas = $_POST['parcelas'];
     $ob = $_POST['observacoes'];
     $posicao = $_POST['posicaocliente'];
     $nomecliente = $_POST['nomecliente'];
@@ -118,8 +120,8 @@ if (isset($_POST['enviar'])) {
             $natureza = 'Não definido';
     }
 
-    $result = mysqli_query($conn, "INSERT INTO processo (valor, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, fase, dataa, classe, falecido ,mes)
-        VALUES ('$valor', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$fase', '$dataa', '$classe', '$nomefalecido', '$mes')");
+    $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, fase, dataa, classe, falecido ,mes)
+        VALUES ('$valor', '$parcelas', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$fase', '$dataa', '$classe', '$nomefalecido', '$mes')");
 
     header('Location: processos.php');
 }

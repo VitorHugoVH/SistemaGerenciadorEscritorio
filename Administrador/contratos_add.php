@@ -25,6 +25,7 @@ if (!empty($_POST['nprocesso'])) {
         $classeprocesso = $data_pro['classe'];
         $nomefalecido = $data_pro['falecido'];
         $nprocesso = $data_pro['nprocesso'];
+        $numerovara = $data_pro['numerovara'];
     }
 
     //DADOS TABELA CLIENTE
@@ -235,7 +236,7 @@ if (!empty($_POST['nprocesso'])) {
               <label for="nomeadvogado"><b>
                   <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº da Vara</h6>
                 </b></label>
-                <input type="text" maxlength="7" class="form-control" name="numerovara" id="numerovara" placeholder="0000000ª" onkeyup="formatarVara(this)">
+                <input type="text" maxlength="7" class="form-control" name="numerovara" id="numerovara" placeholder="0000000ª" onkeyup="formatarVara(this)" value="<?php echo $numerovara ?>">
                 <script>
                     function formatarVara(input) {
                         // remove caracteres não numéricos

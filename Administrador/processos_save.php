@@ -11,6 +11,7 @@ if (isset($_POST['update'])) {
     $classeprocesso = $_POST['classeprocesso'];
     $naturezaprocesso = $_POST['naturezaprocesso'];
     $nprocesso = $_POST['nprocesso'];
+    $numerovara = $_POST['numerovara'];
     $dateabertura = $_POST['dateabertura'];
     $valorcausa = $_POST['valorcausa'];
     $observacoes = $_POST['observacoes'];
@@ -129,7 +130,7 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido',mes='$mes'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido',mes='$mes'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);
