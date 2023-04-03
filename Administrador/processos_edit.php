@@ -17,6 +17,7 @@ if (!empty($_GET['id'])) {
             $fase = $user_data['fase'];
             $classe = $user_data['classe'];
             $natureza = $user_data['natureza'];
+            $nprocesso = $user_data['nprocesso'];
             $dataa = $user_data['dataa'];
             $valor = $user_data['valor'];
             $ob = $user_data['observacoes'];
@@ -188,6 +189,35 @@ if (!$logged) {
                                     <option value="4" <?= ($natureza == 'Trabalhista') ? 'selected' : '' ?>>Trabalhista</option>
                                     <option value="5" <?= ($natureza == 'Não definido') ? 'selected' : '' ?>>Não definido</option>
                                 </select>
+                            </div>
+                            <div class="campos">
+                                <label class="form-label">Nº Identificação processo</label>
+                                <input type="text" class="form-control" id="cnj" name="nprocesso" placeholder="0000.00.000000-0"
+                                       oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" value="<?php echo $nprocesso; ?>" required>
+                                <script>
+                                    // seleciona o input com id "cnj"
+                                    const cnjInput = document.querySelector("#cnj");
+
+                                    // adiciona o event listener para "input"
+                                    cnjInput.addEventListener("input", function () {
+                                        // obtém o valor atual do input
+                                        let value = this.value;
+                                        // remove todos os caracteres que não são números ou letras
+                                        value = value.replace(/[^\w]/gi, "");
+                                        // adiciona os pontos e o hífen na posição correta
+                                        if (value.length > 4) {
+                                            value = value.substr(0, 4) + "." + value.substr(4);
+                                        }
+                                        if (value.length > 7) {
+                                            value = value.substr(0, 7) + "." + value.substr(7);
+                                        }
+                                        if (value.length > 13) {
+                                            value = value.substr(0, 13) + "-" + value.substr(13);
+                                        }
+                                        // atualiza o valor do input com a máscara aplicada
+                                        this.value = value;
+                                    });
+                                </script>
                             </div>
                             <div class="campos">
                                 <label class="form-label">Data da abertura</label>

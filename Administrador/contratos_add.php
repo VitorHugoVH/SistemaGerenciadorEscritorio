@@ -24,6 +24,7 @@ if (!empty($_POST['nprocesso'])) {
         $nomeadvogado = $data_pro['nomeadvogado'];
         $classeprocesso = $data_pro['classe'];
         $nomefalecido = $data_pro['falecido'];
+        $nprocesso = $data_pro['nprocesso'];
     }
 
     //DADOS TABELA CLIENTE
@@ -204,7 +205,7 @@ if (!empty($_POST['nprocesso'])) {
               <label for="nomeadvogado"><b>
                   <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº Identificação processo</h6>
                 </b></label>
-              <input type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0" oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" required>
+              <input type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0" oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" value="<?php echo $nprocesso ?>" required>
               <script>
                   // seleciona o input com id "cnj"
                   const cnjInput = document.querySelector("#cnj");

@@ -17,6 +17,7 @@ if (isset($_POST['enviar'])) {
     $fase = $_POST['faseprocesso'];
     $classe = $_POST['classeprocesso'];
     $natureza = $_POST['naturezaprocesso'];
+    $nprocesso = $_POST['nprocesso'];
     $dataa = $_POST['dateabertura'];
     $valor = $_POST['valorcausa'];
     $ob = $_POST['observacoes'];
@@ -117,8 +118,8 @@ if (isset($_POST['enviar'])) {
             $natureza = 'Não definido';
     }
 
-    $result = mysqli_query($conn, "INSERT INTO processo (valor, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, fase, dataa, classe, falecido ,mes)
-        VALUES ('$valor', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$fase', '$dataa', '$classe', '$nomefalecido', '$mes')");
+    $result = mysqli_query($conn, "INSERT INTO processo (valor, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, fase, dataa, classe, falecido ,mes)
+        VALUES ('$valor', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$fase', '$dataa', '$classe', '$nomefalecido', '$mes')");
 
     header('Location: processos.php');
 }
@@ -285,7 +286,7 @@ if (isset($_POST['enviar'])) {
             </div>
             <div class="campos">
               <label class="form-label">Nº Identificação processo</label>
-              <input type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0"
+              <input type="text" class="form-control" id="cnj" name="nprocesso" placeholder="0000.00.000000-0"
                      oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" required>
               <script>
                   // seleciona o input com id "cnj"
