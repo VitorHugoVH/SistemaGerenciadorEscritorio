@@ -21,7 +21,7 @@ if (isset($_POST['enviar'])) {
     $numerovara = $_POST['numerovara'];
     $dataa = $_POST['dateabertura'];
     $valor = $_POST['valorcausa'];
-    $parcelas = $_POST['parcelas'];
+    $parcelas = $_POST['valparcelas'];
     $ob = $_POST['observacoes'];
     $posicao = $_POST['posicaocliente'];
     $nomecliente = $_POST['nomecliente'];
@@ -402,10 +402,19 @@ if (isset($_POST['enviar'])) {
             <div class="campos">
               <label for="parcelas">Parcelas</label>
               <div class="input-group">
-                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" />
+                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3"/>
                 <div class="input-group-append">
-                  <button type="button" id="calcularParcelas" class="btn btn-primary">Calcular parcelas</button>
+                  <button type="button" id="calcularParcelas" class="btn btn-primary" onclick="armazenar()">Calcular parcelas</button>
                 </div>
+                  <script>
+                      function armazenar() {
+                          let parcelas = document.getElementById("parcelas").value;
+                          if(parcelas != ''){
+                              document.getElementById("valparcelas").value = parcelas;
+                          }
+                      }
+                  </script>
+                  <input type="hidden" name="valparcelas" id="valparcelas">
               </div>
               <table id="tabelaParcelas" class="table" style="margin-top: 2%;">
                 <thead>
@@ -557,6 +566,10 @@ if (isset($_POST['enviar'])) {
             </div>
           </div>
         </div>
+          <script>
+              const valorparcelasv = document.getElementById('parcelas');
+
+          </script>
       </form>
     </div>
   </div>
