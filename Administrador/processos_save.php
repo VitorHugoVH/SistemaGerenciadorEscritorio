@@ -14,12 +14,19 @@ if (isset($_POST['update'])) {
     $numerovara = $_POST['numerovara'];
     $dateabertura = $_POST['dateabertura'];
     $valorcausa = $_POST['valorcausa'];
+    $parcelas = $_POST['parcelas'];
     $observacoes = $_POST['observacoes'];
     $posicaocliente = $_POST['posicaocliente'];
     $nomecliente = $_POST['nomecliente'];
     $advogadoatuando = $_POST['advogadoatuando'];
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
+
+    if($cadreceita != 'on'){
+        $cadreceita = "Ligado";
+    }else{
+        $cadreceita = "Desligado";
+    }
 
     switch ($naovisualizar) {
         case 1:
@@ -115,7 +122,7 @@ if (isset($_POST['update'])) {
 
     switch ($naturezaprocesso) {
         case 1:
-            $naturza = 'Cívil';
+            $naturezaprocesso = 'Civil';
             break;
         case 2:
             $naturezaprocesso = 'Criminal';
@@ -130,7 +137,7 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido',mes='$mes'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);

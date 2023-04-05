@@ -22,6 +22,7 @@ if (!empty($_GET['id'])) {
             $dataa = $user_data['dataa'];
             $valor = $user_data['valor'];
             $parcelas = $user_data['parcelas'];
+            $cadreceita = $user_data['cadreceita'];
             $ob = $user_data['observacoes'];
             $posicao = $user_data['posicaocliente'];
             $nomecliente = $user_data['nomecliente'];
@@ -185,7 +186,7 @@ if (!$logged) {
                             <div class="campos">
                                 <label class="form-label">Natureza da ação</label>
                                 <select class="form-select" aria-label="Default select example" name="naturezaprocesso">
-                                    <option value="1" <?= ($natureza == 'Cívil') ? 'selected' : '' ?>>Cívil</option>
+                                    <option value="1" <?= ($natureza == 'Civil') ? 'selected' : '' ?>>Cívil</option>
                                     <option value="2" <?= ($natureza == 'Criminal') ? 'selected' : '' ?>>Criminal</option>
                                     <option value="3" <?= ($natureza == 'Família') ? 'selected' : '' ?>>Família</option>
                                     <option value="4" <?= ($natureza == 'Trabalhista') ? 'selected' : '' ?>>Trabalhista</option>
@@ -258,110 +259,43 @@ if (!$logged) {
                             </div>
                             <div class="campos">
                                 <label class="form-label">Valor da causa</label>
-                                <input type="text" name="valorcausa" id="valorcausa" class="form-control" value="<?php echo $valor ?>">
+                                <input type="text" id="valorcausa" name="valorcausa" class="form-control" value="<?php echo $valor ?>" />
                             </div>
                             <script>
-                                function formatarMoeda(valor) {
-                                    var formatter = new Intl.NumberFormat('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-
-                                    return formatter.format(valor).replace(/\D/g, '');
-                                }
-
                                 var input = document.getElementById('valorcausa');
-                                input.addEventListener('input', function () {
+
+                                input.addEventListener('input', function() {
                                     var valor = this.value;
 
                                     // Remove tudo que não é dígito
                                     valor = valor.replace(/\D/g, '');
 
-                                    // Converte para número e divide por 100 para obter o valor em reais
-                                    valor = parseFloat(valor) / 100;
+                                    // Adiciona a vírgula para separar os centavos
+                                    valor = valor.slice(0, -2) + ',' + valor.slice(-2);
 
-                                    // Formata o valor como moeda, com símbolo "R$" e duas casas decimais
-                                    valor = formatarMoeda(valor);
+                                    // Adiciona o símbolo R$
+                                    valor = 'R$ ' + valor;
 
                                     // Atualiza o valor do input
                                     this.value = valor;
 
                                     // Verifica se o valor mínimo foi atingido
-                                    var valorNumerico = parseFloat(valor.replace(/[^0-9,-]+/g, "").replace(",", "."));
+                                    var valorNumerico = parseFloat(valor.replace(/[^0-9,-]+/g,"").replace(",", "."));
                                     if (valorNumerico < 100) {
                                         this.setCustomValidity('O valor mínimo é R$ 100,00');
                                     } else {
                                         this.setCustomValidity('');
                                     }
-
-                                    // Define 0 como valor padrão se o valor estiver vazio
-                                    if (this.value === '') {
-                                        this.value = 'R$ 0,00';
-                                    }
                                 });
-
                             </script>
                             <div class="campos">
                                 <label for="parcelas">Parcelas</label>
-                                <div class="input-group">
-                                    <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas ?>"/>
-                                    <div class="input-group-append">
-                                        <button type="button" id="calcularParcelas" class="btn btn-primary">Calcular parcelas</button>
-                                    </div>
-                                </div>
-                                <table id="tabelaParcelas" class="table" style="margin-top: 2%;">
-                                    <thead>
-                                    <tr>
-                                        <th>Mês da parcela</th>
-                                        <th>Valor da parcela</th>
-                                        <th>Vencimento</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                                <script>
-                                    var inputValor = document.getElementById('valorcausa');
-                                    var inputParcelas = document.getElementById('parcelas');
-                                    var btnCalcular = document.getElementById('calcularParcelas');
-                                    var tabelaParcelas = document.getElementById('tabelaParcelas');
-
-                                    btnCalcular.addEventListener('click', function() {
-                                        // Pega o valor da causa e a quantidade de parcelas
-                                        var valor = parseFloat(inputValor.value.replace(/[^\d]+/g, ''));
-                                        var valor = (inputValor.value.replace(',', '.'));
-                                        var nparcelas = parseInt(inputParcelas.value);
-
-                                        // Calcula o valor de cada parcela
-                                        var valorParcela = valor / nparcelas;
-
-                                        // Adiciona as linhas na tabela de parcelas
-                                        var tbody = tabelaParcelas.getElementsByTagName('tbody')[0];
-                                        tbody.innerHTML = '';
-                                        var dataVencimento = new Date();
-                                        var diaVencimento = dataVencimento.getDate();
-                                        for (var i = 0; i < nparcelas; i++) {
-                                            // Soma um mês na data de vencimento para cada parcela
-                                            dataVencimento.setMonth(dataVencimento.getMonth() + 1);
-
-                                            // Formata o mês por extenso
-                                            var mesParcela = dataVencimento.toLocaleString('pt-BR', { month: 'long' });
-
-                                            // Adiciona uma linha na tabela com as informações da parcela
-                                            var tr = document.createElement('tr');
-                                            tr.innerHTML = '<td>' + (i + 1) + 'ª parcela - ' + mesParcela + '/' + dataVencimento.getFullYear() + '</td>' +
-                                                '<td>R$ ' + valorParcela.toFixed(2) + '</td>' +
-                                                '<td>' + diaVencimento + '/' + (dataVencimento.getMonth() + 1) + '/' + dataVencimento.getFullYear() + '</td>';
-                                            tbody.appendChild(tr);
-                                        }
-                                    });
-                                </script>
+                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas ?>"/>
                             </div>
                             <div class="campos">
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" <?= ($cadreceita == 'Ligado')?'checked':' ' ?>>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Cadastrar como nova receita após finalização
                                     </label>
@@ -467,7 +401,6 @@ if (!$logged) {
                         </div>
                     </div>
                     <input type="hidden" name="id" value="<?php echo $id ?>">
-                    <input type="hidden" name="mes" value="<?php echo date('F/Y') ?>">
                 </form>
             </div>
         </div>
