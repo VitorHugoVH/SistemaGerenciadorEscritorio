@@ -12,6 +12,38 @@ $numerocnj = $_POST['cnjprocesso'];
 
 if(!empty($numerocnj)){
     $anoajuizamento = substr($numerocnj, 11, 4);
+    $poder = substr($numerocnj, 16, 1);
+
+    $valor_data = $anoajuizamento . '-01-01';
+
+    switch ($poder) {
+        case 1:
+            $poder = "Supremo Tribunal Federal";
+            break;
+        case 2:
+            $poder = "Conselho Nacional de Justiça";
+            break;
+        case 3:
+            $poder = "Superior Tribunal de Justiça";
+            break;
+        case 4:
+            $poder = "Justiça Federal";
+            break;
+        case 5:
+            $poder = "Justiça do Trabalho";
+            break;
+        case 6:
+            $poder = "Justiça Eleitoral";
+            break;
+        case 7:
+            $poder = "Justiça Militar da União";
+            break;
+        case 8:
+            $poder = "Justiça dos Estados e do Distrito Federal e Territórios";
+            break;
+        case 9:
+            $poder = "Justiça Militar Estadual";
+    }
 }
 ?>
 
@@ -58,7 +90,7 @@ if(!empty($numerocnj)){
       </a>
     </div>
     <div class="container" id='main'>
-      <form action="" method="POST">
+      <form action="processos_add3.php" method="POST">
         <div class="row">
           <div class="col-10">
             <div class="bloco3">
@@ -104,6 +136,20 @@ if(!empty($numerocnj)){
                 <option value="4">Recursal</option>
               </select>
             </div>
+              <div class="campos">
+                <label class="form-label">Poder Judiciário</label>
+                  <select class="form-select" name="poderjuduciario" id="poderjuduciario">
+                      <option value="1" <?= ($poder == "Supremo Tribunal Federal")?'selected':' '?>>Supremo Tribunal Federal</option>
+                      <option value="2" <?= ($poder == "Conselho Nacional de Justiça")?'selected':' '?>>Conselho Nacional de Justiça</option>
+                      <option value="3" <?= ($poder == "Superior Tribunal de Justiça")?'selected':' '?>>Superior Tribunal de Justiça</option>
+                      <option value="4" <?= ($poder == "Justiça Federal")?'selected':' '?>>Justiça Federal</option>
+                      <option value="5" <?= ($poder == "Justiça do Trabalho")?'selected':' '?>>Justiça do Trabalho</option>
+                      <option value="6" <?= ($poder == "Justiça Eleitoral")?'selected':' '?>>Justiça Eleitoral</option>
+                      <option value="7" <?= ($poder == "Justiça Militar da União")?'selected':' '?>>Justiça Militar da União</option>
+                      <option value="8" <?= ($poder == "Justiça dos Estados e do Distrito Federal e Territórios")?'selected':' '?>>Justiça dos Estados e do Distrito Federal e Territórios</option>
+                      <option value="9" <?= ($poder == "Justiça Militar Estadual")?'selected':' '?>>Justiça Militar Estadual</option>
+                  </select>
+              </div>
             <div class="campos">
               <div class="row">
                 <label for="client1"><b>
@@ -195,13 +241,12 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Data da abertura</label>
-              <input type="date" name="dateabertura" id="dateabertura" class="form-control">
+              <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $valor_data; ?>">
             </div>
             <div class="campos">
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Observações</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações"
-                          name="observacoes"><?php echo $anoajuizamento; ?></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações" name="observacoes"></textarea>
               </div>
             </div>
           </div>
