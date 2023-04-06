@@ -239,6 +239,12 @@ if(!empty($numerocnj)){
                   }
               </script>
             </div>
+              <div class="campos">
+                  <label class="form-label">Vara do Processo</label>
+                  <select name="nomedavara" id="nomedavara" class="form-control" >
+
+                  </select>
+              </div>
             <div class="campos">
               <label class="form-label">Data da abertura</label>
               <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $valor_data; ?>">
