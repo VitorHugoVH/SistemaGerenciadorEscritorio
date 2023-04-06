@@ -8,129 +8,10 @@ if (!$logged) {
     header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
+$numerocnj = $_POST['cnjprocesso'];
 
-if (isset($_POST['enviar'])) {
-    include_once('conexao_adm.php');
-
-    $privado = $_POST['naovisualizar'];
-    $status = $_POST['statusprocesso'];
-    $fase = $_POST['faseprocesso'];
-    $classe = $_POST['classeprocesso'];
-    $natureza = $_POST['naturezaprocesso'];
-    $nprocesso = $_POST['nprocesso'];
-    $numerovara = $_POST['numerovara'];
-    $dataa = $_POST['dateabertura'];
-    $valor = $_POST['valorcausa'];
-    $parcelas = $_POST['parcelas'];
-    $cadreceita = $_POST['cadreceita'];
-    $ob = $_POST['observacoes'];
-    $posicao = $_POST['posicaocliente'];
-    $nomecliente = $_POST['nomecliente'];
-    $nomeadvogado = $_POST['advogadoatuando'];
-    $nomefalecido = $_POST['nomefalecido'];
-    $mes = $_POST['mes'];
-
-    if($cadreceita != 'on'){
-        $cadreceita = "Ligado";
-    }else{
-        $cadreceita = "Desligado";
-    }
-
-    switch ($privado) {
-        case 1:
-            $privado = '(O cliente não poderá visualizar)';
-            break;
-        case 0:
-            $privado = '(O cliente poderá visualizar)';
-    }
-
-    switch ($status) {
-        case 1:
-            $status = 'Ativo';
-            break;
-        case 2:
-            $status = 'Suspenso';
-            break;
-        case 3:
-            $status = 'Baixado';
-    }
-
-    switch ($fase) {
-        case 1:
-            $fase = 'Sem Fase';
-            break;
-        case 2:
-            $fase = 'Execução';
-            break;
-        case 3:
-            $fase = 'Inicial';
-            break;
-        case 4:
-            $fase = 'Recursal';
-    }
-
-    switch ($posicao) {
-        case 1:
-            $posicao = 'Adverso';
-            break;
-        case 2:
-            $posicao = 'Advogado';
-            break;
-        case 3:
-            $posicao = 'Advogado Adverso';
-            break;
-        case 4:
-            $posicao = 'Autor';
-            break;
-        case 5:
-            $posicao = 'Reclamada';
-            break;
-        case 6:
-            $posicao = 'Reclamante';
-            break;
-        case 7:
-            $posicao = 'Relator';
-            break;
-        case 8:
-            $posicao = 'Requerente';
-            break;
-        case 9:
-            $posicao = 'Requerido';
-            break;
-        case 10:
-            $posicao = 'Réu';
-            break;
-        case 11:
-            $posicao = 'Testemunha';
-    }
-
-    if (!empty($outraclasse)) {
-        $classeprocesso = $outraclasse;
-    } else {
-        $classeprocesso = $classeprocesso;
-    }
-
-    switch ($natureza) {
-        case 1:
-            $natureza = 'Civil';
-            break;
-        case 2:
-            $natureza = 'Criminal';
-            break;
-        case 3:
-            $natureza = 'Família';
-            break;
-        case 4:
-            $natureza = 'Trabalhista';
-            break;
-        case 5:
-            $natureza = 'Não definido';
-    }
-
-    $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, fase, dataa, classe, falecido ,mes)
-        VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$fase', '$dataa', '$classe', '$nomefalecido', '$mes')");
-
-    header('Location: processos.php');
+if(!empty($numerocnj)){
+    $anoajuizamento = substr($numerocnj, 11, 4);
 }
 ?>
 
@@ -294,38 +175,9 @@ if (isset($_POST['enviar'])) {
               </select>
             </div>
             <div class="campos">
-              <label class="form-label">Nº Identificação processo</label>
-              <input type="text" class="form-control" id="cnj" name="nprocesso" placeholder="0000.00.000000-0"
-                     oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" required>
-              <script>
-                  // seleciona o input com id "cnj"
-                  const cnjInput = document.querySelector("#cnj");
-
-                  // adiciona o event listener para "input"
-                  cnjInput.addEventListener("input", function () {
-                      // obtém o valor atual do input
-                      let value = this.value;
-                      // remove todos os caracteres que não são números ou letras
-                      value = value.replace(/[^\w]/gi, "");
-                      // adiciona os pontos e o hífen na posição correta
-                      if (value.length > 4) {
-                          value = value.substr(0, 4) + "." + value.substr(4);
-                      }
-                      if (value.length > 7) {
-                          value = value.substr(0, 7) + "." + value.substr(7);
-                      }
-                      if (value.length > 13) {
-                          value = value.substr(0, 13) + "-" + value.substr(13);
-                      }
-                      // atualiza o valor do input com a máscara aplicada
-                      this.value = value;
-                  });
-              </script>
-            </div>
-            <div class="campos">
               <label class="form-label">Nº da Vara</label>
               <input type="text" maxlength="7" class="form-control" name="numerovara" id="numerovara"
-                     placeholder="0000000ª" onkeyup="formatarVara(this)">
+                     placeholder="0000000ª" onkeyup="formatarVara(this)" required>
               <script>
                   function formatarVara(input) {
                       // remove caracteres não numéricos
@@ -349,7 +201,7 @@ if (isset($_POST['enviar'])) {
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Observações</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações"
-                          name="observacoes"></textarea>
+                          name="observacoes"><?php echo $anoajuizamento; ?></textarea>
               </div>
             </div>
           </div>

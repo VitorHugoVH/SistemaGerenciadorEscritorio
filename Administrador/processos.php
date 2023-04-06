@@ -103,7 +103,7 @@ $result = $conn->query($sql);
                     </div>
                     <div class="col-2">
                         <div id="enviar">
-                            <a href="processos_add.php"><button type="button" class="btn btn-success" id='add1'>Adicionar</button></a>
+                            <a href="processos_add1.php"><button type="button" class="btn btn-success" id='add1'>Adicionar</button></a>
                         </div>
                     </div>
                 </div>

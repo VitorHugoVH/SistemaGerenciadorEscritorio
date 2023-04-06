@@ -26,6 +26,8 @@ if (!empty($_POST['nprocesso'])) {
         $nomefalecido = $data_pro['falecido'];
         $nprocesso = $data_pro['nprocesso'];
         $numerovara = $data_pro['numerovara'];
+        $parcelas = $data_pro['parcelas'];
+        $valorcausa = $data_pro['valor'];
     }
 
     //DADOS TABELA CLIENTE
@@ -273,6 +275,43 @@ if (!empty($_POST['nprocesso'])) {
                 }
             </script>
             <!---Javascript Falecido Final--->
+              <div class="campos">
+                  <label class="form-label">Valor da causa</label>
+                  <input type="text" id="valorcausa" name="valorcausa" class="form-control" value="<?php echo $valorcausa; ?>" />
+              </div>
+              <script>
+                  var input = document.getElementById('valorcausa');
+
+                  input.addEventListener('input', function() {
+                      var valor = this.value;
+
+                      // Remove tudo que não é dígito
+                      valor = valor.replace(/\D/g, '');
+
+                      // Adiciona a vírgula para separar os centavos
+                      valor = valor.slice(0, -2) + ',' + valor.slice(-2);
+
+                      // Adiciona o símbolo R$
+                      valor = 'R$ ' + valor;
+
+                      // Atualiza o valor do input
+                      this.value = valor;
+
+                      // Verifica se o valor mínimo foi atingido
+                      var valorNumerico = parseFloat(valor.replace(/[^0-9,-]+/g,"").replace(",", "."));
+                      if (valorNumerico < 100) {
+                          this.setCustomValidity('O valor mínimo é R$ 100,00');
+                      } else {
+                          this.setCustomValidity('');
+                      }
+                  });
+              </script>
+              <div class="campos">
+                  <label for="nomeadvogado"><b>
+                          <h6 style="font-family: arial, sans-serif; font-size: 16px;">Parcelas</h6>
+                      </b></label>
+                  <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas ?>"/>
+              </div>
           </div>
         </div>
         <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
