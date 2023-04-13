@@ -166,7 +166,7 @@ $result = $conn->query($sql);
                                         $url_imagem = 'imagensADM/verde.png';
                                     }
 
-                                    echo "<td>" . "<img src='$url_imagem' style='width: 6%; margin-right: 5%;'>" . $user_data['stat'] . "</td>";
+                                    echo "<td>" . "<img src='$url_imagem' style='width: 0.5em; margin-right: 5%;'>" . $user_data['stat'] . "</td>";
                                     echo "<td>" . $user_data['fase'] . "</td>";
                                     echo "<td>" . $user_data['nomecliente'] . "</td>";
                                     echo "<td>" . $user_data['nomeadvogado'] . "</td>";

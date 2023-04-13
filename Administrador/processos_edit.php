@@ -134,7 +134,7 @@ if (!$logged) {
                             </div>
                             <div class="campos">
                                 <label class="form-label">Poder Judiciário</label>
-                                <select class="form-select" name="poderjuduciario" id="poderjuduciario">
+                                <select class="form-select" name="poderjudiciario" id="poderjudiciario">
                                     <option value="1" <?= ($poderjudiciario == "Supremo Tribunal Federal")?'selected':' '?>>Supremo Tribunal Federal</option>
                                     <option value="2" <?= ($poderjudiciario == "Conselho Nacional de Justiça")?'selected':' '?>>Conselho Nacional de Justiça</option>
                                     <option value="3" <?= ($poderjudiciario == "Superior Tribunal de Justiça")?'selected':' '?>>Superior Tribunal de Justiça</option>
@@ -336,7 +336,7 @@ if (!$logged) {
                             <div class="campos">
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" <?= ($cadreceita == 'Ligado')?'checked':' ' ?>>
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="cadreceita" <?= ($cadreceita == 'Ligado')?'checked':' ' ?>>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Cadastrar como nova receita após finalização
                                     </label>

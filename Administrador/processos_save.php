@@ -8,7 +8,7 @@ if (isset($_POST['update'])) {
     $naovisualizar = $_POST['naovisualizar'];
     $status = $_POST['statusprocesso'];
     $faseprocesso = $_POST['faseprocesso'];
-    $poderjudiciario = $_POST['poderjuduciario'];
+    $poderjudiciario = $_POST['poderjudiciario'];
     $classeprocesso = $_POST['classeprocesso'];
     $naturezaprocesso = $_POST['naturezaprocesso'];
     $nprocesso = $_POST['nprocesso'];
@@ -17,12 +17,17 @@ if (isset($_POST['update'])) {
     $dateabertura = $_POST['dateabertura'];
     $valorcausa = $_POST['valorcausa'];
     $parcelas = $_POST['parcelas'];
+    $cadreceita = $_POST['cadreceita'];
     $observacoes = $_POST['observacoes'];
     $posicaocliente = $_POST['posicaocliente'];
     $nomecliente = $_POST['nomecliente'];
     $advogadoatuando = $_POST['advogadoatuando'];
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
+
+    if(!empty($nprocesso)){
+        $poderjudiciario = substr($nprocesso, 16, 1);
+    }
 
     if($cadreceita != 'on'){
         $cadreceita = "Ligado";
@@ -49,33 +54,33 @@ if (isset($_POST['update'])) {
             $status = 'Baixado';
     }
 
-    switch ($poderjuduciario) {
+    switch ($poderjudiciario) {
         case 1:
-            $poderjuduciario = "Supremo Tribunal Federal";
+            $poderjudiciario = "Supremo Tribunal Federal";
             break;
         case 2:
-            $poderjuduciario = "Conselho Nacional de Justiça";
+            $poderjudiciario = "Conselho Nacional de Justiça";
             break;
         case 3:
-            $poderjuduciario = "Superior Tribunal de Justiça";
+            $poderjudiciario = "Superior Tribunal de Justiça";
             break;
         case 4:
-            $poderjuduciario = "Justiça Federal";
+            $poderjudiciario = "Justiça Federal";
             break;
         case 5:
-            $poderjuduciario = "Justiça do Trabalho";
+            $poderjudiciario = "Justiça do Trabalho";
             break;
         case 6:
-            $poderjuduciario = "Justiça Eleitoral";
+            $poderjudiciario = "Justiça Eleitoral";
             break;
         case 7:
-            $poderjuduciario = "Justiça Militar da União";
+            $poderjudiciario = "Justiça Militar da União";
             break;
         case 8:
-            $poderjuduciario = "Justiça dos Estados e do Distrito Federal e Territórios";
+            $poderjudiciario = "Justiça dos Estados e do Distrito Federal e Territórios";
             break;
         case 9:
-            $poderjuduciario = "Justiça Militar Estadual";
+            $poderjudiciario = "Justiça Militar Estadual";
     }
 
     switch ($faseprocesso) {
@@ -172,7 +177,7 @@ if (isset($_POST['update'])) {
                     stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente',
                     observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando',
                     natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', nomedavara='$nomedavara',
-                    fase='$faseprocesso', poderjuduciario='$poderjuduciario', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+                    fase='$faseprocesso', poderjudiciario='$poderjudiciario', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);
