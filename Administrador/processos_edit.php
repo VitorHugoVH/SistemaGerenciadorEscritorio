@@ -15,10 +15,12 @@ if (!empty($_GET['id'])) {
             $privado = $user_data['privado'];
             $status = $user_data['stat'];
             $fase = $user_data['fase'];
+            $poderjudiciario = $user_data['poderjudiciario'];
             $classe = $user_data['classe'];
             $natureza = $user_data['natureza'];
             $nprocesso = $user_data['nprocesso'];
             $numerovara = $user_data['numerovara'];
+            $nomedavara = $user_data['nomedavara'];
             $dataa = $user_data['dataa'];
             $valor = $user_data['valor'];
             $parcelas = $user_data['parcelas'];
@@ -102,7 +104,7 @@ if (!$logged) {
                     <div class="bloco4">
                         <div class="row">
                             <div class="titulo">
-                                <h4 class="title"><b>Dados do Processo</b></h4>
+                                <h4 class="title"><b>Dados do Processo - Nº <?php echo $nprocesso; ?></b></h4>
                             </div>
                             <div class="campos">
                                 <label class="form-label">Privado</label>
@@ -128,6 +130,20 @@ if (!$logged) {
                                     <option value="2" <?= ($fase == 'Execução') ? 'selected' : '' ?>>Execução</option>
                                     <option value="3" <?= ($fase == 'Inicial') ? 'selected' : '' ?>>Inicial</option>
                                     <option value="4" <?= ($fase == 'Recursal') ? 'selected' : '' ?>>Recursal</option>
+                                </select>
+                            </div>
+                            <div class="campos">
+                                <label class="form-label">Poder Judiciário</label>
+                                <select class="form-select" name="poderjuduciario" id="poderjuduciario">
+                                    <option value="1" <?= ($poderjudiciario == "Supremo Tribunal Federal")?'selected':' '?>>Supremo Tribunal Federal</option>
+                                    <option value="2" <?= ($poderjudiciario == "Conselho Nacional de Justiça")?'selected':' '?>>Conselho Nacional de Justiça</option>
+                                    <option value="3" <?= ($poderjudiciario == "Superior Tribunal de Justiça")?'selected':' '?>>Superior Tribunal de Justiça</option>
+                                    <option value="4" <?= ($poderjudiciario == "Justiça Federal")?'selected':' '?>>Justiça Federal</option>
+                                    <option value="5" <?= ($poderjudiciario == "Justiça do Trabalho")?'selected':' '?>>Justiça do Trabalho</option>
+                                    <option value="6" <?= ($poderjudiciario == "Justiça Eleitoral")?'selected':' '?>>Justiça Eleitoral</option>
+                                    <option value="7" <?= ($poderjudiciario == "Justiça Militar da União")?'selected':' '?>>Justiça Militar da União</option>
+                                    <option value="8" <?= ($poderjudiciario == "Justiça dos Estados e do Distrito Federal e Territórios")?'selected':' '?>>Justiça dos Estados e do Distrito Federal e Territórios</option>
+                                    <option value="9" <?= ($poderjudiciario == "Justiça Militar Estadual")?'selected':' '?>>Justiça Militar Estadual</option>
                                 </select>
                             </div>
                             <div class="campos">
@@ -194,31 +210,45 @@ if (!$logged) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Nº Identificação processo</label>
-                                <input type="text" class="form-control" id="cnj" name="nprocesso" placeholder="0000.00.000000-0"
-                                       oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16" value="<?php echo $nprocesso; ?>" required>
+                                <label class="form-label">Nº de identificação</label>
+                                <input type="text" name="nprocesso" id="nprocesso" class="form-control" maxlength="25"
+                                       placeholder="Número do processo - CNJ" value="<?php echo $nprocesso; ?>" required>
                                 <script>
-                                    // seleciona o input com id "cnj"
-                                    const cnjInput = document.querySelector("#cnj");
-
-                                    // adiciona o event listener para "input"
-                                    cnjInput.addEventListener("input", function () {
-                                        // obtém o valor atual do input
-                                        let value = this.value;
-                                        // remove todos os caracteres que não são números ou letras
-                                        value = value.replace(/[^\w]/gi, "");
-                                        // adiciona os pontos e o hífen na posição correta
-                                        if (value.length > 4) {
-                                            value = value.substr(0, 4) + "." + value.substr(4);
+                                    const cnjInput = document.getElementById('nprocesso');
+                                    cnjInput.addEventListener('input', (event) => {
+                                        const input = event.target;
+                                        const value = input.value;
+                                        const newValue = value.replace(/[^\d]/g, ''); // Remove tudo que não for número
+                                        let maskedValue = '';
+                                        if (newValue.length > 7) {
+                                            maskedValue += `${newValue.substring(0, 7)}-`;
+                                            if (newValue.length > 9) {
+                                                maskedValue += `${newValue.substring(7, 9)}.`;
+                                                if (newValue.length > 13) {
+                                                    maskedValue += `${newValue.substring(9, 13)}.`;
+                                                    if (newValue.length > 14) {
+                                                        maskedValue += `${newValue.substring(13, 14)}.`;
+                                                        if (newValue.length > 18) {
+                                                            maskedValue += `${newValue.substring(14, 18)}-`;
+                                                            if (newValue.length > 18) {
+                                                                maskedValue += `${newValue.substring(18)}`;
+                                                            }
+                                                        } else {
+                                                            maskedValue += `${newValue.substring(14)}`;
+                                                        }
+                                                    } else {
+                                                        maskedValue += `${newValue.substring(13)}`;
+                                                    }
+                                                } else {
+                                                    maskedValue += `${newValue.substring(9)}`;
+                                                }
+                                            } else {
+                                                maskedValue += `${newValue.substring(7)}`;
+                                            }
+                                        } else {
+                                            maskedValue = newValue;
                                         }
-                                        if (value.length > 7) {
-                                            value = value.substr(0, 7) + "." + value.substr(7);
-                                        }
-                                        if (value.length > 13) {
-                                            value = value.substr(0, 13) + "-" + value.substr(13);
-                                        }
-                                        // atualiza o valor do input com a máscara aplicada
-                                        this.value = value;
+                                        input.value = maskedValue;
                                     });
                                 </script>
                             </div>
@@ -240,6 +270,18 @@ if (!$logged) {
                                     }
                                 </script>
                             </div>
+                        </div>
+                        <div class="campos">
+                            <label class="form-label">Vara do Processo</label>
+                            <select name="nomedavara" id="nomedavara" class="form-control" >
+                                <option <?=($nomedavara == 'Vara Cível')?'selected':' '?>>Vara Cível</option>
+                                <option <?=($nomedavara == 'Vara Criminal')?'selected':' '?>>Vara Criminal</option>
+                                <option <?=($nomedavara == 'Vara da Família')?'selected':' '?>>Vara da Família</option>
+                                <option <?=($nomedavara == 'Vara do Trabalho')?'selected':' '?>>Vara do Trabalho</option>
+                                <option <?=($nomedavara == 'Vara da Infância e Juventude')?'selected':' '?>>Vara da Infância e Juventude</option>
+                                <option <?=($nomedavara == 'Vara de Execução Penal')?'selected':' '?>>Vara de Execução Penal</option>
+                            </select>
+                        </div>
                             <div class="campos">
                                 <label class="form-label">Data da abertura</label>
                                 <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $dataa ?>">
@@ -251,7 +293,6 @@ if (!$logged) {
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="bloco5">
                         <div class="row">
                             <div class="titulo">

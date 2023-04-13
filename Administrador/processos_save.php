@@ -8,10 +8,12 @@ if (isset($_POST['update'])) {
     $naovisualizar = $_POST['naovisualizar'];
     $status = $_POST['statusprocesso'];
     $faseprocesso = $_POST['faseprocesso'];
+    $poderjudiciario = $_POST['poderjuduciario'];
     $classeprocesso = $_POST['classeprocesso'];
     $naturezaprocesso = $_POST['naturezaprocesso'];
     $nprocesso = $_POST['nprocesso'];
     $numerovara = $_POST['numerovara'];
+    $nomedavara = $_POST['nomedavara'];
     $dateabertura = $_POST['dateabertura'];
     $valorcausa = $_POST['valorcausa'];
     $parcelas = $_POST['parcelas'];
@@ -45,6 +47,35 @@ if (isset($_POST['update'])) {
             break;
         case 3:
             $status = 'Baixado';
+    }
+
+    switch ($poderjuduciario) {
+        case 1:
+            $poderjuduciario = "Supremo Tribunal Federal";
+            break;
+        case 2:
+            $poderjuduciario = "Conselho Nacional de Justiça";
+            break;
+        case 3:
+            $poderjuduciario = "Superior Tribunal de Justiça";
+            break;
+        case 4:
+            $poderjuduciario = "Justiça Federal";
+            break;
+        case 5:
+            $poderjuduciario = "Justiça do Trabalho";
+            break;
+        case 6:
+            $poderjuduciario = "Justiça Eleitoral";
+            break;
+        case 7:
+            $poderjuduciario = "Justiça Militar da União";
+            break;
+        case 8:
+            $poderjuduciario = "Justiça dos Estados e do Distrito Federal e Territórios";
+            break;
+        case 9:
+            $poderjuduciario = "Justiça Militar Estadual";
     }
 
     switch ($faseprocesso) {
@@ -137,7 +168,11 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',
+                    stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente',
+                    observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando',
+                    natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', nomedavara='$nomedavara',
+                    fase='$faseprocesso', poderjuduciario='$poderjuduciario', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);

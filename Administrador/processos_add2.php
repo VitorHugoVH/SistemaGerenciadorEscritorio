@@ -108,7 +108,7 @@ if(!empty($numerocnj)){
         <div class="bloco4">
           <div class="row">
             <div class="titulo">
-              <h4 class="title"><b>Dados do Processo</b></h4>
+              <h4 class="title"><b>Dados do Processo - Nº <?php echo $numerocnj; ?></b></h4>
             </div>
             <div class="campos">
               <label class="form-label">Privado</label>
@@ -242,7 +242,12 @@ if(!empty($numerocnj)){
               <div class="campos">
                   <label class="form-label">Vara do Processo</label>
                   <select name="nomedavara" id="nomedavara" class="form-control" >
-
+                      <option>Vara Cível</option>
+                      <option>Vara Criminal</option>
+                      <option>Vara da Família</option>
+                      <option>Vara do Trabalho</option>
+                      <option>Vara da Infância e Juventude</option>
+                      <option>Vara de Execução Penal</option>
                   </select>
               </div>
             <div class="campos">
@@ -379,6 +384,7 @@ if(!empty($numerocnj)){
           </div>
         </div>
         <input type="hidden" name="mes" value="<?php echo date('F/Y') ?>">
+          <input type="hidden" name="numeroprocessocnj" value="<?php echo $numerocnj ?>">
         <div class="final">
           <div class="row">
             <div class="col-8">
