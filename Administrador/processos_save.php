@@ -30,9 +30,9 @@ if (isset($_POST['update'])) {
     }
 
     if($cadreceita != 'on'){
-        $cadreceita = "Ligado";
-    }else{
         $cadreceita = "Desligado";
+    }else{
+        $cadreceita = "Ligado";
     }
 
     switch ($naovisualizar) {

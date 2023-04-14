@@ -250,6 +250,55 @@ if(!empty($numerocnj)){
                       <option>Vara de Execução Penal</option>
                   </select>
               </div>
+              <div class="campos">
+                  <div class="row">
+                      <label for="client1"><b>
+                              <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nome da Comarca</h6>
+                          </b></label>
+                      <div class="input-group">
+                          <select class="form-select" aria-label="Default select example" name="nomedacomarca"
+                                  id="nomedacomarca">
+                              <option>Porto Alegre-RS</option>
+                              <option>São Paulo-SP</option>
+                              <option>Rio de Janeiro-RJ</option>
+                              <option>Belo Horizonte-MG</option>
+                              <option>Brasília-DF</option>
+                              <option>Curitiba-PR</option>
+                              <option>Fortaleza-CE</option>
+                              <option>Recife-PE</option>
+                              <option>Salvador-BA</option>
+                              <option>Belém-PA</option>
+                              <option>Manaus-AM</option>
+                              <option>Goiânia-GO</option>
+                          </select>
+                          <input type="hidden" name="outronomedacomarca" id="outronomedacomarca" class="form-control"
+                                 placeholder="Nome da comarca">
+                          <div class="input-group-append">
+                              <button class="btn btn-secondary" name="textclassComarca" id="textclassComarca" type="button"
+                                      onclick="classeaddComarca()">Adicionar
+                              </button>
+                              <button class="btn btn-secondary" name="selectclassComarca" id="selectclassComarca" type="button"
+                                      onclick="classeselect()" style="display: none;">Selecionar
+                              </button>
+                          </div>
+                          <script>
+                              function classeaddComarca() {
+                                  document.getElementById('nomedacomarca').style.display = "none";
+                                  document.getElementById('outronomedacomarca').type = "text";
+                                  document.getElementById('textclassComarca').style.display = "none";
+                                  document.getElementById('selectclassComarca').style.display = "block";
+                              }
+
+                              function classeselect() {
+                                  document.getElementById('nomedacomarca').style.display = "block";
+                                  document.getElementById('outronomedacomarca').type = "hidden";
+                                  document.getElementById('textclassComarca').style.display = "block";
+                                  document.getElementById('selectclassComarca').style.display = "none";
+                              }
+                          </script>
+                      </div>
+                  </div>
+              </div>
             <div class="campos">
               <label class="form-label">Data da abertura</label>
               <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $valor_data; ?>">

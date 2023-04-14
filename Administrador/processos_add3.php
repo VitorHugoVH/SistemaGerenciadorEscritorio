@@ -21,6 +21,8 @@ if (isset($_POST['enviar'])) {
     $nprocesso = $_POST['numeroprocessocnj'];
     $numerovara = $_POST['numerovara'];
     $nomedavara = $_POST['nomedavara'];
+    $nomedacomarca = $_POST['nomedacomarca'];
+    $outronomedacomarca = $_POST['outronomedacomarca'];
     $dataa = $_POST['dateabertura'];
     $valor = $_POST['valorcausa'];
     $parcelas = $_POST['parcelas'];
@@ -107,9 +109,9 @@ if (isset($_POST['enviar'])) {
     }
 
     if (!empty($outraclasse)) {
-        $classeprocesso = $outraclasse;
+        $classe = $outraclasse;
     } else {
-        $classeprocesso = $classeprocesso;
+        $classe = $classe;
     }
 
     switch ($poderjuduciario) {
@@ -141,6 +143,12 @@ if (isset($_POST['enviar'])) {
             $poderjuduciario = "Justiça Militar Estadual";
     }
 
+    if(!empty($outronomedacomarca)) {
+        $nomecomarca = $outronomedacomarca;
+    }else {
+        $nomecomarca = $nomedacomarca;
+    }
+
     switch ($natureza) {
         case 1:
             $natureza = 'Civil';
@@ -159,10 +167,10 @@ if (isset($_POST['enviar'])) {
     }
 
     $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, cadreceita, stat, privado,
-                      posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, nomedavara, fase,
+                      posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, nomedavara, nomedacomarca,fase,
                       poderjudiciario, dataa, classe, falecido ,mes)
         VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente',
-                '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$nomedavara', '$fase', '$poderjuduciario', '$dataa', '$classe',
+                '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$nomedavara', '$nomecomarca', '$fase', '$poderjuduciario', '$dataa', '$classe',
                 '$nomefalecido', '$mes')");
 
     header('Location: processos.php');
