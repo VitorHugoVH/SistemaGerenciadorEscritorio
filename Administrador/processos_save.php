@@ -14,6 +14,8 @@ if (isset($_POST['update'])) {
     $nprocesso = $_POST['nprocesso'];
     $numerovara = $_POST['numerovara'];
     $nomedavara = $_POST['nomedavara'];
+    $nomedacomarca = $_POST['nomedacomarca'];
+    $outracomarca = $_POST['outronomedacomarca'];
     $dateabertura = $_POST['dateabertura'];
     $valorcausa = $_POST['valorcausa'];
     $parcelas = $_POST['parcelas'];
@@ -24,6 +26,12 @@ if (isset($_POST['update'])) {
     $advogadoatuando = $_POST['advogadoatuando'];
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
+
+    if(!empty($outracomarca)) {
+        $nomecomarca = $outracomarca;
+    }else {
+        $nomecomarca = $nomedacomarca;
+    }
 
     if(!empty($nprocesso)){
         $poderjudiciario = substr($nprocesso, 16, 1);
@@ -173,11 +181,7 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',
-                    stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente',
-                    observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando',
-                    natureza='$naturezaprocesso', nprocesso='$nprocesso', numerovara='$numerovara', nomedavara='$nomedavara',
-                    fase='$faseprocesso', poderjudiciario='$poderjudiciario', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$nomedavara', nomedacomarca='$nomecomarca', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);

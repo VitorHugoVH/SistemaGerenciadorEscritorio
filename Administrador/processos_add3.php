@@ -1,4 +1,5 @@
 <?php
+include_once('conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -8,14 +9,12 @@ if (!$logged) {
     header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-
 if (isset($_POST['enviar'])) {
-    include_once('conexao_adm.php');
 
     $privado = $_POST['naovisualizar'];
     $status = $_POST['statusprocesso'];
     $fase = $_POST['faseprocesso'];
-    $poderjuduciario = $_POST['poderjuduciario'];
+    $poderjudiciario = $_POST['poderjudiciario'];
     $classe = $_POST['classeprocesso'];
     $natureza = $_POST['naturezaprocesso'];
     $nprocesso = $_POST['numeroprocessocnj'];
@@ -35,9 +34,9 @@ if (isset($_POST['enviar'])) {
     $mes = $_POST['mes'];
 
     if($cadreceita != 'on'){
-        $cadreceita = "Ligado";
-    }else{
         $cadreceita = "Desligado";
+    }else{
+        $cadreceita = "Ligado";
     }
 
     switch ($privado) {
@@ -109,38 +108,38 @@ if (isset($_POST['enviar'])) {
     }
 
     if (!empty($outraclasse)) {
-        $classe = $outraclasse;
-    } else {
-        $classe = $classe;
+        $classeprocesso = $outraclasse;
+    }else{
+        $classeprocesso = $classe;
     }
 
-    switch ($poderjuduciario) {
+    switch ($poderjudiciario) {
         case 1:
-            $poderjuduciario = "Supremo Tribunal Federal";
+            $poderjudiciario = "Supremo Tribunal Federal";
             break;
         case 2:
-            $poderjuduciario = "Conselho Nacional de Justiça";
+            $poderjudiciario = "Conselho Nacional de Justiça";
             break;
         case 3:
-            $poderjuduciario = "Superior Tribunal de Justiça";
+            $poderjudiciario = "Superior Tribunal de Justiça";
             break;
         case 4:
-            $poderjuduciario = "Justiça Federal";
+            $poderjudiciario = "Justiça Federal";
             break;
         case 5:
-            $poderjuduciario = "Justiça do Trabalho";
+            $poderjudiciario = "Justiça do Trabalho";
             break;
         case 6:
-            $poderjuduciario = "Justiça Eleitoral";
+            $poderjudiciario = "Justiça Eleitoral";
             break;
         case 7:
-            $poderjuduciario = "Justiça Militar da União";
+            $poderjudiciario = "Justiça Militar da União";
             break;
         case 8:
-            $poderjuduciario = "Justiça dos Estados e do Distrito Federal e Territórios";
+            $poderjudiciario = "Justiça dos Estados e do Distrito Federal e Territórios";
             break;
         case 9:
-            $poderjuduciario = "Justiça Militar Estadual";
+            $poderjudiciario = "Justiça Militar Estadual";
     }
 
     if(!empty($outronomedacomarca)) {
@@ -166,12 +165,8 @@ if (isset($_POST['enviar'])) {
             $natureza = 'Não definido';
     }
 
-    $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, cadreceita, stat, privado,
-                      posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, nomedavara, nomedacomarca,fase,
-                      poderjudiciario, dataa, classe, falecido ,mes)
-        VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente',
-                '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$nomedavara', '$nomecomarca', '$fase', '$poderjuduciario', '$dataa', '$classe',
-                '$nomefalecido', '$mes')");
+    $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, fase, dataa, classe, falecido, mes)
+        VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$poderjudiciario', '$numerovara', '$nomedavara', '$nomecomarca', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')");
 
     header('Location: processos.php');
 }

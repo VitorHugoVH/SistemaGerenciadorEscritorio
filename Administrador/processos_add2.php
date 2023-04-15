@@ -138,7 +138,7 @@ if(!empty($numerocnj)){
             </div>
               <div class="campos">
                 <label class="form-label">Poder Judiciário</label>
-                  <select class="form-select" name="poderjuduciario" id="poderjuduciario">
+                  <select class="form-select" name="poderjudiciario" id="poderjudiciario">
                       <option value="1" <?= ($poder == "Supremo Tribunal Federal")?'selected':' '?>>Supremo Tribunal Federal</option>
                       <option value="2" <?= ($poder == "Conselho Nacional de Justiça")?'selected':' '?>>Conselho Nacional de Justiça</option>
                       <option value="3" <?= ($poder == "Superior Tribunal de Justiça")?'selected':' '?>>Superior Tribunal de Justiça</option>
@@ -252,7 +252,7 @@ if(!empty($numerocnj)){
               </div>
               <div class="campos">
                   <div class="row">
-                      <label for="client1"><b>
+                      <label for="nomedacomarca"><b>
                               <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nome da Comarca</h6>
                           </b></label>
                       <div class="input-group">
@@ -272,7 +272,7 @@ if(!empty($numerocnj)){
                               <option>Goiânia-GO</option>
                           </select>
                           <input type="hidden" name="outronomedacomarca" id="outronomedacomarca" class="form-control"
-                                 placeholder="Nome da comarca">
+                                 placeholder="Ex: Florianópolis-SC">
                           <div class="input-group-append">
                               <button class="btn btn-secondary" name="textclassComarca" id="textclassComarca" type="button"
                                       onclick="classeaddComarca()">Adicionar

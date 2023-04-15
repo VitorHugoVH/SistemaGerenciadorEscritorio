@@ -21,6 +21,7 @@ if (!empty($_GET['id'])) {
             $nprocesso = $user_data['nprocesso'];
             $numerovara = $user_data['numerovara'];
             $nomedavara = $user_data['nomedavara'];
+            $nomedacomarca = $user_data['nomedacomarca'];
             $dataa = $user_data['dataa'];
             $valor = $user_data['valor'];
             $parcelas = $user_data['parcelas'];
@@ -281,6 +282,55 @@ if (!$logged) {
                                 <option <?=($nomedavara == 'Vara da Infância e Juventude')?'selected':' '?>>Vara da Infância e Juventude</option>
                                 <option <?=($nomedavara == 'Vara de Execução Penal')?'selected':' '?>>Vara de Execução Penal</option>
                             </select>
+                        </div>
+                        <div class="campos">
+                            <div class="row">
+                                <label for="nomedacomarca"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nome da Comarca</h6>
+                                    </b></label>
+                                <div class="input-group">
+                                    <select class="form-select" aria-label="Default select example" name="nomedacomarca"
+                                            id="nomedacomarca" style="display: block;">
+                                        <option <?= ($nomedacomarca == 'Porto Alegre-RS')?'selected':' '?>>Porto Alegre-RS</option>
+                                        <option <?= ($nomedacomarca == 'São Paulo-SP')?'selected':' '?>>São Paulo-SP</option>
+                                        <option <?= ($nomedacomarca == 'Rio de Janeiro-RJ')?'selected':' '?>>Rio de Janeiro-RJ</option>
+                                        <option <?= ($nomedacomarca == 'Belo Horizonte-MG')?'selected':' '?>>Belo Horizonte-MG</option>
+                                        <option <?= ($nomedacomarca == 'Brasília-DF')?'selected':' '?>>Brasília-DF</option>
+                                        <option <?= ($nomedacomarca == 'Curitiba-PR')?'selected':' '?>>Curitiba-PR</option>
+                                        <option <?= ($nomedacomarca == 'Fortaleza-CE')?'selected':' '?>>Fortaleza-CE</option>
+                                        <option <?= ($nomedacomarca == 'Recife-PE')?'selected':' '?>>Recife-PE</option>
+                                        <option <?= ($nomedacomarca == 'Salvador-BA')?'selected':' '?>>Salvador-BA</option>
+                                        <option <?= ($nomedacomarca == 'Belém-PA')?'selected':' '?>>Belém-PA</option>
+                                        <option <?= ($nomedacomarca == 'Manaus-AM')?'selected':' '?>>Manaus-AM</option>
+                                        <option <?= ($nomedacomarca == 'Goiânia-GO')?'selected':' '?>>Goiânia-GO</option>
+                                    </select>
+                                    <input type="hidden" name="outronomedacomarca" id="outronomedacomarca" class="form-control"
+                                           placeholder="Ex: Florianópolis-SC">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary" name="textclassComarca" id="textclassComarca" type="button"
+                                                onclick="classeaddComarca()">Adicionar
+                                        </button>
+                                        <button class="btn btn-secondary" name="selectclassComarca" id="selectclassComarca" type="button"
+                                                onclick="classeselect()" style="display: none;">Selecionar
+                                        </button>
+                                    </div>
+                                    <script>
+                                        function classeaddComarca() {
+                                            document.getElementById('nomedacomarca').style.display = "none";
+                                            document.getElementById('outronomedacomarca').type = "text";
+                                            document.getElementById('textclassComarca').style.display = "none";
+                                            document.getElementById('selectclassComarca').style.display = "block";
+                                        }
+
+                                        function classeselect() {
+                                            document.getElementById('nomedacomarca').style.display = "block";
+                                            document.getElementById('outronomedacomarca').type = "hidden";
+                                            document.getElementById('textclassComarca').style.display = "block";
+                                            document.getElementById('selectclassComarca').style.display = "none";
+                                        }
+                                    </script>
+                                </div>
+                            </div>
                         </div>
                             <div class="campos">
                                 <label class="form-label">Data da abertura</label>
