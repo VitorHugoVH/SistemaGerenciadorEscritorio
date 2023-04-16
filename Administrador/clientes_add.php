@@ -670,7 +670,7 @@ if (!$logged) {
         </div>
       </div>
       <li>
-        <a href="cobrança.php" class="links">
+        <a href="site_marketing.php" class="links">
           <span class="icon"><i class="fas fa-rocket"></i></span>
           <span class="item">Marketing</span>
         </a>
@@ -701,7 +701,7 @@ if (!$logged) {
       </div>
       <div class="dropdown">
         <li>
-          <a href="equipe.php" class="active">
+          <a href="#" class="active">
             <span class="icon"><i class="fas fa-users"></i></span>
             <span class="item">Equipe</span>
             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor"
@@ -725,7 +725,7 @@ if (!$logged) {
       </div>
       <div class="dropdown">
         <li>
-          <a href="equipe.php" class="links">
+          <a href="#" class="links">
             <span class="icon"><i class="fas fa-file"></i></span>
             <span class="item">Arquivos</span>
             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16" height="13" fill="currentColor"

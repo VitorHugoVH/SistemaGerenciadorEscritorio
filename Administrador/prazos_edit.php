@@ -219,7 +219,7 @@ if (!$logged) {
                     </a>
                 </li>
                 <li>
-                    <a href="cobrança.php" class="links">
+                    <a href="site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-rocket"></i></span>
                         <span class="item">Marketing</span>
                     </a>

@@ -220,6 +220,7 @@ if (!$logged) {
                 </div>
             </div>
         </div>
+        <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
                 <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
@@ -228,13 +229,13 @@ if (!$logged) {
             </div>
             <ul class="lista">
                 <li>
-                    <a href="admin.php" class="links">
+                    <a class="links" href="admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a class="links" href="processos.php">
+                    <a href="processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -268,14 +269,14 @@ if (!$logged) {
                     </div>
                 </div>
                 <li>
-                    <a href="cobrança.php" class="links">
-                        <span class="icon"><i class="fas fa-rocket"></i></span>
-                        <span class="item">Marketing</span>
+                    <a href="site_marketing.php" class="links">
+                        <span class="icon"><i class="fas fa-network-wired"></i></span>
+                        <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="active">
+                        <a href="financeiro.php" class="active">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -298,8 +299,8 @@ if (!$logged) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a class="links">
-                            <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                        <a href="#" class="links">
+                            <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
@@ -319,12 +320,34 @@ if (!$logged) {
                         </li>
                     </div>
                 </div>
-                <li>
-                    <a href="estatisticas.php" class="links">
-                        <span class="icon"><i class="fas fa-cloud"></i></span>
-                        <span class="item">Arquivos</span>
-                    </a>
-                </li>
+                <div class="dropdown">
+                    <li>
+                        <a href="#" class="links">
+                            <span class="icon"><i class="fas fa-file"></i></span>
+                            <span class="item">Arquivos</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <div class="dropdown-content">
+                        <li>
+                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                                <span class="item2" style="margin-left: 15%;">Procuração</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="declaracoes.php" class="links" style="width: 100%;">
+                                <span class="item2" style="margin-left: 15%;">Declaração</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contratos.php" class="links" style="width: 100%;">
+                                <span class="item2" style="margin-left: 15%;">Contrato</span>
+                            </a>
+                        </li>
+                    </div>
+                </div>
                 <li>
                     <a href="configuracoes.php" class="links">
                         <span class="icon"><i class="fas fa-edit"></i></span>
@@ -333,6 +356,7 @@ if (!$logged) {
                 </li>
             </ul>
         </div>
+        <!--FIM NAVEGAÇÃO-->
     </div>
 </body>
 <script>

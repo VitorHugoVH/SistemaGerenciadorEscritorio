@@ -150,8 +150,8 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                         </div>
                         <div class="area1">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
-                            <span class="item"><b><?php echo $totalComp; ?></b> Compromissos</span>
-                            <p class="info"><small>Agendados para este mês</small></p>
+                            <span class="item"><b><?php echo $totalComp; ?></b> Compromisso(s)</span>
+                            <p class="info"><small>Agendado(s) para este mês</small></p>
                         </div>
                         <div class="area2">
                             <span class="icon"><i class="fas fa-scale-balanced"></i></span>
@@ -160,8 +160,8 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                         </div>
                         <div class="area2">
                             <span class="icon"><i class="fas fa-rocket"></i></span>
-                            <span class="item"><b>15</b> Publicações</span>
-                            <p class="info"><small>Publicação(es) realizadas neste mês</small></p>
+                            <span class="item"><b>15</b> Prazo(s)</span>
+                            <p class="info"><small>Marcado(s) para este mês</small></p>
                         </div>
                     </div>
                     <div class="col">
@@ -323,9 +323,9 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </div>
                 </div>
                 <li>
-                    <a href="cobrança.php" class="links">
-                        <span class="icon"><i class="fas fa-rocket"></i></span>
-                        <span class="item">Marketing</span>
+                    <a href="site_marketing.php" class="links">
+                        <span class="icon"><i class="fas fa-network-wired"></i></span>
+                        <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
@@ -356,7 +356,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="equipe.php" class="links">
+                        <a href="#" class="links">
                             <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16"
@@ -382,7 +382,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="equipe.php" class="links">
+                        <a href="#" class="links">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16"

@@ -507,12 +507,12 @@ if(!empty($numerocnj)){
           </li>
         </div>
       </div>
-      <li>
-        <a href="cobrança.php" class="links">
-          <span class="icon"><i class="fas fa-rocket"></i></span>
-          <span class="item">Marketing</span>
-        </a>
-      </li>
+        <li>
+            <a href="site_marketing.php" class="links">
+                <span class="icon"><i class="fas fa-network-wired"></i></span>
+                <span class="item">Site</span>
+            </a>
+        </li>
       <div class="dropdown">
         <li>
           <a href="financeiro.php" class="links">
@@ -539,7 +539,7 @@ if(!empty($numerocnj)){
       </div>
       <div class="dropdown">
         <li>
-          <a href="equipe.php" class="links">
+          <a href="#" class="links">
             <span class="icon"><i class="fas fa-users"></i></span>
             <span class="item">Equipe</span>
             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor"
@@ -563,7 +563,7 @@ if(!empty($numerocnj)){
       </div>
       <div class="dropdown">
         <li>
-          <a href="equipe.php" class="links">
+          <a href="#" class="links">
             <span class="icon"><i class="fas fa-file"></i></span>
             <span class="item">Arquivos</span>
             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor"

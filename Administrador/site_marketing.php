@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php
 
 // VERIFICAÇÃO LOGIN
@@ -9,8 +12,7 @@ if (!$logged) {
 };
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +38,7 @@ if (!$logged) {
       Sistema de Gerenciamento da Advocacia Fraga e Melo Advogados.
     </div>
   </div>
-        <div class="sidebar">
+        <div class="sidebar"  style="overflow-y: auto;">
             <div class="profile">
                 <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
@@ -84,14 +86,14 @@ if (!$logged) {
                         </div>
                     </div>
                 <li>
-                    <a href="cobrança.php" class="links">
+                    <a class="active">
                         <span class="icon"><i class="fas fa-rocket"></i></span>
-                        <span class="item">Marketing</span>
+                        <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="financeiro.php" class="links">
+                        <a href="#" class="links">
                         <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                         <span class="item">Financeiro</span>
                         <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 30%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -101,19 +103,19 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                        <a href="#" class="links" style="width: 100%;">
+                        <a href="despesas.php" class="links" style="width: 100%;">
                             <span class="item2" style="margin-left: 15%;">Despesas</span>
                         </a>
                         </li>
                         <li>
-                        <a href="#" class="links">
+                        <a href="receitas.php" class="links">
                             <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                         </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a class="active">
+                    <a href="#">
                         <span class="icon"><i class="fas fa-users"></i></span>
                         <span class="item">Equipe</span>
                     </a>
