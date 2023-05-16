@@ -16,13 +16,17 @@ if (!$logged) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
+    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -57,7 +61,9 @@ if (!$logged) {
                         </div>
                     </div>
                     <div class="col-2">
-
+                        <div id="voltar">
+                            <a href="processos.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
+                        </div>
                     </div>
                 </div>
                 <div class="bloco4">
@@ -128,13 +134,13 @@ if (!$logged) {
     <!--INÍCIO NAVEGAÇÃO-->
     <div class="sidebar" style="overflow-y: auto;">
         <div class="profile">
-            <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+            <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
             <h3>Advocacia</h3>
             <p>Fraga e Melo Advogados</p>
         </div>
         <ul class="lista">
             <li>
-                <a class="links" href="admin.php">
+                <a class="links" href="../Deashboard/admin.php">
                     <span class="icon"><i class="fas fa-desktop"></i></span>
                     <span class="item">Deashboard</span>
                 </a>
@@ -157,7 +163,7 @@ if (!$logged) {
                 </li>
                 <div class="dropdown-content">
                     <li>
-                        <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                        <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                             <span class="item2" style="margin-left: 15%;">Compromissos</span>
                         </a>
                     </li>

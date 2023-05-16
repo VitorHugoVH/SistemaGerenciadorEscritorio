@@ -1,6 +1,6 @@
 <?php
 
-    include_once('conexao_adm.php');
+    include_once('../../conexao_adm.php');
 
     if(isset($_POST['up'])){
 
@@ -18,15 +18,8 @@
         $nomecliente = $_POST['nomecliente'];
         $mesatualComp = $_POST['mes'];
 
-        if(!empty($datainicial)){
-            $datainicial2 = date('d/m/Y', strtotime($datainicial));
-        }
 
-        if(!empty($datafinal)){
-            $datafinal2 = date('d/m/Y', strtotime($datafinal));
-        }
-
-        $sql = "UPDATE compromisso SET datainicial='$datainicial2',horainicial='$horainicial',datafinal='$datafinal2',horafinal='$datafinal',nomecompromisso='$nomecompromisso',classificacao='$classificacao',processo='$processo',locall='$local',observacoes='$observacoes',nomeadvogado='$nomeadvogado',cliente='$nomecliente',mes='$mesatualComp' 
+        $sql = "UPDATE compromisso SET datainicial='$datainicial',horainicial='$horainicial',datafinal='$datafinal',horafinal='$datafinal',nomecompromisso='$nomecompromisso',classificacao='$classificacao',processo='$processo',locall='$local',observacoes='$observacoes',nomeadvogado='$nomeadvogado',cliente='$nomecliente',mes='$mesatualComp' 
         WHERE id='$id'";
 
         $result = $conn->query($sql);

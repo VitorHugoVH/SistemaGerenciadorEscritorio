@@ -208,13 +208,13 @@ if (isset($_POST['enviar'])) {
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="admin.php">
+                    <a class="links" href="Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="/Processos//Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -231,7 +231,7 @@ if (isset($_POST['enviar'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>

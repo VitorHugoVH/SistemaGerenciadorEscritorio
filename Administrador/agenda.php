@@ -46,13 +46,13 @@ if (!$logged) {
             </div>
             <ul class="lista">
                 <li>
-                    <a href="admin.php">
+                    <a href="Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php">
+                    <a href="/Processos//Processos/processos.php">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -69,7 +69,7 @@ if (!$logged) {
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="agenda_compromissos.php" class="item" style="width: 100%;">
+                                <a href="Agenda/Compromissos/agenda_compromissos.php" class="item" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Compromissos</span>
                                 </a>
                             </li>

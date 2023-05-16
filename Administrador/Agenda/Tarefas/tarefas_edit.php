@@ -1,4 +1,5 @@
 <?php
+include_once('conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -8,35 +9,26 @@ if (!$logged) {
   header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-if (isset($_POST['enviar'])) {
-    include_once('conexao_adm.php');
-    implode('/', array_reverse(explode('-', $data)));
+$id = $_GET['id'];
 
-    $tipotarefa = $_POST['tipotarefa'];
-    $nomeadvogado = $_POST['nomeadvogado'];
-    $prazodate = $_POST['prazodate'];
-    $tituloprazo = $_POST['tituloprazo'];
-    $desctarefa = $_POST['desctarefa'];
-    $status = $_POST['inlineRadioOptions'];
-    $datacriacao = $_POST['datacriacao'];
+if (isset($_GET['id'])) {
 
-    switch ($status) {
-        case 'option2':
-            $status = 'Não finalizado';
-            break;
-        case 'option1':
-            $status = 'Finalizado';
+    $sqlEdit = "SELECT * FROM tarefas WHERE id=$id";
+    $resultEdit = $conn->query($sqlEdit);
+
+    if ($resultEdit->num_rows > 0) {
+        while ($user_data = mysqli_fetch_assoc($resultEdit)) {
+            $tipotarefa = $user_data['tipotarefa'];
+            $responsavel = $user_data['advogado'];
+            $prazodate = $user_data['prazo'];
+            $tituloprazo = $user_data['titulo'];
+            $desctarefa = $user_data['tarefa'];
+            $status = $user_data['stat'];
+            $datacriacao = $user_data['datacriacao'];
+        }
+    } else {
+        header('Location: agenda_tarefas.php');
     }
-
-    if (!empty($prazodate)) {
-        $prazodate2 = date('d/m/Y', strtotime($prazodate));
-    }
-
-    $sqlEnviar = "INSERT INTO tarefas (tipotarefa, advogado, prazo, titulo, tarefa, stat, datacriacao)
-                    VALUES ('$tipotarefa', '$nomeadvogado', '$prazodate2', '$tituloprazo', '$desctarefa', '$status', '$datacriacao')";
-    $result = $conn->query($sqlEnviar);
-
-    header('Location: agenda_tarefas.php');
 }
 ?>
 
@@ -80,7 +72,7 @@ if (isset($_POST['enviar'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="" method="POST">
+                <form action="tarefas_save.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
@@ -102,17 +94,17 @@ if (isset($_POST['enviar'])) {
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tipo tarefa</h6>
                                     </b></p></label>
-                                <select class="form-select" aria-label="Default select example" name="tipotarefa" id="tipotarefa" required>
-                                    <option selected>Interna</option>
-                                    <option>Externa</option>
+                                <select class="form-select" aria-label="Default select example" name="tipotarefa" id="tipotarefa">
+                                    <option <?= ($tipotarefa == 'Interna') ? 'selected' : '' ?>>Interna</option>
+                                    <option <?= ($tipotarefa == 'Externa') ? 'selected' : '' ?>>Externa</option>
                                 </select>
                             </div>
                             <div class="campos">
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Advogado</h6>
                                     </b></label>
-                                <select name="nomeadvogado" class="form-select" required>
-                                    <option selected>Não consta</option>
+                                <select name="nomeadvogado" class="form-select">
+                                    <option <?= ($responsavel == 'Não consta') ? 'selected' : '' ?>>Não consta</option>
                                     <?php
                                     include_once('conexao_adm.php');
 
@@ -122,7 +114,11 @@ if (isset($_POST['enviar'])) {
                                     while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
                                         $nomeadvogado = $advogado['nome'];
 
-                                        echo "<option>$nomeadvogado</option>";
+                                        if ($responsavel == $nomeadvogado) {
+                                            echo "<option selected>$nomeadvogado</option>";
+                                        } else {
+                                            echo "<option>$nomeadvogado</option>";
+                                        }
                                     }
                                     ?>
                                 </select>
@@ -131,36 +127,37 @@ if (isset($_POST['enviar'])) {
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Prazo</h6>
                                     </b></label>
-                                <input type="date" name="prazodate" id="prazodate" class="form-control" aria-label="Default select example" required>
+                                <input type="date" name="prazodate" id="prazodate" class="form-control" aria-label="Default select example" value="<?php echo $prazodate ?>">
                             </div>
                             <div class="campos">
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Título</h6>
                                     </b></label>
-                                <input type="text" name="tituloprazo" id="tituloprazo" class="form-control" placeholder="Título" required>
+                                <input type="text" name="tituloprazo" id="tituloprazo" class="form-control" placeholder="Título" value="<?php echo $tituloprazo ?>">
                             </div>
                             <div class="campos">
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tarefa</h6>
                                     </b></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Descrição da tarefa" name="desctarefa"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Descrição da tarefa" name="desctarefa"><?php echo $desctarefa ?></textarea>
                             </div>
                             <div class="campos">
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">A tarefa foi finalizada?</h6>
                                     </b></label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1" id="inlineRadio1" <?= ($status == 'Finalizado') ? 'checked' : '' ?>>
                                     <label class="form-check-label" for="inlineRadio1">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2" id="inlineRadio2" <?= ($status == 'Não finalizado') ? 'checked' : '' ?>>
                                     <label class="form-check-label" for="inlineRadio2">Não</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
@@ -173,7 +170,7 @@ if (isset($_POST['enviar'])) {
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Salvar</button></a>
+                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="update" id='salvar'>Atualizar</button></a>
                                 </div>
                             </div>
                         </div>
@@ -190,13 +187,13 @@ if (isset($_POST['enviar'])) {
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="admin.php">
+                    <a class="links" href="Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="/Processos//Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -213,7 +210,7 @@ if (isset($_POST['enviar'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>

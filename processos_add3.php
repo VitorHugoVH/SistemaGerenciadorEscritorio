@@ -144,5 +144,5 @@ if (isset($_POST['enviar'])) {
     $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, numerovara, fase, poderjudiciario,dataa, classe, falecido ,mes)
         VALUES ('$valor', '$parcelas', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$numerovara', '$fase', '$poderjudiciario', '$dataa', '$classe', '$nomefalecido', '$mes')");
 
-    header('Location: processos.php');
+    header('Location: /Processos//Processos/processos.php');
 }

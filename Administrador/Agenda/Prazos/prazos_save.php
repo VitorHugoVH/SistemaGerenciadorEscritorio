@@ -1,5 +1,5 @@
 <?php
-    include_once('conexao_adm.php');
+    include_once('../../conexao_adm.php');
 
     // VERIFICAÇÃO LOGIN
     session_start();
@@ -21,25 +21,21 @@
         $atendido = $_POST['flexRadioDefault'];
         $advogado = $_POST['nomeadvogado'];
 
-        if($atendido == 'on'){
+        if($atendido == 'nao'){
             $atendido = 'Não';
         }else{
             $atendido = 'Sim';
         }
 
-        if(!empty($processo)){
-            $nprocesso = $processo;
+        if(!empty($processoprazo)){
+            $idprocessso = explode(' - ', $processoprazo)[0];
 
-            $sqlSearch = "SELECT * FROM processo WHERE id=$nprocesso";
-            $resultSearch = $conn->query($sqlSearch);
-            
-            while($data = mysqli_fetch_assoc($resultSearch)){
-                $nomecliente = $data['nomecliente'];
+            $sqlCliente = "SELECT * FROM processo WHERE id=$idprocessso";
+            $resultCliente = $conn->query($sqlCliente);
+
+            while($data_cli = mysqli_fetch_assoc($resultCliente)){
+                $nomecliente = $data_cli['nomecliente'];
             }
-        }
-
-        if(!empty($datafinal)){
-            $datafinal2 = date('d/m/Y', strtotime($datafinal));
         }
 
         $sqlUpdate = "UPDATE prazo SET datafinal='$datafinal', horafinal='$horafinal', descricao='$descricao', processo='$processo', atendido='$atendido', advogado='$advogado', cliente='$nomecliente'

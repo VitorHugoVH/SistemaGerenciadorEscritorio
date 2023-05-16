@@ -130,7 +130,7 @@ if (!$logged) {
                                                     <path d='m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z'/>
                                                 </svg>
                                             </a>
-                                            <a class='btn btn-light' href='processos.php?statusfiltro=Todos&buscanome=$data_client[nomecliente]&termobusca='>
+                                            <a class='btn btn-light' href='/Processos//Processos/processos.php?statusfiltro=Todos&buscanome=$data_client[nomecliente]&termobusca='>
                                                 <i class='fa-solid fa-scale-balanced' width='16' height='16'></i>
                                             </a>
                                             <a class='btn btn-sm btn-danger' href='clientes_delete.php?id=$data_client[id]' onclick='confirma()'>
@@ -156,13 +156,13 @@ if (!$logged) {
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="admin.php">
+                    <a class="links" href="Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="/Processos//Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -179,7 +179,7 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>

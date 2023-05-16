@@ -51,16 +51,20 @@ if(!empty($numerocnj)){
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="estilosAdm.css"/>
-  <link rel="icon" type="image/x-icon" href="imagens/icon.png"/>
-  <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
+    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
       .sidebar::-webkit-scrollbar {
           width: 10px;
@@ -121,7 +125,7 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Status do Processo</label>
-              <select class="form-select" aria-label="Default select example" name="statusprocesso">
+              <select class="form-select" aria-label="Default select example" name="statusprocesso" required>
                 <option selected value="1">Ativo</option>
                 <option value="2">Suspenso</option>
                 <option value="3">Baixado</option>
@@ -129,7 +133,7 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Fase</label>
-              <select class="form-select" aria-label="Default select example" name="faseprocesso">
+              <select class="form-select" aria-label="Default select example" name="faseprocesso" required>
                 <option selected value="1">Sem fase</option>
                 <option value="2">Execução</option>
                 <option value="3">Inicial</option>
@@ -138,7 +142,7 @@ if(!empty($numerocnj)){
             </div>
               <div class="campos">
                 <label class="form-label">Poder Judiciário</label>
-                  <select class="form-select" name="poderjudiciario" id="poderjudiciario">
+                  <select class="form-select" name="poderjudiciario" id="poderjudiciario" required>
                       <option value="1" <?= ($poder == "Supremo Tribunal Federal")?'selected':' '?>>Supremo Tribunal Federal</option>
                       <option value="2" <?= ($poder == "Conselho Nacional de Justiça")?'selected':' '?>>Conselho Nacional de Justiça</option>
                       <option value="3" <?= ($poder == "Superior Tribunal de Justiça")?'selected':' '?>>Superior Tribunal de Justiça</option>
@@ -157,7 +161,7 @@ if(!empty($numerocnj)){
                   </b></label>
                 <div class="input-group">
                   <select class="form-select" aria-label="Default select example" name="classeprocesso"
-                          id="classeprocesso" onchange="nfalecido()">
+                          id="classeprocesso" onchange="nfalecido()" required>
                     <option>Ação de cobrança</option>
                     <option>Ação de despejo</option>
                     <option>Ação de indenização</option>
@@ -212,7 +216,7 @@ if(!empty($numerocnj)){
             <!---Javascript Falecido Final--->
             <div class="campos">
               <label class="form-label">Natureza da ação</label>
-              <select class="form-select" aria-label="Default select example" name="naturezaprocesso">
+              <select class="form-select" aria-label="Default select example" name="naturezaprocesso" required>
                 <option value="1">Civil</option>
                 <option value="2">Criminal</option>
                 <option value="3">Família</option>
@@ -241,14 +245,54 @@ if(!empty($numerocnj)){
             </div>
               <div class="campos">
                   <label class="form-label">Vara do Processo</label>
-                  <select name="nomedavara" id="nomedavara" class="form-control" >
-                      <option>Vara Cível</option>
-                      <option>Vara Criminal</option>
-                      <option>Vara da Família</option>
-                      <option>Vara do Trabalho</option>
-                      <option>Vara da Infância e Juventude</option>
-                      <option>Vara de Execução Penal</option>
-                  </select>
+                  <div class="row">
+                      <div class="input-group">
+                          <select name="nomedavara" id="nomedavara" class="form-control" required>
+                              <option>Vara Cível</option>
+                              <option>Vara Criminal</option>
+                              <option>Vara da Família</option>
+                              <option>Vara do Trabalho</option>
+                              <option>Vara da Infância e Juventude</option>
+                              <option>Vara de Execução Penal</option>
+                          </select>
+                          <input type="hidden" name="outronomedavara" id="outronomedavara" class="form-control" placeholder="Vara processo">
+                          <div class="input-group-append">
+                              <button class="btn btn-secondary" name="txtnomedavara" id="txtnomedavara" type="button"
+                                      onclick="adicionar()">Adicionar
+                              </button>
+                              <button class="btn btn-secondary" name="selnomedavara" id="selnomedavara" type="button"
+                                      onclick="selecionar()" style="display: none;">Selecionar
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <!--ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
+                  <script>
+
+                      // RECEBER E DECLARAR VARIÁVEIS
+
+                      let camposelectvara = document.getElementById('nomedavara');
+                      let campotextvara = document.getElementById('outronomedavara');
+                      let botaoadicionar = document.getElementById('txtnomedavara');
+                      let botaoselecionar = document.getElementById('selnomedavara');
+
+                      // DEFINIR AS FUNÇÕES
+
+                      function adicionar(){
+                          camposelectvara.style.display = 'none';
+                          campotextvara.type = 'text';
+                          botaoadicionar.style.display = 'none';
+                          botaoselecionar.style.display = 'block';
+                      }
+
+                      function selecionar(){
+                          camposelectvara.style.display = 'block';
+                          campotextvara.type = 'hidden';
+                          botaoadicionar.style.display = 'block';
+                          botaoselecionar.style.display = 'none';
+                      }
+                  </script>
+                  <!--FIM ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
               </div>
               <div class="campos">
                   <div class="row">
@@ -257,7 +301,7 @@ if(!empty($numerocnj)){
                           </b></label>
                       <div class="input-group">
                           <select class="form-select" aria-label="Default select example" name="nomedacomarca"
-                                  id="nomedacomarca">
+                                  id="nomedacomarca" required>
                               <option>Porto Alegre-RS</option>
                               <option>São Paulo-SP</option>
                               <option>Rio de Janeiro-RJ</option>
@@ -301,12 +345,12 @@ if(!empty($numerocnj)){
               </div>
             <div class="campos">
               <label class="form-label">Data da abertura</label>
-              <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $valor_data; ?>">
+              <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $valor_data; ?>" required>
             </div>
             <div class="campos">
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Observações</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações" name="observacoes"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações" name="observacoes" required></textarea>
               </div>
             </div>
           </div>
@@ -318,7 +362,7 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Valor da causa</label>
-                <input type="text" id="valorcausa" name="valorcausa" class="form-control" value="R$ 0,00" />
+                <input type="text" id="valorcausa" name="valorcausa" class="form-control" value="R$ 0,00" required/>
             </div>
               <script>
                   var input = document.getElementById('valorcausa');
@@ -349,7 +393,7 @@ if(!empty($numerocnj)){
               </script>
             <div class="campos">
               <label for="parcelas">Parcelas</label>
-                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3"/>
+                <input type="number" name="parcelas" id="parcelas" class="form-control" value="1" placeholder="3" required/>
             </div>
             <div class="campos">
               <label class="form-label">Adicionar Receita</label>
@@ -369,7 +413,7 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Posição do cliente</label>
-              <select class="form-select" aria-label="Default select example" name="posicaocliente">
+              <select class="form-select" aria-label="Default select example" name="posicaocliente" required>
                 <option selected value="1">Adverso</option>
                 <option value="2">Advogado</option>
                 <option value="3">Advogado Adverso</option>
@@ -385,10 +429,10 @@ if(!empty($numerocnj)){
             </div>
             <div class="campos">
               <label class="form-label">Cliente</label>
-              <select name="nomecliente" id="nomecliente" class="form-select">
+              <select name="nomecliente" id="nomecliente" class="form-select" required>
                 <option value="Não declarado">Selecione</option>
                   <?php
-                  include_once('conexao_adm.php');
+                  include_once('../conexao_adm.php');
 
                   $sqlcliente = "SELECT nomecliente FROM clientes";
                   $resultcliente = $conn->query($sqlcliente);
@@ -412,10 +456,10 @@ if(!empty($numerocnj)){
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Advogado</span>
                   </div>
-                  <select name="advogadoatuando" class="form-select">
+                  <select name="advogadoatuando" class="form-select" required>
                     <option selected>Não consta</option>
                       <?php
-                      include_once('conexao_adm.php');
+                      include_once('../conexao_adm.php');
 
                       $sqlAdvogado = "SELECT nome FROM usuario";
                       $resultAdvogado = $conn->query($sqlAdvogado);
@@ -461,13 +505,13 @@ if(!empty($numerocnj)){
   <!--INÍCIO NAVEGAÇÃO-->
   <div class="sidebar" style="overflow-y: auto;">
     <div class="profile">
-      <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+      <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
       <h3>Advocacia</h3>
       <p>Fraga e Melo Advogados</p>
     </div>
     <ul class="lista">
       <li>
-        <a class="links" href="admin.php">
+        <a class="links" href="../Deashboard/admin.php">
           <span class="icon"><i class="fas fa-desktop"></i></span>
           <span class="item">Deashboard</span>
         </a>
@@ -491,7 +535,7 @@ if(!empty($numerocnj)){
         </li>
         <div class="dropdown-content">
           <li>
-            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
               <span class="item2" style="margin-left: 15%;">Compromissos</span>
             </a>
           </li>

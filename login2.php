@@ -21,7 +21,7 @@ if ($row == 1) {
     $_SESSION['usuariologado'] = $usuario;
     $_SESSION['senhalogado'] = $senha;
     $_SESSION['logged'] = true;
-    header('Location: Administrador/admin.php');
+    header('Location: Administrador/Deashboard/admin.php');
 } else {
     header('Location: login.php');
 }

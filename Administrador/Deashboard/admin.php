@@ -1,5 +1,5 @@
 <?php
-include_once 'conexao_adm.php';
+include_once('../conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -11,6 +11,8 @@ if (!$logged) {
 
 $mesatual = date('F/Y');
 
+/*FUNÇÃO PROCESSOS ESTE MES*/
+
 $sqlMes = "SELECT * FROM processo WHERE mes LIKE '%$mesatual%'";
 $result = $conn->query($sqlMes);
 
@@ -20,6 +22,10 @@ while ($user_data = mysqli_fetch_assoc($result)) {
     $totalnmes += 1;
 }
 
+/*FUNÇÃO PROCESSOS ESTE MES*/
+
+/*FUNÇÃO COMPROMISSOS ESTE MES*/
+
 $sqlMesComp = "SELECT * FROM compromisso WHERE mes LIKE '%$mesatual%'";
 $resultCompMes = $conn->query($sqlMesComp);
 
@@ -28,6 +34,34 @@ while ($user_comp = mysqli_fetch_assoc($resultCompMes)) {
     $estemesComp = $user_comp['mes'];
     $totalComp += 1;
 }
+
+/*FUNÇÃO COMPROMISSOS ESTE MES*/
+
+
+/*FUNÇÃO PRAZOS ESTE MES*/
+
+    // Obter o número do mês atual
+    $mes_atual = date('m');
+    $totalPrazo = 0;
+
+    // Consulta SQL para buscar os prazos marcados para este mês
+    $sql = "SELECT * FROM prazo WHERE DATE_FORMAT(datafinal, '%m') = '$mes_atual' AND atendido = 'Não'";
+
+    // Executar a consulta
+    $resultPrazoMes = mysqli_query($conn, $sql);
+
+    // Processar o resultado
+    if (mysqli_num_rows($resultPrazoMes) > 0) {
+        while ($row = mysqli_fetch_assoc($resultPrazoMes)) {
+            $totalPrazo += 1;
+        }
+    } else {
+        $totalPrazo = 0;
+    }
+
+/*FUNÇÃO PRAZOS ESTE MES*/
+
+/*FUNÇÃO GRÁFICO PROCESSOS*/
 
 $sqlGrafico = 'SELECT * FROM processo';
 $result2 = $conn->query($sqlGrafico);
@@ -74,6 +108,8 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
         $totalDezembro += 1;
     }
 }
+
+/*FUNÇÃO GRÁFICO PROCESSOS*/
 ?>
 
 <!DOCTYPE html>
@@ -83,9 +119,9 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
+    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -160,7 +196,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                         </div>
                         <div class="area2">
                             <span class="icon"><i class="fas fa-rocket"></i></span>
-                            <span class="item"><b>15</b> Prazo(s)</span>
+                            <span class="item"><b><?php  echo $totalPrazo; ?></b> Prazo(s)</span>
                             <p class="info"><small>Marcado(s) para este mês</small></p>
                         </div>
                     </div>
@@ -174,22 +210,22 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     <div class="col-4">
                         <div class="parte">
                             <label><b>Compromisso</b></label>
-                            <a href="agenda_compromissos.php"><input type="submit" value="Ver Mais" name="btn"
-                                    class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
+                            <a href="../Agenda/Compromissos/agenda_compromissos.php"><input type="submit" value="Ver Mais" name="btn"
+                                                                        class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="parte">
                             <label><b>Tarefas</b></label>
-                            <a href="agenda_tarefas.php"><input type="submit" value="Ver Mais" name="btn"
-                                    class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
+                            <a href="../agenda_tarefas.php"><input type="submit" value="Ver Mais" name="btn"
+                                                                   class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="parte">
                             <label><b>Prazos</b></label>
-                            <a href="agenda_prazos.php"><input type="submit" value="Ver Mais" name="btn"
-                                    class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
+                            <a href="../Agenda/Prazos/agenda_prazos.php"><input type="submit" value="Ver Mais" name="btn"
+                                                                  class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
                         </div>
                     </div>
                 </div>
@@ -199,15 +235,17 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                             <table class="table">
                                 <tbody>
                                     <?php
-                                    include_once 'conexao_adm.php';
-                                    
+                                    include_once('../conexao_adm.php');
+
                                     $sqlComp = 'SELECT * FROM compromisso';
                                     $resultComp = $conn->query($sqlComp);
                                     
                                     if (mysqli_affected_rows($conn) > 0) {
                                         while ($comp = mysqli_fetch_assoc($resultComp)) {
+                                            $datacomp = $comp['datafinal'];
+                                            $datacomp = date('d/m/Y', strtotime($datacomp));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $comp['id'] . ' - ' . $comp['nomecompromisso'] . '</b> - ' . $comp['datafinal'] . '</small></td>';
+                                            echo '<td><small><b>' . $comp['id'] . ' - ' . $comp['nomecompromisso'] . '</b> - ' . $datacomp . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
@@ -223,15 +261,17 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                             <table class="table">
                                 <tbody>
                                     <?php
-                                    include_once 'conexao_adm.php';
-                                    
+                                    include_once('../conexao_adm.php');
+
                                     $sqlTarefa = 'SELECT * FROM tarefas';
                                     $resultarefa = $conn->query($sqlTarefa);
                                     
                                     if (mysqli_affected_rows($conn) > 0) {
                                         while ($tarefa = mysqli_fetch_assoc($resultarefa)) {
+                                            $datatarefa = $tarefa['prazo'];
+                                            $datatarefa = date('d/m/Y', strtotime($datatarefa));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $tarefa['id'] . ' - ' . $tarefa['titulo'] . '</b> - ' . $tarefa['prazo'] . '</small></td>';
+                                            echo '<td><small><b>' . $tarefa['id'] . ' - ' . $tarefa['titulo'] . '</b> - ' . $datatarefa . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
@@ -247,15 +287,17 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                             <table class="table">
                                 <tbody>
                                     <?php
-                                    include_once 'conexao_adm.php';
-                                    
+                                    include_once('../conexao_adm.php');
+
                                     $sqlPrazo = 'SELECT * FROM prazo';
                                     $resulprazo = $conn->query($sqlPrazo);
                                     
                                     if (mysqli_affected_rows($conn) > 0) {
                                         while ($prazo = mysqli_fetch_assoc($resulprazo)) {
+                                            $dataprazo = $prazo['datafinal'];
+                                            $dataprazo = date('d/m/Y', strtotime($dataprazo));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $prazo['id'] . ' - ' . $prazo['cliente'] . '</b> - ' . $prazo['datafinal'] . '</small></td>';
+                                            echo '<td><small><b>' . $prazo['id'] . ' - ' . $prazo['cliente'] . '</b> - ' . $dataprazo . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
@@ -274,7 +316,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: scroll; ">
             <div class="profile">
-                <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
@@ -286,7 +328,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -306,24 +348,24 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="links">
+                            <a href="../agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_prazos.php" class="links">
+                            <a href="../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>
@@ -343,12 +385,12 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="despesas.php" class="links" style="width: 100%;">
+                            <a href="../despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="receitas.php" class="links">
+                            <a href="../receitas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -369,12 +411,12 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="clientes.php" class="links" style="width: 100%;">
+                            <a href="../clientes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="advogados.php" class="links" style="width: 100%;">
+                            <a href="../advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -395,24 +437,24 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracoes.php" class="links" style="width: 100%;">
+                            <a href="../declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="configuracoes.php" class="links">
+                    <a href="../configuracoes.php" class="links">
                         <span class="icon"><i class="fas fa-edit"></i></span>
                         <span class="item">Editor de Texto</span>
                     </a>

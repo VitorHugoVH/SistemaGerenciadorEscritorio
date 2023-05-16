@@ -1,5 +1,5 @@
 <?php
-include_once('conexao_adm.php');
+include_once('../conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -20,6 +20,7 @@ if (isset($_POST['enviar'])) {
     $nprocesso = $_POST['numeroprocessocnj'];
     $numerovara = $_POST['numerovara'];
     $nomedavara = $_POST['nomedavara'];
+    $outravara = $_POST['outronomedavara'];
     $nomedacomarca = $_POST['nomedacomarca'];
     $outronomedacomarca = $_POST['outronomedacomarca'];
     $dataa = $_POST['dateabertura'];
@@ -37,6 +38,12 @@ if (isset($_POST['enviar'])) {
         $cadreceita = "Desligado";
     }else{
         $cadreceita = "Ligado";
+    }
+
+    if(!empty($outravara)){
+        $varadoprocesso = $outravara;
+    }else {
+        $varadoprocesso = $nomedavara;
     }
 
     switch ($privado) {
@@ -166,7 +173,7 @@ if (isset($_POST['enviar'])) {
     }
 
     $result = mysqli_query($conn, "INSERT INTO processo (valor, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, fase, dataa, classe, falecido, mes)
-        VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$poderjudiciario', '$numerovara', '$nomedavara', '$nomecomarca', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')");
+        VALUES ('$valor', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')");
 
     header('Location: processos.php');
 }

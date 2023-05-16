@@ -679,7 +679,7 @@ if (!empty($_GET['id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="/Processos//Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -696,7 +696,7 @@ if (!empty($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>

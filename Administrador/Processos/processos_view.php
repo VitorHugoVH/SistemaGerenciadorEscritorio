@@ -16,13 +16,17 @@ if (!$logged) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
+    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Fraga e Melo Advogados Associados</title>
     <style>
         .sidebar::-webkit-scrollbar {
@@ -42,7 +46,7 @@ if (!$logged) {
     </style>
 </head>
 <?php
-require_once('conexao_adm.php');
+include_once('../conexao_adm.php');
 $id = $_GET['id'];
 $sql = "SELECT * FROM processo WHERE id=$id";
 $rs = mysqli_query($conn, $sql);
@@ -84,7 +88,7 @@ $linha2 = mysqli_fetch_array($rs2);
                         </div>
                     </div>
                     <div class="row">
-                        <p id="txti">Partes e dados processuais / Processo Nº <?php echo $id ?></p>
+                        <p id="txti">Partes e dados processuais / Processo Nº <?php echo $linha['nprocesso'] ?></p>
                     </div>
                     <div class="row">
                         <hr style="border-color:#aaaaaa !important;">
@@ -94,14 +98,39 @@ $linha2 = mysqli_fetch_array($rs2);
                             <thead class="tabelarelatorio">
                                 <div class="row">
                                     <tr>
+                                        <th class="linhas">Poder Judiciário</th>
+                                        <td class="linhas"><?php echo $linha['poderjudiciario']; ?></td>
+                                    </tr>
+                                </div>
+                                <div class="row">
+                                    <tr>
+                                        <th class="linhas">Vara do processo</th>
+                                        <td class="linhas"><?php echo $linha['numerovara'] . " - " . $linha['nomedavara']; ?></td>
+                                    </tr>
+                                </div>
+                                <div class="row">
+                                    <tr>
                                         <th class="linhas">Natureza da Ação</th>
                                         <td class="linhas"><?php echo $linha['natureza']; ?></td>
                                     </tr>
                                 </div>
                                 <div class="row">
                                     <tr>
+                                        <th class="linhas">Nome da comarca</th>
+                                        <td class="linhas"><?php echo $linha['nomedacomarca']; ?></td>
+                                    </tr>
+                                </div>
+                                <!-- INÍCIO FORMATAÇÃO DATA BRASIL-->
+                                <?php
+                                    $data = $linha['dataa'];
+
+                                    $dataformatada = date('d/m/Y', strtotime($data));
+                                ?>
+                                <!-- FIM FORMATAÇÃO DATA BRASIL-->
+                                <div class="row">
+                                    <tr>
                                         <th class="linhas">Data de cadastro sistema</th>
-                                        <td class="linhas"><?php echo $linha['dataa']; ?></td>
+                                        <td class="linhas"><?php echo $dataformatada; ?></td>
                                     </tr>
                                 </div>
                                 <div class="row">
@@ -114,6 +143,12 @@ $linha2 = mysqli_fetch_array($rs2);
                                     <tr>
                                         <th class="linhas">Valor da causa</th>
                                         <td class="linhas"><?php echo $linha['valor']; ?></td>
+                                    </tr>
+                                </div>
+                                <div class="row">
+                                    <tr>
+                                        <th class="linhas">Nº Parcelas</th>
+                                        <td class="linhas"><?php echo $linha['parcelas'] . " parcelas"; ?></td>
                                     </tr>
                                 </div>
                                 <div class="row">
@@ -146,7 +181,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                         <td><?php echo $linha['nomecliente'];
                                             $nome = $linha['nomecliente']; ?></td>
                                         <?php
-                                        include_once('conexao_adm.php');
+                                        include_once('../conexao_adm.php');
 
                                         $sqlcliente = "SELECT * FROM clientes WHERE nomecliente='$nome'";
                                         $resultcliente = $conn->query($sqlcliente);
@@ -162,7 +197,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                         <td><?php echo $linha['nomeadvogado'];
                                             $nomeadv = $linha['nomeadvogado']; ?></td>
                                         <?php
-                                        include_once('conexao_adm.php');
+                                        include_once('../conexao_adm.php');
 
                                         if ($nomeadv == 'Sandro Carvalho de Fraga') {
                                             echo "<td>(51)984026629</td>";
@@ -185,19 +220,19 @@ $linha2 = mysqli_fetch_array($rs2);
             <!--INÍCIO NAVEGAÇÃO-->
             <div class="sidebar" style="overflow-y: auto;">
                 <div class="profile">
-                    <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                    <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                     <h3>Advocacia</h3>
                     <p>Fraga e Melo Advogados</p>
                 </div>
                 <ul class="lista">
                     <li>
-                        <a class="links" href="admin.php">
+                        <a class="links" href="../Deashboard/admin.php">
                             <span class="icon"><i class="fas fa-desktop"></i></span>
                             <span class="item">Deashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="processos.php" class="active">
+                        <a href="/Processos//Processos/processos.php" class="active">
                             <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                             <span class="item">Processos</span>
                         </a>
@@ -215,7 +250,7 @@ $linha2 = mysqli_fetch_array($rs2);
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="agenda_compromissos.php" class="links" style="width: 100%;">
+                                <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Compromissos</span>
                                 </a>
                             </li>

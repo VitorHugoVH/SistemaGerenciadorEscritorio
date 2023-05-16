@@ -1,5 +1,5 @@
 <?php
-include_once('conexao_adm.php');
+include_once('../../conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -31,16 +31,8 @@ if (isset($_POST['Enviar'])) {
             $processo = "Não selecionado";
     }
 
-    if (!empty($datainicial)) {
-        $datainicial2 = date('d/m/Y', strtotime($datainicial));
-    }
-
-    if (!empty($datafinal)) {
-        $datafinal2 = date('d/m/Y', strtotime($datafinal));
-    }
-
     $sqlEnviar = "INSERT INTO compromisso (datainicial, horainicial, datafinal, horafinal, nomecompromisso, classificacao, processo, locall, observacoes, nomeadvogado, cliente, mes)
-                      VALUES ('$datainicial2', '$horainicial', '$datafinal2', '$horafinal', '$nomecompromisso', '$classificacao', '$processo', '$local', '$observacoes', '$nomeadvogado', '$nomecliente', '$mesatualcomp')";
+                      VALUES ('$datainicial', '$horainicial', '$datafinal', '$horafinal', '$nomecompromisso', '$classificacao', '$processo', '$local', '$observacoes', '$nomeadvogado', '$nomecliente', '$mesatualcomp')";
     $result = $conn->query($sqlEnviar);
 }
 ?>
@@ -51,15 +43,17 @@ if (isset($_POST['Enviar'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
-    <script type="text/javascript" src="compromissos_edit.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
+    <link rel="icon" type="image/x-icon" href="../../../imagens/icon.png" />
+    <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -83,7 +77,7 @@ if (isset($_POST['Enviar'])) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+                <a href="../../../index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container">
                 <div class="row">
@@ -91,7 +85,7 @@ if (isset($_POST['Enviar'])) {
                         <div class="bloco3">
                             <h3 class="text-muted">Compromissos</h3>
                             <?php
-                            include_once('conexao_adm.php');
+                            include_once('../../conexao_adm.php');
 
                             $sqlqT = "SELECT * FROM compromisso";
                             $resultqT = $conn->query($sqlqT);
@@ -173,7 +167,7 @@ if (isset($_POST['Enviar'])) {
                                                     <?php
                                                     echo "<option selected>Não consta</option>";
 
-                                                    include_once('conexao_adm.php');
+                                                    include_once('../../conexao_adm.php');
 
                                                     $sql = "SELECT id FROM processo";
                                                     $resultProcesso = $conn->query($sql);
@@ -211,7 +205,7 @@ if (isset($_POST['Enviar'])) {
                                                 <select name="nomeadvogado" class="form-select">
                                                     <option selected>Não consta</option>
                                                     <?php
-                                                    include_once('conexao_adm.php');
+                                                    include_once('../../conexao_adm.php');
 
                                                     $sqlAdvogado = "SELECT nome FROM usuario";
                                                     $resultAdvogado = $conn->query($sqlAdvogado);
@@ -233,7 +227,7 @@ if (isset($_POST['Enviar'])) {
                                                 <select name="nomecliente" class="form-select">
                                                     <option selected>Não consta</option>
                                                     <?php
-                                                    include_once('conexao_adm.php');
+                                                    include_once('../../conexao_adm.php');
 
                                                     $sqlCliente = "SELECT nomecliente FROM clientes";
                                                     $resultCliente = $conn->query($sqlCliente);
@@ -279,7 +273,7 @@ if (isset($_POST['Enviar'])) {
                                 <select class="form-select" aria-label="Default select example" name="advogadoss" id="advogado">
                                     <option selected>Selecionar...</option>
                                     <?php
-                                    include_once('conexao_adm.php');
+                                    include_once('../../conexao_adm.php');
 
                                     $sqlAD = "SELECT nome FROM usuario";
                                     $resultAD = $conn->query($sqlAD);
@@ -299,7 +293,7 @@ if (isset($_POST['Enviar'])) {
                             </div>
                         </div>
                         <?php
-                        require_once('conexao_adm.php');
+                        include_once('../../conexao_adm.php');
                         $sqlFiltro = "SELECT * FROM compromisso ORDER BY id ASC";
 
                         if (!empty($_GET['advogadoss'])) {
@@ -343,15 +337,26 @@ if (isset($_POST['Enviar'])) {
 
                             <tbody>
                                 <?php
-                                include_once('conexao_adm.php');
+                                include_once('../../conexao_adm.php');
 
                                 $resultTable = $conn->query($sqlFiltro);
 
                                 while ($data = mysqli_fetch_assoc($resultTable)) {
+
+                                    /*FORMATADOR DE DATAS*/
+
+                                    $dataI = $data['datainicial'];
+                                    $dataI = date('d/m/Y', strtotime($dataI));
+
+                                    $dataF = $data['datafinal'];
+                                    $dataF = date('d/m/Y', strtotime($dataF));
+
+                                    /*FORMATADOR DE DATAS*/
+
                                     echo "<tr>";
                                     echo "<td>" . $data['id'] . "</td>";
-                                    echo "<td>" . $data['datainicial'] . "</td>";
-                                    echo "<td>" . $data['datafinal'] . "</td>";
+                                    echo "<td>" . $dataI . "</td>";
+                                    echo "<td>" . $dataF . "</td>";
                                     echo "<td>" . $data['nomecompromisso'] . "</td>";
                                     echo "<td>" . $data['classificacao'] . "</td>";
                                     echo "<td>" . $data['processo'] . "</td>";
@@ -380,19 +385,19 @@ if (isset($_POST['Enviar'])) {
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: scroll; ">
             <div class="profile">
-                <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="admin.php">
+                    <a class="links" href="../../Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -414,12 +419,12 @@ if (isset($_POST['Enviar'])) {
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="links">
+                            <a href="../Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_prazos.php" class="links">
+                            <a href="../Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
@@ -519,7 +524,7 @@ if (isset($_POST['Enviar'])) {
 <script>
     function confirma(id) {
         if (confirm("Deseja realmente excluir este compromisso?")) {
-            location.href = "agenda_compromissos.php?id=" + id;
+            location.href = "Agenda/Compromissos/agenda_compromissos.php?id=" + id;
         }
     }
 </script>
