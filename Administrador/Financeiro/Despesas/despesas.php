@@ -17,8 +17,8 @@ if (!$logged) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
+    <link rel="icon" type="image/x-icon" href="../../imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
@@ -223,19 +223,19 @@ if (!$logged) {
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
-                <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="Deashboard/admin.php">
+                    <a class="links" href="../../Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/Processos//Processos/processos.php" class="links">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -252,31 +252,31 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="links">
+                            <a href="../../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_prazos.php" class="links">
+                            <a href="../../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="financeiro.php" class="active">
+                        <a href="#" class="active">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">

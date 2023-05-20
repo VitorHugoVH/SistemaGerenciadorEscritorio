@@ -217,7 +217,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     <div class="col-4">
                         <div class="parte">
                             <label><b>Tarefas</b></label>
-                            <a href="../agenda_tarefas.php"><input type="submit" value="Ver Mais" name="btn"
+                            <a href="../Agenda/Tarefas/agenda_tarefas.php"><input type="submit" value="Ver Mais" name="btn"
                                                                    class="btn btn-primary" style="float: right; width: 25%; padding: 1%;"></a>
                         </div>
                     </div>
@@ -353,7 +353,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                             </a>
                         </li>
                         <li>
-                            <a href="../agenda_tarefas.php" class="links">
+                            <a href="../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
@@ -365,7 +365,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     </div>
                 </div>
                 <li>
-                    <a href="../site_marketing.php" class="links">
+                    <a href="../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>

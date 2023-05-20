@@ -254,7 +254,7 @@ if (!$logged) {
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="links">
+                            <a href="../Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
@@ -266,7 +266,7 @@ if (!$logged) {
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>

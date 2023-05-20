@@ -431,7 +431,7 @@ if (isset($_POST['Enviar'])) {
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>

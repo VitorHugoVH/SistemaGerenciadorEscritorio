@@ -189,17 +189,24 @@ if (!$logged) {
                                     echo "<tr>";
                                     echo "<td>" . $user_data['id'] . "</td>";
 
+                                    /*FORMATAÇÃO DE DATAS*/
+
+                                    $prazotarefa = $user_data['prazo'];
+                                    $prazotarefa = date('d/m/Y', strtotime($prazotarefa));
+
+                                    /*FORMATAÇÃO DE DATAS*/
+
                                     if ($user_data['stat'] == 'Finalizado') {
-                                        $url = 'imagensADM/cinza.png';
-                                    } elseif ($user_data['prazo'] > $dataatual) {
-                                        $url = 'imagensADM/verde.png';
-                                    } elseif ($user_data['prazo'] < $dataatual) {
-                                        $url = 'imagensADM/vermelho.png';
-                                    } elseif ($user_data['prazo'] == $dataatual) {
-                                        $url = 'imagensADM/amarelo.png';
+                                        $url = '../../imagensADM/cinza.png';
+                                    } elseif ($prazotarefa > $dataatual) {
+                                        $url = '../../imagensADM/verde.png';
+                                    } elseif ($prazotarefa < $dataatual) {
+                                        $url = '../../imagensADM/vermelho.png';
+                                    } elseif ($prazotarefa == $dataatual) {
+                                        $url = '../../imagensADM/amarelo.png';
                                     }
 
-                                    echo "<td>" . "<img src='$url' style='width: 6%; margin-right: 5%;'>" . $user_data['prazo'] . "</td>";
+                                    echo "<td>" . "<img src='$url' style='width: 0.5em; margin-right: 5%;'>" . $prazotarefa . "</td>";
                                     echo "<td>" . $user_data['titulo'] . "</td>";
                                     echo "<td>" . $user_data['advogado'] . "</td>";
                                     echo "<td>" . $user_data['datacriacao'] . "</td>";
@@ -279,7 +286,7 @@ if (!$logged) {
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>

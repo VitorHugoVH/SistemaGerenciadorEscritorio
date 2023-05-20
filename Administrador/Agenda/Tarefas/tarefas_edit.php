@@ -1,5 +1,5 @@
 <?php
-include_once('conexao_adm.php');
+include_once('../../conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -39,13 +39,17 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
+    <link rel="icon" type="image/x-icon" href="../../../imagens/icon.png" />
+    <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -106,7 +110,7 @@ if (isset($_GET['id'])) {
                                 <select name="nomeadvogado" class="form-select">
                                     <option <?= ($responsavel == 'Não consta') ? 'selected' : '' ?>>Não consta</option>
                                     <?php
-                                    include_once('conexao_adm.php');
+                                    include_once('../../conexao_adm.php');
 
                                     $sqlAdvogado = "SELECT nome FROM usuario";
                                     $resultAdvogado = $conn->query($sqlAdvogado);
@@ -181,7 +185,7 @@ if (isset($_GET['id'])) {
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: scroll; ">
             <div class="profile">
-                <img src="imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
@@ -227,7 +231,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <li>
-                    <a href="site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-rocket"></i></span>
                         <span class="item">Marketing</span>
                     </a>

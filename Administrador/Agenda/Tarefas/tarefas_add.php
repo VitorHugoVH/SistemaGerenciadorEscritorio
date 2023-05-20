@@ -9,7 +9,7 @@ if (!$logged) {
 };
 
 if (isset($_POST['enviar'])) {
-    include_once('conexao_adm.php');
+    include_once('../../conexao_adm.php');
     implode('/', array_reverse(explode('-', $data)));
 
     $tipotarefa = $_POST['tipotarefa'];
@@ -28,12 +28,8 @@ if (isset($_POST['enviar'])) {
             $status = 'Finalizado';
     }
 
-    if (!empty($prazodate)) {
-        $prazodate2 = date('d/m/Y', strtotime($prazodate));
-    }
-
     $sqlEnviar = "INSERT INTO tarefas (tipotarefa, advogado, prazo, titulo, tarefa, stat, datacriacao)
-                    VALUES ('$tipotarefa', '$nomeadvogado', '$prazodate2', '$tituloprazo', '$desctarefa', '$status', '$datacriacao')";
+                    VALUES ('$tipotarefa', '$nomeadvogado', '$prazodate', '$tituloprazo', '$desctarefa', '$status', '$datacriacao')";
     $result = $conn->query($sqlEnviar);
 
     header('Location: agenda_tarefas.php');
@@ -48,12 +44,16 @@ if (isset($_POST['enviar'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../../../imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -114,7 +114,7 @@ if (isset($_POST['enviar'])) {
                                 <select name="nomeadvogado" class="form-select" required>
                                     <option selected>Não consta</option>
                                     <?php
-                                    include_once('conexao_adm.php');
+                                    include_once('../../conexao_adm.php');
 
                                     $sqlAdvogado = "SELECT nome FROM usuario";
                                     $resultAdvogado = $conn->query($sqlAdvogado);
@@ -196,7 +196,7 @@ if (isset($_POST['enviar'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="/Processos//Processos/processos.php" class="links">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
@@ -213,31 +213,31 @@ if (isset($_POST['enviar'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="active">
+                            <a href="../../Tarefas/agenda_tarefas.php" class="active">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_prazos.php" class="links">
+                            <a href="../../Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="../../site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-rocket"></i></span>
                         <span class="item">Marketing</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="financeiro.php" class="links">
+                        <a href="#" class="links">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -247,12 +247,12 @@ if (isset($_POST['enviar'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../../despesas.php" class="links" style="width: 100%;">
+                            <a href="../../Financeiro/despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../../receitas.php" class="links">
+                            <a href="../../Financeiro/receitas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>

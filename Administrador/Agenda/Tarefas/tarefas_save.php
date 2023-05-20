@@ -1,5 +1,5 @@
 <?php
-include_once('conexao_adm.php');
+include_once('../../conexao_adm.php');
         if(isset($_POST['update'])){
             $id = $_POST['id'];
             $newtipotarefa = $_POST['tipotarefa'];
@@ -15,11 +15,7 @@ include_once('conexao_adm.php');
                 $newstatus = 'Não finalizado';
             }
 
-            if(!empty($newprazodate)){
-                $newprazodate2 = date('d/m/Y', strtotime($newprazodate));
-            }
-
-            $sqlUpdate = "UPDATE tarefas SET tipotarefa='$newtipotarefa', advogado='$newresponsa', prazo='$newprazodate2', titulo='$newtituloprazo', tarefa='$newdesctarefa', stat='$newstatus'
+            $sqlUpdate = "UPDATE tarefas SET tipotarefa='$newtipotarefa', advogado='$newresponsa', prazo='$newprazodate', titulo='$newtituloprazo', tarefa='$newdesctarefa', stat='$newstatus'
             WHERE id='$id'";
 
             $resultUpdate = $conn->query($sqlUpdate);
