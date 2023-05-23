@@ -17,8 +17,9 @@ if (isset($_POST['update'])) {
     $outravara = $_POST['outronomedavara'];
     $nomedacomarca = $_POST['nomedacomarca'];
     $outracomarca = $_POST['outronomedacomarca'];
+    $valorCausa = $_POST['valorCausa'];
     $dateabertura = $_POST['dateabertura'];
-    $valorcausa = $_POST['valorcausa'];
+    $valorhonorario = $_POST['valorhonorario'];
     $parcelas = $_POST['parcelas'];
     $cadreceita = $_POST['cadreceita'];
     $observacoes = $_POST['observacoes'];
@@ -185,10 +186,16 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Trabalhista';
             break;
         case 5:
+            $naturezaprocesso = 'Previdencial';
+            break;
+        case 6:
+            $naturezaprocesso = 'Tributário';
+            break;
+        case 7:
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);
