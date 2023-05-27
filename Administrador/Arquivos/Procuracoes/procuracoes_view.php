@@ -1,5 +1,4 @@
 <?php
-include_once('../../conexao_adm.php');
 
 // VERIFICAÇÃO LOGIN
 session_start();
@@ -9,38 +8,139 @@ if (!$logged) {
   header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-$id = $_GET['id'];
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<?php
+include_once('../../conexao_adm.php');
 
-if (isset($_GET['id'])) {
+//DADOS PROCURAÇÃO
 
-    $sqlEdit = "SELECT * FROM tarefas WHERE id=$id";
-    $resultEdit = $conn->query($sqlEdit);
+if (isset($_POST['enviar'])) {
 
-    if ($resultEdit->num_rows > 0) {
-        while ($user_data = mysqli_fetch_assoc($resultEdit)) {
-            $tipotarefa = $user_data['tipotarefa'];
-            $responsavel = $user_data['advogado'];
-            $prazodate = $user_data['prazo'];
-            $tituloprazo = $user_data['titulo'];
-            $desctarefa = $user_data['tarefa'];
-            $status = $user_data['stat'];
-            $datacriacao = $user_data['datacriacao'];
+    $nomecliente = $_POST['nomecliente'];
+    $sexo = $_POST['sexo'];
+    $nacionalidade = $_POST['nacionalidade'];
+    $estadocivil = $_POST['estadocivil'];
+    $profissao = $_POST['profissaocliente'];
+    $portador = "portador";
+    $representar = 'representá-lo';
+    $cedula = $_POST['rg'];
+    $cpf = $_POST['cpf'];
+    $endereco = $_POST['endereco'];
+    $advogado = $_POST['nomeadvogado'];
+    $classeprocesso = $_POST['classeprocesso'];
+    $falecido = $_POST['nomefalecido'];
+    $dia = date('d');
+    $mes = date('M');
+    $ano = date('Y');
+
+    //FUNÇÃO MES PORTUGUÊS
+
+    $mes_extenso = array(
+        'Jan' => 'Janeiro',
+        'Feb' => 'Fevereiro',
+        'Mar' => 'Março',
+        'Apr' => 'Abril',
+        'May' => 'Maio',
+        'Jun' => 'Junho',
+        'Jul' => 'Julho',
+        'Aug' => 'Agosto',
+        'Nov' => 'Novembro',
+        'Sep' => 'Setembro',
+        'Oct' => 'Outubro',
+        'Dec' => 'Dezembro'
+    );
+
+
+    //FORMATAÇÃO ESTADO CIVIL
+
+    switch ($estadocivil) {
+        case 'Solteiro(a)':
+            $estadocivil = 'solteiro';
+            break;
+        case 'Casado(a)':
+            $estadocivil = 'casado';
+            break;
+        case 'Separado(a) judicialmente':
+            $estadocivil = 'separado';
+            break;
+        case 'Divorciado(a)':
+            $estadocivil = 'divorciado';
+            break;
+        case 'Viúvo(a)':
+            $estadocivil = 'viúvo';
+            break;
+        case 'União estável':
+            $estadocivil = 'união estável';
+    }
+
+    //FORMATAÇÃO SEXO CARACTERES
+
+    if ($sexo == 'Feminino') {
+
+        //NACIONALIDADE
+        $letrafinalnacionalidade = substr($nacionalidade, -1);
+        $nacionalidade = str_replace($letrafinalnacionalidade, 'a', $nacionalidade);
+
+        //ESTADO CIVIL
+        if ($estadocivil != 'união estável') {
+            $letrafinalestadocivil = substr($estadocivil, -1);
+            $estadocivil = str_replace($letrafinalestadocivil, 'a', $estadocivil);
+        } else {
+            $estadocivil = $estadocivil;
         }
+
+        //PROFISSAO
+        $letrafinalprofissao = substr($profissao, -1);
+        $profissao = str_replace($letrafinalprofissao, 'a', $profissao);
+
+        //PORTADOR
+        $letrafinalportador = substr($portador, -1);
+        $portador = str_replace($letrafinalportador, 'a', $portador);
+
+        //REPRESENTAR
+        $letrafinalrepresentar = substr($representar, -1);
+        $representar = str_replace($letrafinalrepresentar, 'a', $representar);
+    }
+
+    //FUNÇÃO ADVOGADO ATUANDO
+
+    if ($advogado == 'Sandro Carvalho de Fraga') {
+        $textooutorgado = "<b>OUTORGADOS: SANDRO CARVALHO DE FRAGA,</b> brasileiro, em união 
+        estável, advogado, inscrito na OAB\RS sob o nº52230, <b>ELISETE 
+        CAMARGO DE MELO,</b> brasileira, em união estável, advogada, inscrita 
+        na OAB/SC sob o n°65356-B, com escritório profissional na Rua 
+        Guatambu nº 833, Bairro Hípica - Zona Sul, na cidade de Porto ";
     } else {
-        header('Location: agenda_tarefas.php');
+        $textooutorgado = "<b>OUTORGADOS: ELISETE 
+        CAMARGO DE MELO,</b> brasileira, em união 
+        estável, advogada, inscrita na OAB\SC sob o nº65356-B, <b>SANDRO CARVALHO DE FRAGA,</b> brasileiro, em união estável, advogado, inscrito 
+        na OAB\RS sob o nº52230, com escritório profissional na Rua 
+        Guatambu nº 833, Bairro Hípica - Zona Sul, na cidade de Porto ";
+    }
+
+    //FUNÇÃO CLASSE PROCESSUAL
+
+    if ($classeprocesso == 'Processo de inventário') {
+        $textoclasse = "<b>P O D E R E S:</b> Por este instrumento particular de mandato, 
+        especialmente para " . $representar . " em <b>PROCESSO DE INVENTÁRIO</b> pelo 
+        falecimento de <b>" . mb_strtoupper($falecido) . ",</b> junto a Comarca de Porto 
+        Alegre-RS. ";
+    } else {
+        $textoclasse = "<b>P O D E R E S:</b> Por este instrumento particular de mandato, 
+        especialmente para " . $representar . " em <b>PROCESSO DE " . mb_strtoupper($classeprocesso) . "</b> junto a Comarca de Porto 
+        Alegre-RS.";
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="../../../imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -69,6 +169,7 @@ if (isset($_GET['id'])) {
     <title>Fraga e Melo Advogados Associados</title>
 </head>
 
+
 <body>
     <div class="wrapper">
         <div class="section">
@@ -76,105 +177,73 @@ if (isset($_GET['id'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="tarefas_save.php" method="POST">
+                <form action="procuracoes_create.php" method="POST" target="_blank">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
-                                <h3 class="text-muted">Adicionar</h3>
+                                <h3 class="text-muted">Criar procuração</h3>
                             </div>
                         </div>
                         <div class="col-2">
-                            <div id="voltar">
-                                <a href="agenda_tarefas.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="bloco4">
                         <div class="row">
                             <div class="titulo">
-                                <h4 class="title"><b>Dados da tarefa</b></h4>
+                                <h4 class="title"><b> Visualizar procuração</b></h4>
                             </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tipo tarefa</h6>
-                                    </b></p></label>
-                                <select class="form-select" aria-label="Default select example" name="tipotarefa" id="tipotarefa">
-                                    <option <?= ($tipotarefa == 'Interna') ? 'selected' : '' ?>>Interna</option>
-                                    <option <?= ($tipotarefa == 'Externa') ? 'selected' : '' ?>>Externa</option>
-                                </select>
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Advogado</h6>
-                                    </b></label>
-                                <select name="nomeadvogado" class="form-select">
-                                    <option <?= ($responsavel == 'Não consta') ? 'selected' : '' ?>>Não consta</option>
-                                    <?php
-                                    include_once('../../conexao_adm.php');
-
-                                    $sqlAdvogado = "SELECT nome FROM usuario";
-                                    $resultAdvogado = $conn->query($sqlAdvogado);
-
-                                    while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
-                                        $nomeadvogado = $advogado['nome'];
-
-                                        if ($responsavel == $nomeadvogado) {
-                                            echo "<option selected>$nomeadvogado</option>";
-                                        } else {
-                                            echo "<option>$nomeadvogado</option>";
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Prazo</h6>
-                                    </b></label>
-                                <input type="date" name="prazodate" id="prazodate" class="form-control" aria-label="Default select example" value="<?php echo $prazodate ?>">
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Título</h6>
-                                    </b></label>
-                                <input type="text" name="tituloprazo" id="tituloprazo" class="form-control" placeholder="Título" value="<?php echo $tituloprazo ?>">
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tarefa</h6>
-                                    </b></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Descrição da tarefa" name="desctarefa"><?php echo $desctarefa ?></textarea>
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">A tarefa foi finalizada?</h6>
-                                    </b></label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1" id="inlineRadio1" <?= ($status == 'Finalizado') ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="inlineRadio1">Sim</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2" id="inlineRadio2" <?= ($status == 'Não finalizado') ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="inlineRadio2">Não</label>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="campos">
+                            <textarea id="editor" name="descricao">
+                                <h3 style="text-align: center;">PROCURAÇÃO</h3>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><b>OUTORGANTE: <?php echo mb_strtoupper($nomecliente) ?>,</b> <?php echo $nacionalidade ?>, <?php echo $estadocivil ?>,
+                                <?php echo mb_strtolower($profissao) ?>, portador da cédula de identidade de nº <?php echo $cedula ?>, 
+                                inscrito no CPF sob o nº <?php echo $cpf ?>, residente e domiciliado 
+                                na <?php echo $endereco ?>.
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><?php echo $textooutorgado ?>    
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><?php echo $textoclasse ?>    
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">Pelo presente instrumento particular de mandato e na melhor forma 
+                                de direito, a <b>OUTORGANTE,</b> nomeia e constitui os <b>OUTORGADOS,</b> seus 
+                                bastante procuradores para representá-los em juízo ou fora dele, 
+                                bem como perante quaisquer repartições públicas Federais, 
+                                Estaduais e Municipais, podendo o referido procurador tudo 
+                                requerer e praticar a defesa do interesse da <b>OUTORGANTE,</b> para o 
+                                que lhes outorgam todos os poderes em geral- “ad judicia”, para o 
+                                foro e demais poderes que se fizerem necessários para o fiel 
+                                desempenho deste mandato, para firmar compromisso, confessar, 
+                                acordar, discordar, desistir, transigir, receber, dar quitação, 
+                                reconhecer a procedência do pedido, renunciar ao direito sobre 
+                                que se funda a ação, substabelecer, no todo ou em parte, com ou 
+                                sem reserva de poderes.  
+                                </p>
+                                <p style="text-align: center;">Porto Alegre/RS, <?php echo $dia ?> de <?php echo $mes_extenso["$mes"] ?> de <?php echo $ano ?></p>
+                                <br>
+                                <hr style="width: 60%; color: black;">
+                                <p style="text-align: center;"><b>HILSON RICARDO GARNIER PIRES</b></p>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <p style="font-size: 12px; margin-top:10px; text-align: center;">Rua Guatambú, nº833, Fone(051) 32129832- Hípica Porto Alegre/RS</p>
+                            </textarea>
                         </div>
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="hidden" name="nomecliente" id="nomecliente" value="<?php echo $nomecliente ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
 
                             </div>
                             <div class="col-2">
-                                <div id="salvar">
-                                    <a href="agenda_tarefas.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
+                                <div id="voltar">
+                                    <a href="procuracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="update" id='salvar'>Atualizar</button></a>
+                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Concluir</button></a>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +273,7 @@ if (isset($_GET['id'])) {
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="active" href="#">
+                        <a class="links" href="#">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -214,17 +283,17 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="active">
+                            <a href="../../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Prazos/agenda_prazos.php" class="links">
+                            <a href="../../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
@@ -248,7 +317,7 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
+                            <a href="../../Financeiro/Despesas/despesas.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
@@ -284,7 +353,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="#" class="links">
+                        <a href="#" class="active">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -294,17 +363,17 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="procuracoes.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../Declaracoes/declaracao.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

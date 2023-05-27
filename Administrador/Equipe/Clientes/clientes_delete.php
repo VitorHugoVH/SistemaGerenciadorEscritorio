@@ -5,9 +5,9 @@
 
     if(!empty($_GET['id'])){
 
-        $sqlDelete = "DELETE FROM despesa WHERE id=$id";
+        $sqlDelete = "DELETE FROM clientes WHERE id=$id";
         $resultDelete = $conn->query($sqlDelete);
 
-        header('Location: despesas.php');
+        header('location: clientes.php');
     }
 ?>

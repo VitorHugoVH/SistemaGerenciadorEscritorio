@@ -8,32 +8,6 @@ if (!$logged) {
   header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-
-include_once('../conexao_adm.php');
-$sql = "SELECT * FROM processo ORDER BY id ASC";
-
-if (!empty($_GET['statusfiltro'])) {
-    $stat = $_GET['statusfiltro'];
-    if ($stat == "Ativo") {
-        $sql = "SELECT * FROM processo WHERE stat LIKE '%$stat%' ORDER BY id ASC";
-    } else {
-        $sql = "SELECT * FROM processo ORDER BY id ASC";
-    }
-}
-if (!empty($_GET['buscanome'])) {
-    $nome = $_GET['buscanome'];
-    $sql = "SELECT * FROM processo WHERE nomecliente LIKE '%$nome%' ORDER BY id ASC";
-}
-if (!empty($_GET['termobusca'])) {
-    $termo = $_GET['termobusca'];
-    $sql = "SELECT * FROM processo WHERE id LIKE '%$termo%'";
-}
-if (!empty($_GET['advogado'])) {
-    $nomeadvogado = $_GET['advogado'];
-    $sql = "SELECT * FROM processo WHERE nomeadvogado LIKE '%$nomeadvogado%'";
-}
-$result = $conn->query($sql);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +16,9 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
+    <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -82,11 +56,11 @@ $result = $conn->query($sql);
                 <div class="row">
                     <div class="col-10">
                         <div class="bloco3">
-                            <h3 class="text-muted">Processos</h3>
+                            <h3 class="text-muted">Receitas</h3>
                             <?php
-                            include_once('../conexao_adm.php');
+                            include_once('../../conexao_adm.php');
 
-                            $sqlqT = "SELECT * FROM processo";
+                            $sqlqT = "SELECT * FROM receita";
                             $resultqT = $conn->query($sqlqT);
 
                             $quantidade = 0;
@@ -95,18 +69,11 @@ $result = $conn->query($sql);
                             }
                             ?>
                             <small class="text-muted">Exibindo <?php echo $quantidade; ?> resultado(s)</small>
-                            <small class="text-muted">
-                                <div class="mb-4">
-                                    <img src="../imagensADM/verde.png" alt="ativo" style="width: 1%;">ativo
-                                    <img src="../imagensADM/azul.png" alt="ativo" style="width: 1%;">suspenso
-                                    <img src="../imagensADM/cinza.png" alt="ativo" style="width: 1%;">baixado
-                                </div>
-                            </small>
                         </div>
                     </div>
                     <div class="col-2">
                         <div id="enviar">
-                            <a href="processos_add1.php"><button type="button" class="btn btn-success" id='add1'>Adicionar</button></a>
+                            <a href="receitas_add.php"><button type="button" class="btn btn-success" id='add1'>Adicionar</button></a>
                         </div>
                     </div>
                 </div>
@@ -114,85 +81,128 @@ $result = $conn->query($sql);
                     <form action="" method="GET">
                         <div class="row">
                             <div class="col-3">
-                                <p>Status</p>
-                                <select class="form-select" aria-label="Default select example" name="statusfiltro" id="statusfiltro">
-                                    <option value="Todos" selected>Ver todos os processos</option>
-                                    <option value="Ativo">Ver apenas os ativos</option>
+                                <p><small>Mês</small></p>
+                                <select class="form-select" aria-label="Default select example" name="mess" id="mess">
+                                    <option>Todos</option>
+                                    <?php
+                                    include_once('../../conexao_adm.php');
+
+                                    $sqlMes = "SELECT * FROM receita";
+                                    $resultMes = $conn->query($sqlMes);
+
+                                    while ($data_mes = mysqli_fetch_assoc($resultMes)) {
+                                        echo "<option>" . $data_mes['datacriacao'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <p><small>Situação</small></p>
+                                <select class="form-select" aria-label="Default select example" name="statuss" id="statuss">
+                                    <option>
+                                        <p style="font-size:medium;">Todas</p>
+                                    </option>
+                                    <option>
+                                        <p style="font-size:medium;">Somente realizadas</p>
+                                    </option>
+                                    <option>
+                                        <p style="font-size:medium;">Somente em aberto</p>
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-3">
-                                <p>Filtrar</p>
+                                <p><small>Cliente</small></p>
+                                <input type="text" name="client" id="client" class="form-control" placeholder="Filtrar por cliente...">
+                            </div>
+                            <div class="col-2">
+                                <p><small>Buscar</small></p>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Nome do cliente" name="buscanome">
+                                    <button class="btn btn-outline-secondary" name="buscar" type="submit" style=" width: 100%;">Localizar</button>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <p>Nº Processo</p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Número do processo" aria-label="Recipient's username" aria-describedby="basic-addon2" name="termobusca">
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <p>Buscar</p>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary" type="submit" style=" width: 100%;">Localizar</button>
-                                </div>
-                            </div>
+                            <?php
+                            include_once('../../conexao_adm.php');
+
+                            $sql = "SELECT * FROM receita";
+
+                            if (!empty($_GET['mess'])) {
+                                $mes = $_GET['mess'];
+                                if ($mes != 'Todos') {
+                                    $sql = "SELECT * FROM receita WHERE datacriacao LIKE '%$mes%' ORDER BY id ASC";
+                                }
+                            } else {
+                            }
+
+                            if (!empty($_GET['statuss'])) {
+                                $status = $_GET['statuss'];
+                                if ($status != 'Todas') {
+                                    if ($status == 'Somente realizadas') {
+                                        $status = 'Recebido';
+                                    } else {
+                                        $status = 'A receber';
+                                    }
+                                    $sql = "SELECT * FROM receita WHERE statuss LIKE '%$status%' ORDER BY id ASC";
+                                }
+                            }
+
+                            if (!empty($_GET['client'])) {
+                                $cliente = $_GET['client'];
+                                if ($cliente != "") {
+                                    $sql = "SELECT * FROM receita WHERE cliente1 LIKE '%$cliente%' OR cliente2 LIKE '%$cliente%' ORDER BY id ASC";
+                                }
+                            }
+
+                            $result = $conn->query($sql);
+                            ?>
                         </div>
                     </form>
                 </div>
                 <div class="bloco">
                     <div class="table-responsive">
-                        <table class="table" style="white-space: nowrap;">
+                        <table class="table table-striped table-bordered" style="white-space: nowrap;">
                             <thead>
                                 <tr>
-                                    <th scope="col">#ID</th>
-                                    <th scope="col">Satus</th>
-                                    <th scope="col">Fase</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col">Advogado</th>
-                                    <th scope="col">Natureza da Ação</th>
-                                    <th scope="col">Opção</th>
+                                    <th>Data Vencimento</th>
+                                    <th>Categoria</th>
+                                    <th>Subcategoria</th>
+                                    <th>Valor</th>
+                                    <th>Situação</th>
+                                    <th>Opções</th>
                                 </tr>
                             </thead>
-                            <tbody style="white-space: nowrap;">
+                            <tbody>
                                 <?php
-                                while ($user_data = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<th scope='row'>" . $user_data['id'] . "</td>";
+                                include_once('../../conexao_adm.php');
 
-                                    if ($user_data['stat'] == 'Baixado') {
-                                        $url_imagem = '../imagensADM/cinza.png';
-                                    } elseif ($user_data['stat'] == 'Suspenso') {
-                                        $url_imagem = '../imagensADM/azul.png';
-                                    } elseif ($user_data['stat'] == 'Ativo') {
-                                        $url_imagem = '../imagensADM/verde.png';
-                                    }
+                                while ($data_r = mysqli_fetch_assoc($result)) {
 
-                                    echo "<td>" . "<img src='$url_imagem' style='width: 0.5em; margin-right: 5%;'>" . $user_data['stat'] . "</td>";
-                                    echo "<td>" . $user_data['fase'] . "</td>";
-                                    echo "<td>" . $user_data['nomecliente'] . "</td>";
-                                    echo "<td>" . $user_data['nomeadvogado'] . "</td>";
-                                    echo "<td>" . $user_data['natureza'] . "</td>";
+                                    $datavencimento = $data_r['vencimento'];
+                                    $datavencimento = date('d/m/Y', strtotime($datavencimento));
+
+                                    echo "</tr>";
+                                    echo "<td>" . $datavencimento . "</td>";
+                                    echo "<td>" . $data_r['categoria1'] . $data_r['categoria2'] . "</td>";
+                                    echo "<td>" . $data_r['subcategoria1'] . $data_r['subcategoria2'] . "</td>";
+                                    echo "<td>" . $data_r['valor'] . "</td>";
+                                    echo "<td>" . $data_r['statuss'] . "</td>";
                                     echo "  <td>
-                                            <a class='btn btn-sm btn-primary' href='processos_edit.php?id=$user_data[id]'>
+                                            <a class='btn btn-sm btn-primary' href='receitas_edit.php?id=$data_r[id]'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
                                                     <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
                                                 </svg>
                                             </a>
-                                            <a class='btn btn-sm btn-danger' href='processos_delete.php?id=$user_data[id]' onclick='confirma()'>
+                                            <a class='btn btn-sm btn-danger' href='receitas_delete.php?id=$data_r[id]' onclick='confirma()'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                                     <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
                                                 </svg>
                                             </a>
-                                            <a class='btn btn-sm btn-secondary' href='processos_view.php?id=$user_data[id]'>
-                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-folder-fill' viewBox='0 0 16 16'>
-                                                    <path d='M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z'/>
+                                            <a class='btn btn-sm btn-success' href='receitas_check.php?id=$data_r[id]'>
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-square-fill' viewBox='0 0 16 16'>
+                                                    <path d='M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z'/>
                                                 </svg>
                                             </a>
                                         </td>";
                                 }
-
                                 ?>
                             </tbody>
                         </table>
@@ -203,26 +213,26 @@ $result = $conn->query($sql);
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
-                <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="../Deashboard/admin.php">
+                    <a class="links" href="../../Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="active">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="links">
+                        <a class="links" href="#">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -232,31 +242,31 @@ $result = $conn->query($sql);
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Agenda/Tarefas/agenda_tarefas.php" class="links">
+                            <a href="../../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Agenda/Prazos/agenda_prazos.php" class="links">
+                            <a href="../../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="../Site_Marketing/site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="#" class="links">
+                        <a href="#" class="active">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -266,12 +276,12 @@ $result = $conn->query($sql);
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
+                            <a href="../Despesas/despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Financeiro/Receitas/receitas.php" class="links">
+                            <a href="receitas.php" class="active">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -289,12 +299,12 @@ $result = $conn->query($sql);
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -337,11 +347,14 @@ $result = $conn->query($sql);
             </ul>
         </div>
         <!--FIM NAVEGAÇÃO-->
+    </div>
 </body>
 <script>
     function confirma(id) {
         if (confirm("Deseja realmente excluir este processo?")) {
-            location.href = "processos_delete.php?id=" + id;
+            location.href = "receitas_delete.php?id=" + id;
+        }else{
+            location.href = "receitas.php";
         }
     }
 </script>

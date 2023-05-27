@@ -46,18 +46,18 @@ if (!$logged) {
     </style>
 </head>
 <?php
-include_once('../conexao_adm.php');
-$id = $_GET['id'];
-$sql = "SELECT * FROM processo WHERE id=$id";
-$rs = mysqli_query($conn, $sql);
-$linha = mysqli_fetch_array($rs);
-?>
-<?php
-include('C:\xampp\htdocs\FragaeMelo\Site Fraga e Melo BootsTrap\config.php');
+    include_once('../conexao_adm.php');
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM processo WHERE id=$id";
+    $rs = mysqli_query($conn, $sql);
+    $linha = mysqli_fetch_array($rs);
+    ?>
+    <?php
+    include('C:\xampp\htdocs\FragaeMelo\Site Fraga e Melo BootsTrap\config.php');
 
-$sql2 = "SELECT * FROM usuario WHERE idusuario=$id";
-$rs2 = mysqli_query($conn, $sql2);
-$linha2 = mysqli_fetch_array($rs2);
+    $sql2 = "SELECT * FROM usuario WHERE idusuario=$id";
+    $rs2 = mysqli_query($conn, $sql2);
+    $linha2 = mysqli_fetch_array($rs2);
 ?>
 
 <body>
@@ -232,7 +232,7 @@ $linha2 = mysqli_fetch_array($rs2);
                         </a>
                     </li>
                     <li>
-                        <a href="/Processos//Processos/processos.php" class="active">
+                        <a href="processos.php" class="active">
                             <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                             <span class="item">Processos</span>
                         </a>
@@ -274,7 +274,7 @@ $linha2 = mysqli_fetch_array($rs2);
                     </li>
                     <div class="dropdown">
                         <li>
-                            <a href="financeiro.php" class="links">
+                            <a href="#" class="links">
                                 <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                                 <span class="item">Financeiro</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor"
@@ -285,12 +285,12 @@ $linha2 = mysqli_fetch_array($rs2);
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="despesas.php" class="links" style="width: 100%;">
+                                <a href="../../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Despesas</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="receitas.php" class="links">
+                                <a href="../../Financeiro/Receitas/receitas.php" class="links">
                                     <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                                 </a>
                             </li>

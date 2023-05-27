@@ -16,9 +16,9 @@ if (!$logged) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
+    <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
-    <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -47,113 +47,116 @@ if (!$logged) {
 </head>
 
 <body>
-<div class="wrapper">
-    <div class="section">
-        <div class="top_navbar">
-            <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
-        </div>
-        <div class="container" id='main'>
-            <form action="processos_add2.php" method="POST">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="bloco3">
-                            <h3 class="text-muted">Cadastrar Processo</h3>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div id="voltar">
-                            <a href="processos.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bloco4">
+    <div class="wrapper">
+        <div class="section">
+            <div class="top_navbar">
+                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+            </div>
+            <div class="container" id='main'>
+                <form action="procuracoes_add.php" method="POST">
                     <div class="row">
-                        <div class="titulo">
-                            <h4 class="title"><b>Processo</b></h4>
+                        <div class="col-10">
+                            <div class="bloco3">
+                                <h3 class="text-muted">Criar procuração</h3>
+                            </div>
                         </div>
-                        <div class="campos">
-                            <input type="text" name="cnjprocesso" id="cnjprocesso" class="form-control" maxlength="25"
-                                   placeholder="Número do processo - CNJ" required>
-                            <script>
-                                const cnjInput = document.getElementById('cnjprocesso');
-                                cnjInput.addEventListener('input', (event) => {
-                                    const input = event.target;
-                                    const value = input.value;
-                                    const newValue = value.replace(/[^\d]/g, ''); // Remove tudo que não for número
-                                    let maskedValue = '';
-                                    if (newValue.length > 7) {
-                                        maskedValue += `${newValue.substring(0, 7)}-`;
-                                        if (newValue.length > 9) {
-                                            maskedValue += `${newValue.substring(7, 9)}.`;
-                                            if (newValue.length > 13) {
-                                                maskedValue += `${newValue.substring(9, 13)}.`;
-                                                if (newValue.length > 14) {
-                                                    maskedValue += `${newValue.substring(13, 14)}.`;
-                                                    if (newValue.length > 18) {
-                                                        maskedValue += `${newValue.substring(14, 18)}-`;
-                                                        if (newValue.length > 18) {
-                                                            maskedValue += `${newValue.substring(18)}`;
-                                                        }
-                                                    } else {
-                                                        maskedValue += `${newValue.substring(14)}`;
-                                                    }
-                                                } else {
-                                                    maskedValue += `${newValue.substring(13)}`;
-                                                }
-                                            } else {
-                                                maskedValue += `${newValue.substring(9)}`;
-                                            }
-                                        } else {
-                                            maskedValue += `${newValue.substring(7)}`;
-                                        }
-                                    } else {
-                                        maskedValue = newValue;
-                                    }
-                                    input.value = maskedValue;
-                                });
-                            </script>
+                        <div class="col-2">
+
                         </div>
                     </div>
-                    <div class="final" style="margin-top: 2%;">
+                    <div class="bloco4">
+                        <div class="row">
+                            <div class="titulo">
+                                <h4 class="title"><b>Selecione o processo:</b></h4>
+                            </div>
+                            <div class="campos">
+                                <?php
+                                include_once('../../conexao_adm.php');
+
+                                $sqlProcesso = "SELECT * FROM processo ORDER BY id ASC";
+                                $resultProcesso = $conn->query($sqlProcesso);
+                                $verificacao = true;
+
+                                if (mysqli_num_rows($resultProcesso) > 0) {
+                                    $verificacao = true;
+
+                                    echo "<select class='form-select' name='nprocesso' id='nprocesso'>";
+
+                                    while ($data_pro = mysqli_fetch_assoc($resultProcesso)) {
+
+                                        $nomecliente = $data_pro['nomecliente'];
+                                        $classeprocesso = $data_pro['classe'];
+                                        $idprocesso = $data_pro['id'];
+
+                                        echo '<option value="' . $idprocesso . '">' . $nomecliente . ' - ' . $classeprocesso . '</option>';
+                                    }
+
+                                    echo "</select>";
+                                } else {
+
+                                    $verificacao = false;
+
+                                    echo "
+                                    <div class='row'>
+                                        <div class='col-4'>
+                                            <small>Nenhum processo cadastrado</small>
+                                        </div>
+                                        <div class='col-2'></div>
+                                        <div class='col-3'></div>
+                                        <div class='col-3'>
+                                            <a href='/Processos//Processos/processos.php'><button type='button' class='btn btn-outline-secondary'>Cadastrar processo</button></a>
+                                        </div>
+                                    </div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
+                    <div class="final">
                         <div class="row">
                             <div class="col-10">
 
                             </div>
                             <div class="col-2">
-                                <div id='voltar'>
-                                    <a href='processos_add2.php'><button type='submit' class='btn btn-success' name='enviar' id='salvar'>Próximo</button></a>
-                                </div>
+                                <?php
+
+                                if ($verificacao == true) {
+
+                                    echo "<div id='voltar'>
+                                            <a href='agenda_tarefas.php'><button type='submit' class='btn btn-success' name='enviar' id='salvar'>Próximo</button></a>
+                                        </div>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
-                <img src="../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
+                <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
             <ul class="lista">
                 <li>
-                    <a class="links" href="../Deashboard/admin.php">
+                    <a class="links" href="../../Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">Deashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="active">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="links">
+                        <a class="links" href="#">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -163,24 +166,24 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Agenda/Tarefas/agenda_tarefas.php" class="links">
+                            <a href="../../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Agenda/Prazos/agenda_prazos.php" class="links">
+                            <a href="../../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
-                    <a href="../Site_Marketing/site_marketing.php" class="links">
+                    <a href="../../Site_Marketing/site_marketing.php" class="links">
                         <span class="icon"><i class="fas fa-network-wired"></i></span>
                         <span class="item">Site</span>
                     </a>
@@ -197,12 +200,12 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
+                            <a href="../../Financeiro/Despesas/despesas.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Financeiro/Receitas/receitas.php" class="links">
+                            <a href="../../Financeiro/Receitas/receitas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -220,12 +223,12 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -233,7 +236,7 @@ if (!$logged) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="#" class="links">
+                        <a href="#" class="active">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -243,17 +246,17 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="procuracoes.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../Declaracoes/declaracao.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>
@@ -268,7 +271,7 @@ if (!$logged) {
             </ul>
         </div>
         <!--FIM NAVEGAÇÃO-->
-</div>
+    </div>
 </body>
 
 </html>

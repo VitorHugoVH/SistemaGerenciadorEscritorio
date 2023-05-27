@@ -284,7 +284,7 @@ if (!$logged) {
             </div>
             </div>
         <!--INÍCIO NAVEGAÇÃO-->
-        <div class="sidebar" style="overflow-y: scroll; ">
+        <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
                 <img src="../../imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
@@ -305,7 +305,7 @@ if (!$logged) {
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="active">
+                        <a class="active" href="#">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -320,26 +320,26 @@ if (!$logged) {
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="links">
+                            <a href="../Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
                             <a href="../Prazos/agenda_prazos.php" class="links">
-                                <span class="item2" style="margin-left: 15%;">../Agenda/</span>
+                                <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
                     </div>
                 </div>
                 <li>
                     <a href="../../Site_Marketing/site_marketing.php" class="links">
-                        <span class="icon"><i class="fas fa-rocket"></i></span>
-                        <span class="item">Marketing</span>
+                        <span class="icon"><i class="fas fa-network-wired"></i></span>
+                        <span class="item">Site</span>
                     </a>
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="financeiro.php" class="links">
+                        <a href="#" class="links">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -349,12 +349,12 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="despesas.php" class="links" style="width: 100%;">
+                            <a href="../../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="receitas.php" class="links">
+                            <a href="../../Financeiro/Receitas/receitas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -372,12 +372,12 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="clientes.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="advogados.php" class="links" style="width: 100%;">
+                            <a href="../../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -388,7 +388,7 @@ if (!$logged) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 33%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
@@ -400,12 +400,12 @@ if (!$logged) {
                             </a>
                         </li>
                         <li>
-                            <a href="declaracoes.php" class="links" style="width: 100%;">
+                            <a href="declaracao.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contrato.php" class="links" style="width: 100%;">
+                            <a href="contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

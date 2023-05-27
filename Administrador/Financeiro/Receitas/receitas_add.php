@@ -8,39 +8,7 @@ if (!$logged) {
   header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-if (!empty($_GET['id'])) {
-
-    include_once('../../conexao_adm.php');
-
-    $id = $_GET['id'];
-
-    $sqlEdit = "SELECT * FROM despesa WHERE id=$id";
-    $resultEdit = $conn->query($sqlEdit);
-
-    if ($resultEdit->num_rows > 0) {
-
-        while ($data = mysqli_fetch_assoc($resultEdit)) {
-
-            $datavencimento = $data['datavencimento'];
-            $valor = $data['valor'];
-            $categoria = $data['categoria'];
-            $categoria2 = $data['categoria2'];
-            $subcategoria = $data['subcategoria'];
-            $subcategoria2 = $data['subcategoria2'];
-            $observacao = $data['observacao'];
-            $situacao = $data['situacao'];
-            $datapagamento = $data['datapagamento'];
-            $juros = $data['juros'];
-            $total = $data['total'];
-            $repetir = $data['repetir'];
-            $parcelas = $data['parcelas'];
-            $anexo = $data['anexo'];
-            $datacriacao = $data['datacriacao'];
-        }
-    }
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +17,7 @@ if (!empty($_GET['id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../../imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -85,7 +53,7 @@ if (!empty($_GET['id'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="despesas_save.php" method="POST">
+                <form action="receitas_insert.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
@@ -94,141 +62,164 @@ if (!empty($_GET['id'])) {
                         </div>
                         <div class="col-2">
                             <div id="voltar">
-                                <a href="despesas.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
+                                <a href="receitas.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
                             </div>
                         </div>
                     </div>
                     <div class="bloco4">
                         <div class="row">
                             <div class="titulo">
-                                <h4 class="title"><b>Cadastrar Despesas</b></h4>
+                                <h4 class="title"><b>Cadastrar Receitas</b></h4>
+                            </div>
+                            <div class="campos">
+                                <div class="row">
+                                    <label for="client1"><b>
+                                            <h6 style="font-family: arial, sans-serif; font-size: 16px;">Cliente</h6>
+                                        </b></label>
+                                    <div class="input-group">
+                                        <select name="client1" id="client1" class="form-select">
+                                            <option>Nenhum</option>
+                                            <?php
+                                            include_once('../../conexao_adm.php');
+
+                                            $sqlClient = "SELECT * FROM clientes ORDER BY id ASC";
+                                            $resultClient = $conn->query($sqlClient);
+
+                                            while ($data_client = mysqli_fetch_assoc($resultClient)) {
+
+                                                echo "<option>" . $data_client['nomecliente'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        <input type="hidden" name="client2" id="client2" class="form-control">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" name="textcli" id="textcli" type="button" onclick="clientadd()">Adicionar</button>
+                                            <button class="btn btn-secondary" name="selectcli" id="selectcli" type="button" onclick="clientselect()" style="display: none;">Selecionar</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="campos">
                                 <label for="vencimento"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Data vencimento</h6>
                                     </b></label>
-                                <input type="date" name="vencimento" id="vencimento" class="form-control" value="<?php echo $datavencimento; ?>" placeholder="00/00/0000">
+                                <input type="date" name="vencimento" id="vencimento" class="form-control" placeholder="__/__/__">
                             </div>
                             <div class="campos">
-                                <label><b>
+                                <label for="valor"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Valor</h6>
                                     </b></label>
-                                <input type="number" name="valor" id="valor" placeholder="0,00" class="form-control" value="<?php echo $valor; ?>">
+                                <input type="number" name="valor" id="valor" class="form-control" placeholder="0,00">
                             </div>
                             <div class="campos">
                                 <div class="row">
-                                    <label for="categoria"><b>
+                                    <label for="categoria1"><b>
                                             <h6 style="font-family: arial, sans-serif; font-size: 16px;">Categoria</h6>
                                         </b></label>
-                                    <div class="col-10">
-                                        <select name="categoria" id="categoria" class="form-control">
-                                            <option value="Impostos" <?= ($categoria == 'Impostos') ? "selected" : ''; ?>>Impostos</option>
-                                            <option value="Infra-estrutura" <?= ($categoria == 'Infra-estrutura') ? "selected" : ''; ?>>Infra-estrutura</option>
+                                    <div class="input-group">
+                                        <select class="form-select" name="categoria1" id="categoria1">
+                                            <option>Recebimentos</option>
                                         </select>
-                                        <input type="hidden" name="categoria2" id="alterar" class="form-control" placeholder="Adicionar outra..." value="<?php echo $categoria2; ?>">
-                                    </div>
-                                    <div class="col-2">
-                                        <button class="btn btn-secondary" name="botao" id="botao" onclick="mudar()" type="button">Adicionar</button>
-                                        <button class="btn btn-secondary" name="botao2" id="botao2" style="display: none;" onclick="mudar2()" type="button">Selecionar</button>
+                                        <input type="hidden" name="categoria2" id="categoria2" class="form-control">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" name="adcategoria" id="adcategoria" type="button" onclick="addcategoria()">Adicionar</button>
+                                            <button class="btn btn-secondary" name="seleccategoria" id="seleccategoria" type="button" onclick="selectcategoria()" style="display: none;">Selecionar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="campos">
                                 <div class="row">
-                                    <label for="subcategoria3"><b>
+                                    <label for="subcategoria1"><b>
                                             <h6 style="font-family: arial, sans-serif; font-size: 16px;">Subcategoria</h6>
                                         </b></label>
-                                    <div class="col-10">
-                                        <select name="subcategoria3" id="subcategoria3" class="form-control">
-                                            <option value="IPTU" <?= ($subcategoria == 'IPTU') ? 'selected' : ''; ?>>IPTU</option>
-                                            <option value="IPVA" <?= ($subcategoria == 'IPVA') ? 'selected' : ''; ?>>IPVA</option>
+                                    <div class="input-group">
+                                        <select class="form-select" name="subcategoria1" id="subcategoria1">
+                                            <option>Pensão alimentícia</option>
+                                            <option>Salário</option>
+                                            <option>Transferência</option>
                                         </select>
-                                        <input type="hidden" name="subcategoria4" id="alterar3" class="form-control" placeholder="Adicionar outra..." value="<?php echo $subcategoria2; ?>">
-                                    </div>
-                                    <div class="col-2">
-                                        <button class="btn btn-secondary" name="botao3" id="botao3" onclick="Sub()" type="button">Adicionar</button>
-                                        <button class="btn btn-secondary" name="botao4" id="botao4" style="display: none;" onclick="Sub2()" type="button">Selecionar</button>
+                                        <input type="hidden" name="subcategoria2" id="subcategoria2" class="form-control">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" type="button" id="adsub" onclick="addsubcategoria()">Adicionar</button>
+                                            <button class="btn btn-secondary" type="button" id="selecsub" style="display: none;" onclick="selectsubcategoria()">Selecionar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="campos">
-                                <label for="desctarefa"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Observação</h6>
+                                <label for="observacoes"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Observações</h6>
                                     </b></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Observação" name="observacoes" id="observacoes"><?php echo $observacao; ?></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Observação" name="observacoes" id="observacoes"></textarea>
                             </div>
                             <div class="campos">
-                                <label><b>
+                                <label for="flexCheckDefault"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Situação</h6>
                                     </b></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="Apagar" id="pagar" name="status" <?= ($situacao == 'Á pagar') ? "checked" : ''; ?> placeholder=".">
+                                    <input class="form-check-input" type="checkbox" value="receber" id="flexCheckDefault" name="status">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        A pagar
+                                        A receber
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="Pago" id="pago" onclick="Check()" name="status" <?= ($situacao == 'Pago') ? "checked" : ''; ?> placeholder=".">
+                                    <input class="form-check-input" type="checkbox" value="recebido" id="flexCheckChecked" onclick="rece()" name="status">
                                     <label class="form-check-label" for="flexCheckChecked">
-                                        Pago
+                                        Recebido
                                     </label>
                                 </div>
                             </div>
                             <div id="campos3" style="margin-top: 2%; margin-bottom: 2%; display: none;">
-                                <label for="datapagamento"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Data do pagamento</h6>
+                                <label><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Data do recebimento</h6>
                                     </b></label>
-                                <input type="date" name="datapagamento" id="datapagamento" class="form-control" placeholder="00/00/0000" value="<?php echo $datapagamento; ?>">
+                                <input type="date" name="recebimentodata" id="recebimentodata" class="form-control" placeholder="__/__/__">
                             </div>
                             <div class="campos">
                                 <label for="juros"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Valor do juros</h6>
                                     </b></label>
-                                <input type="number" name="juros" id="juros" class="form-control" placeholder="0,00" value="<?php echo $juros; ?>">
+                                <input type="number" name="juros" id="juros" placeholder="0,00" class="form-control">
                             </div>
                             <div class="campos">
-                                <label for="total"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Total</h6>
+                                <label for="multa"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Valor da multa</h6>
                                     </b></label>
-                                <input type="number" name="total" id="total" class="form-control" placeholder="0,00" value="<?php echo $total ?>">
+                                <input type="number" name="multa" id="multa" placeholder="0,00" class="form-control">
                             </div>
                             <div class="campos">
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Repetir valor?</h6>
                                     </b></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="uma" id="flexCheckDefault" name="repetir" <?= ($repetir == 'Não Repetir') ? "checked" : '' ?>>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="uma" id="flexChe" name="repetir">
+                                    <label class="form-check-label" for="flexChe">
                                         Desejo inserir este valor apenas um vez
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="repetir" id="flexCheckChecked" onclick="isChecked()" name="repetir" <?= ($repetir == 'Repetir') ? "checked" : '' ?>>
-                                    <label class="form-check-label" for="flexCheckChecked">
+                                    <input class="form-check-input" type="checkbox" value="repetir" id="flexCheck" onclick="isChecked()" name="repetir">
+                                    <label class="form-check-label" for="flexCheck">
                                         Desejo repetir este valor
                                     </label>
                                 </div>
                             </div>
                             <div id="campos2" style="margin-top: 2%; margin-bottom: 2%; display: none;">
-                                <label><b>
+                                <label for="parcelas"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº de parcelas:</h6>
                                     </b></label>
-                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas; ?>">
+                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3">
                             </div>
                         </div>
                     </div>
                     <div class="bloco5">
-                        <div class="row">
-                            <div class="titulo">
-                                <h4 class="title"><b>Anexo</b></h4>
-                            </div>
-                            <div class="campos">
-                                <input type="file" name="anexo" id="anexo" class="form-control" value="<?php echo $anexo ?>" placeholder="<?php echo $anexo ?>">
-                            </div>
-                        </div>
+                        <label for="anexo"><b>
+                                <h6 style="font-family: arial, sans-serif; font-size: 16px;">Anexo</h6>
+                            </b></label>
+                        <input type="file" name="anexo" id="anexo" class="form-control">
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-                    <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
@@ -236,12 +227,12 @@ if (!empty($_GET['id'])) {
                             </div>
                             <div class="col-2">
                                 <div>
-                                    <a href="despesas.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
+                                    <a href="receitas.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="receitas_insert.php"><button type="submit" class="btn btn-success" name="atualizar" id='atualizar'>Atualizar</button></a>
+                                    <a href="receitas_insert.php"><button type="submit" class="btn btn-success" name="salvar" id='salvar'>Salvar</button></a>
                                 </div>
                             </div>
                         </div>
@@ -315,12 +306,12 @@ if (!empty($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="despesas.php" class="active" style="width: 100%;">
+                            <a href="../Despesas/despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Receitas/receitas.php" class="links">
+                            <a href="receitas.php" class="active">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -388,44 +379,58 @@ if (!empty($_GET['id'])) {
         <!--FIM NAVEGAÇÃO-->
     </div>
     <script>
-        function mudar() {
-            document.getElementById('categoria').style.display = "none";
-            document.getElementById('alterar').type = "text";
-            document.getElementById('botao').style.display = "none";
-            document.getElementById('botao2').style.display = "block";
+        function clientadd() {
+            document.getElementById('client1').style.display = "none";
+            document.getElementById('client2').type = "text";
+            document.getElementById('textcli').style.display = "none";
+            document.getElementById('selectcli').style.display = "block";
         }
 
-        function mudar2() {
-            document.getElementById('categoria').style.display = "block";
-            document.getElementById('alterar').type = "hidden";
-            document.getElementById('botao').style.display = "block";
-            document.getElementById('botao2').style.display = "none";
+        function clientselect() {
+            document.getElementById('client1').style.display = "block";
+            document.getElementById('client2').type = "hidden";
+            document.getElementById('textcli').style.display = "block";
+            document.getElementById('selectcli').style.display = "none";
         }
 
-        function Sub() {
-            document.getElementById('subcategoria3').style.display = "none";
-            document.getElementById('alterar3').type = "text";
-            document.getElementById('botao3').style.display = "none";
-            document.getElementById('botao4').style.display = "block";
+        function addcategoria() {
+            document.getElementById('categoria1').style.display = "none";
+            document.getElementById('categoria2').type = "text";
+            document.getElementById('adcategoria').style.display = "none";
+            document.getElementById('seleccategoria').style.display = "block";
         }
 
-        function Sub2() {
-            document.getElementById('subcategoria3').style.display = "block";
-            document.getElementById('alterar3').type = "hidden";
-            document.getElementById('botao3').style.display = "block";
-            document.getElementById('botao4').style.display = "none";
+        function selectcategoria() {
+            document.getElementById('categoria1').style.display = "block";
+            document.getElementById('categoria2').type = "hidden";
+            document.getElementById('adcategoria').style.display = "block";
+            document.getElementById('seleccategoria').style.display = "none";
         }
 
-        function Check() {
-            if (document.getElementById("pago").checked) {
-                document.getElementById("campos3").style.display = "block";
+        function addsubcategoria() {
+            document.getElementById('subcategoria1').style.display = "none";
+            document.getElementById('subcategoria2').type = "text";
+            document.getElementById('adsub').style.display = "none";
+            document.getElementById('selecsub').style.display = "block";
+        }
+
+        function selectsubcategoria() {
+            document.getElementById('subcategoria1').style.display = "block";
+            document.getElementById('subcategoria2').type = "hidden";
+            document.getElementById('adsub').style.display = "block";
+            document.getElementById('selecsub').style.display = "none";
+        }
+
+        function rece() {
+            if (document.getElementById('flexCheckChecked').checked) {
+                document.getElementById('campos3').style.display = "block";
             } else {
-                document.getElementById("campos3").style.display = "none";
+                document.getElementById('campos3').style.display = "none";
             }
         }
 
         function isChecked() {
-            if (document.getElementById("flexCheckChecked").checked) {
+            if (document.getElementById("flexCheck").checked) {
                 document.getElementById("campos2").style.display = "block";
             } else {
                 document.getElementById("campos2").style.display = "none";

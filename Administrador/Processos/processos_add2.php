@@ -580,18 +580,14 @@ if (!empty($numerocnj)) {
                         <a class="links">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16"
-                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links"
-                                style="width: 100%;">
+                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
@@ -601,7 +597,7 @@ if (!empty($numerocnj)) {
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_prazos.php" class="links">
+                            <a href="../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
@@ -615,25 +611,22 @@ if (!empty($numerocnj)) {
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a href="financeiro.php" class="links">
+                        <a href="#" class="links">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16"
-                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="despesas.php" class="links" style="width: 100%;">
+                            <a href="../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="receitas.php" class="links">
+                            <a href="../Financeiro/Receitas/receitas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                             </a>
                         </li>
@@ -644,22 +637,19 @@ if (!empty($numerocnj)) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16"
-                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="clientes.php" class="links" style="width: 100%;">
+                            <a href="../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Clientes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="advogados.php" class="links" style="width: 100%;">
+                            <a href="../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -670,11 +660,8 @@ if (!empty($numerocnj)) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16"
-                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
@@ -690,7 +677,7 @@ if (!empty($numerocnj)) {
                             </a>
                         </li>
                         <li>
-                            <a href="contrato.php" class="links" style="width: 100%;">
+                            <a href="contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

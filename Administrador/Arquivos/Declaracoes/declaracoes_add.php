@@ -1,6 +1,47 @@
 <?php
 include_once('../../conexao_adm.php');
 
+$id = $_POST['nprocesso'];
+
+if (!empty($_POST['nprocesso'])) {
+
+    //DADOS TABELA PROCESSO
+
+    $sqlProcesso = "SELECT * FROM processo WHERE id=$id";
+    $resultProcesso = $conn->query($sqlProcesso);
+
+    while ($data_pro = mysqli_fetch_assoc($resultProcesso)) {
+
+        $nomecliente = $data_pro['nomecliente'];
+    }
+
+    //DADOS TABELA CLIENTE
+
+    $sqlCliente = "SELECT * FROM clientes WHERE nomecliente LIKE '%$nomecliente%'";
+    $resultCliente = $conn->query($sqlCliente);
+
+    while ($data_cli = mysqli_fetch_assoc($resultCliente)) {
+
+        $cpf = $data_cli['cpf'];
+        $sexo = $data_cli['sexo'];
+        $rg = $data_cli['rg'];
+        $estadocivil = $data_cli['estadocivil'];
+        $profissao = $data_cli['profissao'];
+        $nacionalidade = $data_cli['nacionalidade'];
+        $rua = $data_cli['endereco1'];
+        $numerocasa = $data_cli['numerocasa1'];
+        $bairro = $data_cli['bairro1'];
+        $cidade = $data_cli['cidade1'];
+        $estado = $data_cli['estado1'];
+        $endereco = $rua . ", " . $numerocasa . " - " . $bairro . ", " . $cidade . "/" . $estado;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<?php
+
 // VERIFICAÇÃO LOGIN
 session_start();
 $logged = $_SESSION['logged'] ?? NULL;
@@ -9,38 +50,14 @@ if (!$logged) {
   header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
 };
 
-$id = $_GET['id'];
-
-if (isset($_GET['id'])) {
-
-    $sqlEdit = "SELECT * FROM tarefas WHERE id=$id";
-    $resultEdit = $conn->query($sqlEdit);
-
-    if ($resultEdit->num_rows > 0) {
-        while ($user_data = mysqli_fetch_assoc($resultEdit)) {
-            $tipotarefa = $user_data['tipotarefa'];
-            $responsavel = $user_data['advogado'];
-            $prazodate = $user_data['prazo'];
-            $tituloprazo = $user_data['titulo'];
-            $desctarefa = $user_data['tarefa'];
-            $status = $user_data['stat'];
-            $datacriacao = $user_data['datacriacao'];
-        }
-    } else {
-        header('Location: agenda_tarefas.php');
-    }
-}
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="../../../imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -76,105 +93,119 @@ if (isset($_GET['id'])) {
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
-                <form action="tarefas_save.php" method="POST">
+                <form action="declaracoes_view.php" method="POST">
                     <div class="row">
                         <div class="col-10">
                             <div class="bloco3">
-                                <h3 class="text-muted">Adicionar</h3>
+                                <h3 class="text-muted">Criar declaração</h3>
                             </div>
                         </div>
                         <div class="col-2">
-                            <div id="voltar">
-                                <a href="agenda_tarefas.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="bloco4">
                         <div class="row">
                             <div class="titulo">
-                                <h4 class="title"><b>Dados da tarefa</b></h4>
+                                <h4 class="title"><b>Confirmar dados declaração</b></h4>
                             </div>
                             <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tipo tarefa</h6>
-                                    </b></p></label>
-                                <select class="form-select" aria-label="Default select example" name="tipotarefa" id="tipotarefa">
-                                    <option <?= ($tipotarefa == 'Interna') ? 'selected' : '' ?>>Interna</option>
-                                    <option <?= ($tipotarefa == 'Externa') ? 'selected' : '' ?>>Externa</option>
-                                </select>
-                            </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Advogado</h6>
+                                <label for="nomecliente"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nome cliente</h6>
                                     </b></label>
-                                <select name="nomeadvogado" class="form-select">
-                                    <option <?= ($responsavel == 'Não consta') ? 'selected' : '' ?>>Não consta</option>
+                                <select class="form-select" name="nomecliente" id="nomecliente">
                                     <?php
                                     include_once('../../conexao_adm.php');
 
-                                    $sqlAdvogado = "SELECT nome FROM usuario";
-                                    $resultAdvogado = $conn->query($sqlAdvogado);
+                                    $sqlcliente = "SELECT * FROM clientes WHERE nomecliente LIKE '%$nomecliente%'";
+                                    $resultcliente = $conn->query($sqlcliente);
 
-                                    while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
-                                        $nomeadvogado = $advogado['nome'];
+                                    while ($data_cliente = mysqli_fetch_assoc($resultcliente)) {
+                                        $nomecli = $data_cliente['nomecliente'];
 
-                                        if ($responsavel == $nomeadvogado) {
-                                            echo "<option selected>$nomeadvogado</option>";
+                                        if ($nomecli == $nomecliente) {
+                                            echo "<option selected>$nomecli</option>";
                                         } else {
-                                            echo "<option>$nomeadvogado</option>";
+                                            echo "<option>$nomecli</option>";
                                         }
                                     }
                                     ?>
                                 </select>
                             </div>
                             <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Prazo</h6>
+                                <label for="nacionalidade"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nacionalidade</h6>
                                     </b></label>
-                                <input type="date" name="prazodate" id="prazodate" class="form-control" aria-label="Default select example" value="<?php echo $prazodate ?>">
+                                <select class="form-select" name="nacionalidade" id="nacionalidade">
+                                    <option <?= ($nacionalidade == 'brasileiro') ? 'selected' : ' ' ?>>brasileiro</option>
+                                    <option <?= ($nacionalidade == 'argentino') ? 'selected' : ' ' ?>>argentino</option>
+                                    <option <?= ($nacionalidade == 'colombiano') ? 'selected' : ' ' ?>>colombiano</option>
+                                    <option <?= ($nacionalidade == 'peruano') ? 'selected' : ' ' ?>>peruano</option>
+                                    <option <?= ($nacionalidade == 'chileno') ? 'selected' : ' ' ?>>chileno</option>
+                                    <option <?= ($nacionalidade == 'equatoriano') ? 'selected' : ' ' ?>>equatoriano</option>
+                                    <option <?= ($nacionalidade == 'uruguaiano') ? 'selected' : ' ' ?>>uruguaiano</option>
+                                    <option <?= ($nacionalidade == 'venezuelano') ? 'selected' : ' ' ?>>venezuelano</option>
+                                    <option <?= ($nacionalidade == 'boliviano') ? 'selected' : ' ' ?>>boliviano</option>
+                                    <option <?= ($nacionalidade == 'guianense') ? 'selected' : ' ' ?>>guianense</option>
+                                    <option <?= ($nacionalidade == 'surinamense') ? 'selected' : ' ' ?>>surinamense</option>
+                                    <option <?= ($nacionalidade == 'paraguaiano') ? 'selected' : ' ' ?>>paraguaiano</option>
+                                    <option <?= ($nacionalidade == 'franco-guianense') ? 'selected' : ' ' ?>>franco-guianense</option>
+                                </select>
                             </div>
                             <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Título</h6>
+                                <label for="estadocivil"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Estado civil</h6>
                                     </b></label>
-                                <input type="text" name="tituloprazo" id="tituloprazo" class="form-control" placeholder="Título" value="<?php echo $tituloprazo ?>">
+                                <select class="form-select" name="estadocivil" id="estadocivil">
+                                    <option <?= ($estadocivil == 'Solteiro(a)') ? 'selected' : ' ' ?>>Solteiro(a)</option>
+                                    <option <?= ($estadocivil == 'Casado(a)') ? 'selected' : ' ' ?>>Casado(a)</option>
+                                    <option <?= ($estadocivil == 'Separado(a) judicialmente') ? 'selected' : ' ' ?>>Separado(a) judicialmente</option>
+                                    <option <?= ($estadocivil == 'Divorciado(a)') ? 'selected' : ' ' ?>>Divorciado(a)</option>
+                                    <option <?= ($estadocivil == 'Viúvo(a)') ? 'selected' : ' ' ?>>Viúvo(a)</option>
+                                    <option <?= ($estadocivil == 'União estável') ? 'selected' : ' ' ?>>União estável</option>
+                                </select>
                             </div>
                             <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Tarefa</h6>
+                                <label for="profissao"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Profissão do cliente</h6>
                                     </b></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" placeholder="Descrição da tarefa" name="desctarefa"><?php echo $desctarefa ?></textarea>
+                                <input type="text" name="profissaocliente" id="profissaocliente" class="form-control" placeholder="Profissão do cliente" value="<?php echo $profissao ?>">
                             </div>
                             <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">A tarefa foi finalizada?</h6>
+                                <label for="rg"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">RG do cliente</h6>
                                     </b></label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1" id="inlineRadio1" <?= ($status == 'Finalizado') ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="inlineRadio1">Sim</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2" id="inlineRadio2" <?= ($status == 'Não finalizado') ? 'checked' : '' ?>>
-                                    <label class="form-check-label" for="inlineRadio2">Não</label>
-                                </div>
+                                <input type="text" class="form-control" id="rg" name="rg" onkeypress="$(this).mask('00.000.000-0');" placeholder="00.000.000-0" value="<?php echo $rg ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="cpf"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">CPF do cliente</h6>
+                                    </b></label>
+                                <input type="text" class="form-control" id="cpf" name="cpf" onkeypress="$(this).mask('000.000.000-00');" placeholder="000.000.000-00" value="<?php echo $cpf ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="endereco"><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Endereço</h6>
+                                    </b></label>
+                                <input type="text" name="endereco" id="endereco" class="form-control" value="<?php echo $endereco ?>" placeholder="Endereço do cliente">
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="hidden" name="sexo" value="<?php echo $sexo ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
 
                             </div>
                             <div class="col-2">
-                                <div id="salvar">
-                                    <a href="agenda_tarefas.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
+                                <div id="voltar">
+                                    <a href="declaracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="agenda_tarefas.php"><button type="submit" class="btn btn-success" name="update" id='salvar'>Atualizar</button></a>
+                                    <a href="#"><button type="submit" class="btn btn-success" name="enviar" id='salvar'>Próximo</button></a>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +235,7 @@ if (isset($_GET['id'])) {
                 </li>
                 <div class="dropdown">
                     <li>
-                        <a class="active" href="#">
+                        <a class="links" href="#">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -214,17 +245,17 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agenda_tarefas.php" class="active">
+                            <a href="../../Agenda/Tarefas/agenda_tarefas.php" class="links">
                                 <span class="item2" style="margin-left: 15%; width: 100%;">Tarefas</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../Prazos/agenda_prazos.php" class="links">
+                            <a href="../../Agenda/Prazos/agenda_prazos.php" class="links">
                                 <span class="item2" style="margin-left: 15%;">Prazos</span>
                             </a>
                         </li>
@@ -248,7 +279,7 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
+                            <a href="../../Financeiro/Despesas/despesas.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Despesas</span>
                             </a>
                         </li>
@@ -284,7 +315,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="dropdown">
                     <li>
-                        <a href="#" class="links">
+                        <a href="#" class="active">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
@@ -294,17 +325,17 @@ if (isset($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="declaracao.php" class="active" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>
@@ -321,5 +352,13 @@ if (isset($_GET['id'])) {
         <!--FIM NAVEGAÇÃO-->
     </div>
 </body>
+<script>
+    function add() {
+        document.getElementById('classeprocesso').style.display = 'none';
+        document.getElementById('outraclasse').type = 'text';
+        document.getElementById('adicionar').type = 'hidden';
+        document.getElementById('selecionar').type = 'button';
+    }
+</script>
 
 </html>

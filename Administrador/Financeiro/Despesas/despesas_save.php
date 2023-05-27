@@ -1,5 +1,5 @@
 <?php
-    include_once('conexao_adm.php');
+    include_once('../../conexao_adm.php');
 
     if(isset($_POST['atualizar'])){
 
