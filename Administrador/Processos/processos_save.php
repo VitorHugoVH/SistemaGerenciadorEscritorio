@@ -11,6 +11,8 @@ if (isset($_POST['update'])) {
     $poderjudiciario = $_POST['poderjudiciario'];
     $classeprocesso = $_POST['classeprocesso'];
     $naturezaprocesso = $_POST['naturezaprocesso'];
+    $ritoProcessoSelect = $_POST['ritoProcesso'];
+    $ritoProcessoAdd = $_POST['ritoProcessoAdd'];
     $nprocesso = $_POST['nprocesso'];
     $numerovara = $_POST['numerovara'];
     $nomedavara = $_POST['nomedavara'];
@@ -28,6 +30,12 @@ if (isset($_POST['update'])) {
     $advogadoatuando = $_POST['advogadoatuando'];
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
+
+      if ($ritoProcessoAdd != ''){
+            $ritoProcesso = $ritoProcessoAdd;
+        }else {
+            $ritoProcesso = $ritoProcessoSelect;
+        }
 
     if(!empty($outracomarca)) {
         $nomecomarca = $outracomarca;

@@ -83,7 +83,7 @@ if (!$logged) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="../../../index.php" class="link"><button class="button button4">Voltar</button></a>
+                <a href="../../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
                 <form action="compromissos_save.php" method="POST">
@@ -395,17 +395,17 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

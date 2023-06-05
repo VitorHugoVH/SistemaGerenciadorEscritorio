@@ -52,11 +52,11 @@ if (!$logged) {
        <div class="section">
     <div class="top_navbar">
       <div class="hamburger">
-        <a href="#">
+        <a href="#"> 
           <i class="fas fa-bars"></i>
         </a>
       </div>
-      <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+      <a href="../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
     </div>
     <div class="container">
       Sistema de Gerenciamento da Advocacia Fraga e Melo Advogados.
@@ -174,17 +174,17 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

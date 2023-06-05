@@ -119,7 +119,7 @@ if (!empty($_GET['id'])) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+                <a href="../../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
                 <form action="clientes_save.php" method="POST">
@@ -216,8 +216,35 @@ if (!empty($_GET['id'])) {
                                 <label for="numerorg"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">RG</h6>
                                     </b></label>
-                                <input type="text" name="numerorg" id="numerorg" class="form-control" placeholder="Número do RG" value="<?php echo $rg; ?>">
+                                    <input type="text" name="numerorg" id="numerorg" class="form-control" placeholder="Número do RG" onkeyup="formatarRG(this)" value="<?php echo $rg; ?>">
                             </div>
+                            <!--FUNÇÃO PARA FORMATAÇÃO DO CAMPO RG--->
+
+                            <script>
+                                function formatarRG(input) {
+                                    // remove caracteres não numéricos
+                                    let num = input.value.replace(/[^\d]/g, '');
+                            
+                                    // limita o número de caracteres a 9
+                                    num = num.slice(0, 10);
+                            
+                                    // formatação do RG: XX.XXX.XXX-X
+                                    if (num.length > 2) {
+                                        num = num.substring(0, 2) + '.' + num.substring(2);
+                                    }
+                                    if (num.length > 6) {
+                                        num = num.substring(0, 6) + '.' + num.substring(6);
+                                    }
+                                    if (num.length > 10) {
+                                        num = num.substring(0, 10) + '-' + num.substring(10);
+                                    }
+                            
+                                    // atualiza o valor do input com a string formatada
+                                    input.value = num;
+                                }
+                            </script>
+                            
+                            <!--FUNÇÃO PARA FORMATAÇÃO DO CAMPO RG--->
                             <!-- Javascript--->
                             <div id="segundacampos4" style="display: none; margin-top: 0%; margin-bottom: 2%;">
                                 <label for="tipoempresa"><b>
@@ -762,7 +789,7 @@ if (!empty($_GET['id'])) {
                             </a>
                         </li>
                         <li>
-                            <a href="advogados.php" class="links" style="width: 100%;">
+                            <a href="../Advogados/advogados.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Advogados</span>
                             </a>
                         </li>
@@ -780,17 +807,17 @@ if (!empty($_GET['id'])) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

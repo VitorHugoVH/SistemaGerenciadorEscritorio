@@ -23,5 +23,7 @@ if ($row == 1) {
     $_SESSION['logged'] = true;
     header('Location: Administrador/Deashboard/admin.php');
 } else {
+    $_SESSION['erro'] = "Email ou Senha inválidos!";
     header('Location: login.php');
+    exit();
 }

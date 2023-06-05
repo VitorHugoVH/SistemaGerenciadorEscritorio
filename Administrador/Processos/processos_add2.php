@@ -90,7 +90,7 @@ if (!empty($numerocnj)) {
             <div class="top_navbar">
                 <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php"
                     class="link">
-                    <button class="button button4">Voltar</button>
+                    <button class="button button4" href="../../../Site Fraga e Melo BootsTrap/index.php">Voltar</button>
                 </a>
             </div>
             <div class="container" id='main'>
@@ -115,7 +115,7 @@ if (!empty($numerocnj)) {
                                 <h4 class="title"><b>Dados do Processo - Nº <?php echo $numerocnj; ?></b></h4>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Privado</label>
+                                <label class="form-label" for="flexCheckDefault">Privado</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault"
                                         name="naovisualizar">
@@ -125,8 +125,8 @@ if (!empty($numerocnj)) {
                                 </div>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Status do Processo</label>
-                                <select class="form-select" aria-label="Default select example" name="statusprocesso"
+                                <label class="form-label" for="statusprocesso">Status do Processo</label>
+                                <select class="form-select" aria-label="Default select example" name="statusprocesso" id="statusprocesso"
                                     required>
                                     <option selected value="1">Ativo</option>
                                     <option value="2">Suspenso</option>
@@ -134,8 +134,8 @@ if (!empty($numerocnj)) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Fase</label>
-                                <select class="form-select" aria-label="Default select example" name="faseprocesso"
+                                <label class="form-label" for="faseprocesso">Fase</label>
+                                <select class="form-select" aria-label="Default select example" name="faseprocesso" id="faseprocesso"
                                     required>
                                     <option selected value="1">Sem fase</option>
                                     <option value="2">Execução</option>
@@ -144,7 +144,7 @@ if (!empty($numerocnj)) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Poder Judiciário</label>
+                                <label class="form-label" for="poderjudiciario">Poder Judiciário</label>
                                 <select class="form-select" name="poderjudiciario" id="poderjudiciario" required>
                                     <option value="1"
                                         <?= $poder == 'Supremo Tribunal Federal' ? 'selected' : ' ' ?>>Supremo Tribunal
@@ -174,7 +174,7 @@ if (!empty($numerocnj)) {
                             </div>
                             <div class="campos">
                                 <div class="row">
-                                    <label for="client1"><b>
+                                    <label for="classeprocesso"><b>
                                             <h6 style="font-family: arial, sans-serif; font-size: 16px;">Classe
                                                 processual</h6>
                                         </b></label>
@@ -220,7 +220,7 @@ if (!empty($numerocnj)) {
                             </div>
                             <!---Javascript Falecido--->
                             <div id="falecidoarea" style="  margin-top: 1%; margin-bottom: 2%; display: none;">
-                                <label class="form-label">Nome do falecido</label>
+                                <label class="form-label" for="nomefalecido">Nome do falecido</label>
                                 <input type="text" name="nomefalecido" id="nomefalecido" class="form-control"
                                     placeholder="Nome do falecido">
                             </div>
@@ -235,9 +235,9 @@ if (!empty($numerocnj)) {
                             </script>
                             <!---Javascript Falecido Final--->
                             <div class="campos">
-                                <label class="form-label">Natureza da ação</label>
+                                <label class="form-label" for="naturezaprocesso">Natureza da ação</label>
                                 <select class="form-select" aria-label="Default select example"
-                                    name="naturezaprocesso" required>
+                                    name="naturezaprocesso" id="naturezaprocesso" required>
                                     <option value="1">Civil</option>
                                     <option value="2">Criminal</option>
                                     <option value="3">Família</option>
@@ -248,13 +248,58 @@ if (!empty($numerocnj)) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Nº da Vara</label>
-                                <input type="text" maxlength="7" class="form-control" name="numerovara"
-                                    id="numerovara" placeholder="0000000ª" onkeyup="formatarVara(this)" required>
+                                <label class="form-label" for="ritoProcesso">Rito</label>
+                                <div class="row">
+                                    <div class="input-group">
+                                        <select name="ritoProcesso" id="ritoProcesso" class="form-select" style="display: block;" required>
+                                            <option>Não definido</option>
+                                            <option>Especial</option>
+                                            <option>Ordinário</option>
+                                            <option>Sumário</option>
+                                            <option>Sumaríssimo</option>
+                                        </select>
+                                        <input type="hidden" name="ritoProcessoAdd" id="ritoProcessoAdd"
+                                            class="form-control" placeholder="Rito">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" name="txtritoProcesso" id="txtritoProcesso"
+                                                type="button" onclick="AdicionarRito()" style="display: block;">Adicionar
+                                            </button>
+                                            <button class="btn btn-secondary" name="selecionarRito" id="selecionarRito"
+                                                type="button" onclick="SelecionarRito()"
+                                                style="display: none;">Selecionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--ADICIONAR OUTRO CAMPO RITO DO PROCESSO--->
+                                <script>
+                                    function AdicionarRito() {
+                                        document.getElementById("ritoProcesso").style.display = "none";
+                                        document.getElementById("txtritoProcesso").style.display = "none";
+                                        document.getElementById("ritoProcessoAdd").type = "text";
+                                        document.getElementById("selecionarRito").style.display = "block";
+                                    }
+
+                                    function SelecionarRito() {
+                                        document.getElementById("ritoProcesso").style.display = "block";
+                                        document.getElementById("txtritoProcesso").style.display = "block";
+                                        document.getElementById("ritoProcessoAdd").type = "hidden";
+                                        document.getElementById("selecionarRito").style.display = "none";
+                                    }
+                                </script>
+                                <!--FIM ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
+                            </div>
+                            <div class="campos">
+                                <label class="form-label" for="numerovara">Nº da Vara</label>
+                                <input type="text" maxlength="4" class="form-control" name="numerovara"
+                                    id="numerovara" placeholder="000ª" onkeyup="formatarVara(this)" required>
                                 <script>
                                     function formatarVara(input) {
                                         // remove caracteres não numéricos
                                         let num = input.value.replace(/[^\d]/g, '');
+
+                                        // limita o número de caracteres a 4
+                                        num = num.slice(0, 4);
 
                                         // adiciona 'ª' como último caractere, se houver número
                                         if (num) {
@@ -267,7 +312,7 @@ if (!empty($numerocnj)) {
                                 </script>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Vara do Processo</label>
+                                <label class="form-label" for="nomedavara">Vara do Processo</label>
                                 <div class="row">
                                     <div class="input-group">
                                         <select name="nomedavara" id="nomedavara" class="form-control" required>
@@ -371,12 +416,12 @@ if (!empty($numerocnj)) {
                                 </div>
                             </div>
                             <div class="campos">
-                              <label class="form-label">Valor da causa</label>
+                              <label class="form-label" for="valorCausa">Valor da causa</label>
                               <input type="text" id="valorCausa" name="valorCausa" class="form-control"
-                                  value="R$ 0,00" required />
+                                  value="R$ 0,00" maxlength="14" required />
                             </div>
                             <div class="campos">
-                                <label class="form-label">Data da abertura</label>
+                                <label class="form-label" for="dateabertura">Data da abertura</label>
                                 <input type="date" name="dateabertura" id="dateabertura" class="form-control"
                                     value="<?php echo $valor_data; ?>" required>
                             </div>
@@ -384,7 +429,7 @@ if (!empty($numerocnj)) {
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Observações</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações"
-                                        name="observacoes" required></textarea>
+                                        name="observacoes" maxlength="150" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -395,9 +440,9 @@ if (!empty($numerocnj)) {
                                 <h4 class="title"><b>Honorários</b></h4>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Valor Honorário</label>
+                                <label class="form-label" for="valorhonorario">Valor Honorário</label>
                                 <input type="text" id="valorhonorario" name="valorhonorario" class="form-control"
-                                    value="R$ 0,00" required />
+                                    value="R$ 0,00" maxlength="14" required />
                             </div>
                               <script>
                                 var inputCausa = document.getElementById('valorCausa');
@@ -442,10 +487,22 @@ if (!empty($numerocnj)) {
                             <div class="campos">
                                 <label for="parcelas">Parcelas</label>
                                 <input type="number" name="parcelas" id="parcelas" class="form-control"
-                                    value="1" placeholder="3" required />
+                                    value="1" maxlength="3" placeholder="3" required />
                             </div>
+                            <!---FUNÇÃO PARA LIMITAR NÚMERO DE PARCELAS--->
+
+                            <script>
+                                document.getElementById("parcelas").addEventListener("input", function() {
+                                    var maxLength = 3;
+                                    if (this.value.length > maxLength) {
+                                        this.value = this.value.slice(0, maxLength);
+                                    }
+                                });
+                            </script>
+
+                            <!---FUNÇÃO PARA LIMITAR NÚMERO DE PARCELAS--->
                             <div class="campos">
-                                <label class="form-label">Adicionar Receita</label>
+                                <label class="form-label" for="flexCheckDefault">Adicionar Receita</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="flexCheckDefault"
                                         name="cadreceita">
@@ -462,8 +519,8 @@ if (!empty($numerocnj)) {
                                 <h4 class="title"><b>Cliente</b></h4>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Posição do cliente</label>
-                                <select class="form-select" aria-label="Default select example" name="posicaocliente"
+                                <label class="form-label" for="posicaocliente">Posição do cliente</label>
+                                <select class="form-select" aria-label="Default select example" name="posicaocliente" id="posicaocliente"
                                     required>
                                     <option selected value="1">Adverso</option>
                                     <option value="2">Advogado</option>
@@ -479,7 +536,7 @@ if (!empty($numerocnj)) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label class="form-label">Cliente</label>
+                                <label class="form-label" for="nomecliente">Cliente</label>
                                 <select name="nomecliente" id="nomecliente" class="form-select" required>
                                     <option value="Não declarado">Selecione</option>
                                     <?php
@@ -503,30 +560,81 @@ if (!empty($numerocnj)) {
                             </div>
                             <div class="campos">
                                 <div class="outro">
-                                    <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Advogado</span>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="dis
+                                            block;">Adicionar</button>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro1" style="display: none;">Membro</span>
                                         </div>
                                         <select name="advogadoatuando" class="form-select" required>
                                             <option selected>Não consta</option>
                                             <?php
                                             include_once '../conexao_adm.php';
                                             
-                                            $sqlAdvogado = 'SELECT nome FROM usuario';
+                                            $sqlAdvogado = 'SELECT * FROM usuario';
                                             $resultAdvogado = $conn->query($sqlAdvogado);
                                             
                                             while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
                                                 $nomeadvogado = $advogado['nome'];
+                                                $numeroOAB = $advogado['oab'];
                                             
-                                                echo "<option>$nomeadvogado</option>";
+                                                echo "<option>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
                                             }
                                             ?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="campos">
+                                <div id="outroAdvogado" style="display: none; margin-top: 2%;">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro1">Membro</span>
+                                        </div>
+                                        <select name="segundoAdvogado" id="segundoAdvogado" class="form-select" required>
+                                            <option selected>Não consta</option>
+                                            <?php
+                                            include_once '../conexao_adm.php';
+                                            
+                                            $sqlAdvogado = 'SELECT * FROM usuario';
+                                            $resultAdvogado = $conn->query($sqlAdvogado);
+                                            
+                                            while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
+                                                $nomeadvogado = $advogado['nome'];
+                                                $numeroOAB = $advogado['oab'];
+                                            
+                                                echo "<option>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        <button type="button" class="btn btn-danger" name="excluirAdvogado" id="excluirAdvogado" onclick="deletarAdvogado()"><i class="fa-solid fa-trash fa-spin fa-spin-reverse"></i></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!--CÓDIGO PARA ADICIONAR OUTROS CAMPOS DE ADVOGADOS-->
+
+                    <script>
+                        function outroAdvogado1() {
+                            document.getElementById("outroAdvogado").style.display = "block";
+                            document.getElementById("botaoAddAdvogado").style.display = "none";
+                            document.getElementById("campoMembro1").style.display = "block";
+                        }
+
+                        function deletarAdvogado() {
+                            document.getElementById("outroAdvogado").style.display = "none";
+                            document.getElementById("botaoAddAdvogado").style.display = "block";
+                            document.getElementById("campoMembro1").style.display = "none";
+                            document.getElementById("segundoAdvogado").value = "Não consta";
+                        }
+                    </script>
+
+                    <!--CÓDIGO PARA ADICIONAR OUTROS CAMPOS DE ADVOGADOS-->
+
                     <input type="hidden" name="mes" value="<?php echo date('F/Y'); ?>">
                     <input type="hidden" name="numeroprocessocnj" value="<?php echo $numerocnj; ?>">
                     <div class="final">
@@ -667,17 +775,17 @@ if (!empty($numerocnj)) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

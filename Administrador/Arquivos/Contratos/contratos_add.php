@@ -104,7 +104,7 @@ if (!empty($_POST['nprocesso'])) {
 <div class="wrapper">
   <div class="section">
     <div class="top_navbar">
-      <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+      <a href="../../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
     </div>
     <div class="container" id='main'>
       <form action="contratos_view.php" method="POST">

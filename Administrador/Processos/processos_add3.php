@@ -16,6 +16,8 @@ if (isset($_POST['enviar'])) {
   $poderjudiciario = $_POST['poderjudiciario'];
   $classe = $_POST['classeprocesso'];
   $natureza = $_POST['naturezaprocesso'];
+  $ritoProcessoSelect = $_POST['ritoProcesso'];
+  $ritoProcessoAdd = $_POST['ritoProcessoAdd'];
   $nprocesso = $_POST['numeroprocessocnj'];
   $numerovara = $_POST['numerovara'];
   $nomedavara = $_POST['nomedavara'];
@@ -31,8 +33,15 @@ if (isset($_POST['enviar'])) {
   $posicao = $_POST['posicaocliente'];
   $nomecliente = $_POST['nomecliente'];
   $nomeadvogado = $_POST['advogadoatuando'];
+  $segundoAdvogado = $_POST['segundoAdvogado'];
   $nomefalecido = $_POST['nomefalecido'];
   $mes = $_POST['mes'];
+
+  if ($ritoProcessoAdd != ''){
+    $ritoProcesso = $ritoProcessoAdd;
+  }else {
+    $ritoProcesso = $ritoProcessoSelect;
+  }
 
   if ($cadreceita != 'on') {
     $cadreceita = 'Desligado';
@@ -180,8 +189,8 @@ if (isset($_POST['enviar'])) {
 
   $result = mysqli_query(
     $conn,
-    "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, natureza, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
-        VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$natureza', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+    "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
+        VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
   );
 
   header('Location: processos.php');

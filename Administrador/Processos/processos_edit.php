@@ -16,6 +16,7 @@ if (!empty($_GET['id'])) {
             $poderjudiciario = $user_data['poderjudiciario'];
             $classe = $user_data['classe'];
             $natureza = $user_data['natureza'];
+            $ritoProcesso = $user_data['ritoProcesso'];
             $nprocesso = $user_data['nprocesso'];
             $numerovara = $user_data['numerovara'];
             $nomedavara = $user_data['nomedavara'];
@@ -28,7 +29,8 @@ if (!empty($_GET['id'])) {
             $ob = $user_data['observacoes'];
             $posicao = $user_data['posicaocliente'];
             $nomecliente = $user_data['nomecliente'];
-            $nomeadvogado = $user_data['nomeadvogado'];
+            $nomeAdvogado = $user_data['nomeadvogado'];
+            $segundoAdvogado = $user_data['segundoAdvogado'];
             $nomefalecido = $user_data['falecido'];
         }
     } else {
@@ -89,7 +91,7 @@ if (!$logged) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php"
+                <a href="../../../Site Fraga e Melo BootsTrap/index.php"
                     class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
@@ -258,6 +260,48 @@ if (!$logged) {
                                 </select>
                             </div>
                             <div class="campos">
+                                <label class="form-label" for="ritoProcesso">Rito</label>
+                                <div class="row">
+                                    <div class="input-group">
+                                        <select name="ritoProcesso" id="ritoProcesso" class="form-select" style="display: block;" required>
+                                            <option <?= ($ritoProcesso == 'Não definido')?'selected':' ' ?>>Não definido</option>
+                                            <option <?= ($ritoProcesso == 'Especial')?'selected':' ' ?>>Especial</option>
+                                            <option <?= ($ritoProcesso == 'Ordinário')?'selected':' ' ?>>Ordinário</option>
+                                            <option <?= ($ritoProcesso == 'Sumário')?'selected':' ' ?>>Sumário</option>
+                                            <option <?= ($ritoProcesso == 'Sumaríssimo')?'selected':' ' ?>>Sumaríssimo</option>
+                                        </select>
+                                        <input type="hidden" name="ritoProcessoAdd" id="ritoProcessoAdd"
+                                            class="form-control" placeholder="Rito" value="<?php echo $ritoProcesso; ?>">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" name="txtritoProcesso" id="txtritoProcesso"
+                                                type="button" onclick="AdicionarRito()" style="display: block;">Adicionar
+                                            </button>
+                                            <button class="btn btn-secondary" name="selecionarRito" id="selecionarRito"
+                                                type="button" onclick="SelecionarRito()"
+                                                style="display: none;">Selecionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--ADICIONAR OUTRO CAMPO RITO DO PROCESSO--->
+                                <script>
+                                    function AdicionarRito() {
+                                        document.getElementById("ritoProcesso").style.display = "none";
+                                        document.getElementById("txtritoProcesso").style.display = "none";
+                                        document.getElementById("ritoProcessoAdd").type = "text";
+                                        document.getElementById("selecionarRito").style.display = "block";
+                                    }
+
+                                    function SelecionarRito() {
+                                        document.getElementById("ritoProcesso").style.display = "block";
+                                        document.getElementById("txtritoProcesso").style.display = "block";
+                                        document.getElementById("ritoProcessoAdd").type = "hidden";
+                                        document.getElementById("selecionarRito").style.display = "none";
+                                    }
+                                </script>
+                                <!--FIM ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
+                            </div>
+                            <div class="campos">
                                 <label class="form-label">Nº de identificação</label>
                                 <input type="text" name="nprocesso" id="nprocesso" class="form-control"
                                     maxlength="25" placeholder="Número do processo - CNJ" value="<?php echo $nprocesso; ?>"
@@ -303,23 +347,26 @@ if (!$logged) {
                             </div>
                             <div class="campos">
                                 <label class="form-label">Nº da Vara</label>
-                                <input type="text" maxlength="7" class="form-control" name="numerovara"
-                                    id="numerovara" placeholder="0000000ª" onkeyup="formatarVara(this)"
+                                <input type="text" maxlength="4" class="form-control" name="numerovara"
+                                    id="numerovara" placeholder="000ª" onkeyup="formatarVara(this)"
                                     value="<?php echo $numerovara; ?>" required>
-                                <script>
-                                    function formatarVara(input) {
-                                        // remove caracteres não numéricos
-                                        let num = input.value.replace(/[^\d]/g, '');
-
-                                        // adiciona 'ª' como último caractere, se houver número
-                                        if (num) {
-                                            num += 'ª';
+                                    <script>
+                                        function formatarVara(input) {
+                                            // remove caracteres não numéricos
+                                            let num = input.value.replace(/[^\d]/g, '');
+    
+                                            // limita o número de caracteres a 4
+                                            num = num.slice(0, 4);
+    
+                                            // adiciona 'ª' como último caractere, se houver número
+                                            if (num) {
+                                                num += 'ª';
+                                            }
+    
+                                            // atualiza o valor do input com a string formatada
+                                            input.value = num;
                                         }
-
-                                        // atualiza o valor do input com a string formatada
-                                        input.value = num;
-                                    }
-                                </script>
+                                    </script>
                             </div>
                         </div>
                         <div class="campos">
@@ -523,6 +570,18 @@ if (!$logged) {
                                 <input type="number" name="parcelas" id="parcelas" class="form-control"
                                     placeholder="3" value="<?php echo $parcelas; ?>" required />
                             </div>
+                            <!---FUNÇÃO PARA LIMITAR NÚMERO DE PARCELAS--->
+
+                            <script>
+                                document.getElementById("parcelas").addEventListener("input", function() {
+                                    var maxLength = 3;
+                                    if (this.value.length > maxLength) {
+                                        this.value = this.value.slice(0, maxLength);
+                                    }
+                                });
+                            </script>
+
+                            <!---FUNÇÃO PARA LIMITAR NÚMERO DE PARCELAS--->
                             <div class="campos">
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
@@ -598,35 +657,88 @@ if (!$logged) {
                             </div>
                             <div class="campos">
                                 <div class="outro">
-                                    <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">Advogado</span>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="dis
+                                            block;">Adicionar</button>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro1" style="display: none;">Membro</span>
                                         </div>
                                         <select name="advogadoatuando" class="form-select" required>
-                                            <option <?= $nomeadvogado == 'Não consta' ? 'selected' : '' ?>>Não consta
-                                            </option>
+                                            <option selected>Não consta</option>
                                             <?php
                                             include_once '../conexao_adm.php';
                                             
-                                            $sqlAdvogado = 'SELECT nome FROM usuario';
+                                            $sqlAdvogado = 'SELECT * FROM usuario';
                                             $resultAdvogado = $conn->query($sqlAdvogado);
                                             
                                             while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
-                                                $nome = $advogado['nome'];
+                                                $nomeadvogado = $advogado['nome'];
+                                                $numeroOAB = $advogado['oab'];
                                             
-                                                if ($nomeadvogado == $nome) {
-                                                    echo "<option selected>$nome</option>";
-                                                } else {
-                                                    echo "<option>$nome</option>";
-                                                }
-                                            }
+                                                if($nomeadvogado == $nomeAdvogado){
+                                                    echo "<option selected>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                                }else {
+                                                    echo "<option>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                                }                                            }
                                             ?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="campos">
+                                <div id="outroAdvogado" style="display: none; margin-top: 2%;">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro1">Membro</span>
+                                        </div>
+                                        <select name="segundoAdvogado" id="segundoAdvogado" class="form-select" required>
+                                            <option selected>Não consta</option>
+                                            <?php
+                                            include_once '../conexao_adm.php';
+                                            
+                                            $sqlAdvogado = 'SELECT * FROM usuario';
+                                            $resultAdvogado = $conn->query($sqlAdvogado);
+                                            
+                                            while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
+                                                $nomeadvogado = $advogado['nome'];
+                                                $numeroOAB = $advogado['oab'];
+                                            
+                                                if($nomeadvogado == $segundoAdvogado){
+                                                    echo "<option selected>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                                }else {
+                                                     echo "<option>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                        <button type="button" class="btn btn-danger" name="excluirAdvogado" id="excluirAdvogado" onclick="deletarAdvogado()"><i class="fa-solid fa-trash fa-spin fa-spin-reverse"></i></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!--CÓDIGO PARA ADICIONAR OUTROS CAMPOS DE ADVOGADOS-->
+
+                    <script>
+                        function outroAdvogado1() {
+                            document.getElementById("outroAdvogado").style.display = "block";
+                            document.getElementById("botaoAddAdvogado").style.display = "none";
+                            document.getElementById("campoMembro1").style.display = "block";
+                        }
+
+                        function deletarAdvogado() {
+                            document.getElementById("outroAdvogado").style.display = "none";
+                            document.getElementById("botaoAddAdvogado").style.display = "block";
+                            document.getElementById("campoMembro1").style.display = "none";
+                            document.getElementById("segundoAdvogado").value = "Não consta";
+                        }
+                    </script>
+
+                    <!--CÓDIGO PARA ADICIONAR OUTROS CAMPOS DE ADVOGADOS-->
+
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
@@ -762,17 +874,17 @@ if (!$logged) {
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="procuracoes.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Procuração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="declaracao.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Declaração</span>
                             </a>
                         </li>
                         <li>
-                            <a href="contratos.php" class="links" style="width: 100%;">
+                            <a href="../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Contrato</span>
                             </a>
                         </li>

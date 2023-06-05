@@ -103,16 +103,14 @@ if (isset($_POST['enviar'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../../imagens/icon.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/35qnw3mr7vfcivpkll7h2mly3vod8u7kh8ujfb0q3qur0e4j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         .sidebar::-webkit-scrollbar {
             width: 10px;
@@ -129,6 +127,13 @@ if (isset($_POST['enviar'])) {
             /* Define a opacidade da barra de rolagem */
         }
     </style>
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            plugins: 'autoresize',
+            menubar: false,
+        });
+    </script>
     <title>Fraga e Melo Advogados Associados</title>
 </head>
 
@@ -136,7 +141,7 @@ if (isset($_POST['enviar'])) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+                <a href="../../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
                 <form action="declaracoes_create.php" method="POST" target="_blanck">

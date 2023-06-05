@@ -64,7 +64,7 @@ if (!$logged) {
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar">
-                <a href="/Users/vh007/OneDrive/%C3%81rea%20de%20Trabalho/Tudo/Site%20TCC/Site%20Fraga%20e%20Melo%20BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
+                <a href="../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
             </div>
             <div class="container" id='main'>
                 <div class="row">
@@ -142,7 +142,13 @@ if (!$logged) {
                                 <div class="row">
                                     <tr>
                                         <th class="linhas">Valor da causa</th>
-                                        <td class="linhas"><?php echo $linha['valor']; ?></td>
+                                        <td class="linhas"><?php echo $linha['valorCausa']; ?></td>
+                                    </tr>
+                                </div>
+                                <div class="row">
+                                    <tr>
+                                        <th class="linhas">Valor honorário</th>
+                                        <td class="linhas"><?php echo $linha['valorHonorario'] ?></td>
                                     </tr>
                                 </div>
                                 <div class="row">
@@ -333,17 +339,17 @@ if (!$logged) {
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="procuracoes.php" class="links" style="width: 100%;">
+                                <a href="../Arquivos/Procuracoes/procuracoes.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Procuração</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="declaracao.php" class="links" style="width: 100%;">
+                                <a href="../Arquivos/Declaracoes/declaracoes.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Declaração</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="contrato.php" class="links" style="width: 100%;">
+                                <a href="../Arquivos/Contratos/contratos.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Contrato</span>
                                 </a>
                             </li>
