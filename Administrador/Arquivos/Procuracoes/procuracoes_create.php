@@ -22,7 +22,7 @@ $dompdf->loadHtml('
     ' . $conteudo . '
 ');
 
-// (Optional) Setup the paper size and orientation
+// (Optional) Setup the paper size and orientation cu
 $dompdf->setPaper('A4', 'portrait');
 
 // Render the HTML as PDF
