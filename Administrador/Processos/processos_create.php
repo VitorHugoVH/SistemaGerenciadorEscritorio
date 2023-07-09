@@ -4,22 +4,80 @@ include_once('../conexao_adm.php');
 //DADOS PROCURAÇÃO
 
 if (isset($_POST['enviar'])) {
+    $idProcesso = $_POST['idProcesso'];
+    $statusProcesso = isset($_POST['statusProcesso']) ? 'on' : '';
+    $faseProcesso = isset($_POST['faseProcesso']) ? 'on' : '';
+    $poderProcesso = isset($_POST['poderProcesso']) ? 'on' : '';
+    $classeProcesso = isset($_POST['classeProcesso']) ? 'on' : '';
+    $naturezaProcesso = isset($_POST['naturezaProcesso']) ? 'on' : '';
+    $ritoProcesso = isset($_POST['ritoProcesso']) ? 'on' : '';
+    $varaProcesso = isset($_POST['varaProcesso']) ? 'on' : '';
+    $comarcaProcesso = isset($_POST['comarcaProcesso']) ? 'on' : '';
+    $valorCausaProcesso = isset($_POST['valorCausaProcesso']) ? 'on' : '';
+    $aberturaProcesso = isset($_POST['aberturaProcesso']) ? 'on' : '';
+    $valorHonorarioProcesso = isset($_POST['valorHonorarioProcesso']) ? 'on' : '';
+    $parcelasProcesso = isset($_POST['parcelasProcesso']) ? 'on' : '';
+    $observacoesProcesso = isset($_POST['observacoesProcesso']) ? 'on' : '';
 
-    $statusProcesso = $_POST['statusProcesso'];
-    $faseProcesso = $_POST['faseProcesso'];
-    $poderProcesso = $_POST['poderProcesso'];
-    $classeProcesso = $_POST['classeProcesso'];
-    $naturezaProcesso = $_POST['naturezaProcesso'];
-    $ritoProcesso = $_POST['ritoProcesso'];
-    $varaProcesso = $_POST['varaProcesso'];
-    $comarcaProcesso = $_POST['comarcaProcesso'];
-    $valorCausaProcesso = $_POST['valorCausaProcesso'];
-    $aberturaProcesso = $_POST['aberturaProcesso'];
-    $valorHonorarioProcesso = $_POST['valorHonorarioProcesso'];
-    $parcelasProcesso = $_POST['parcelasProcesso'];
-    $observacoesProcesso = $_POST['observacoesProcesso'];
+    // Variável para armazenar os dados da tabela
+    $DadosTabelaProcesso = '';
 
-    $numeroProcesso = isset($_POST['numeroProcesso']) ? $_POST['numeroProcesso'] : '';
+    // Array contendo as variáveis
+    $variaveis = array(
+        'stat' => $statusProcesso,
+        'fase' => $faseProcesso,
+        'poderjudiciario' => $poderProcesso,
+        'classe' => $classeProcesso,
+        'natureza' => $naturezaProcesso,
+        'ritoProcesso' => $ritoProcesso,
+        'nomedavara' => $varaProcesso,
+        'nomedacomarca' => $comarcaProcesso,
+        'valorCausa' => $valorCausaProcesso,
+        'dataa' => $aberturaProcesso,
+        'valorHonorario' => $valorHonorarioProcesso,
+        'parcelas' => $parcelasProcesso,
+        'observacoes' => $observacoesProcesso
+    );
+
+    // Array associativo com mapeamento de nomes para a tabela
+    $nomesTabela = array(
+        'stat' => 'Status',
+        'fase' => 'Fase',
+        'poderjudiciario' => 'Poder Judiciário',
+        'classe' => 'Classe',
+        'natureza' => 'Natureza',
+        'ritoProcesso' => 'Rito do Processo',
+        'nomedavara' => 'Nome da Vara',
+        'nomedacomarca' => 'Nome da Comarca',
+        'valorCausa' => 'Valor da Causa',
+        'dataa' => 'Data de Abertura',
+        'valorHonorario' => 'Valor do Honorário',
+        'parcelas' => 'Parcelas',
+        'observacoes' => 'Observações'
+    );
+
+    // Loop para verificar e armazenar os dados na variável
+    foreach ($variaveis as $nome => $valor) {
+        if ($valor == 'on') {
+            $buscaDados = "SELECT $nome FROM processo WHERE id='$idProcesso'";
+            $resultado = $conn->query($buscaDados);
+
+            if ($resultado) {
+                $dados = mysqli_fetch_assoc($resultado);
+                $valorBanco = $dados[$nome];
+                $nomeTabela = $nomesTabela[$nome]; // Obter o nome da tabela a partir do array associativo
+
+                // Verificar se o valor não está vazio antes de adicionar à tabela
+                if ($valorBanco != '') {
+                    $DadosTabelaProcesso .= '<tr>';
+                    $DadosTabelaProcesso .= '<td style="border: 1px solid black; padding: 8px;">' . $nomeTabela . '</td>';
+                    $DadosTabelaProcesso .= '<td style="border: 1px solid black; padding: 8px;">' . $valorBanco . '</td>';
+                    $DadosTabelaProcesso .= '</tr>';
+                }
+            }
+        }
+    }
+
     $nomePrimeiroAdvogado = isset($_POST['nomePrimeiroAdvogado']) ? $_POST['nomePrimeiroAdvogado'] : '';
     $nomeSegundoAdvogado = isset($_POST['nomeSegundoAdvogado']) ? $_POST['nomeSegundoAdvogado'] : '';
     $nomeCliente = isset($_POST['nomeCliente']) ? $_POST['nomeCliente'] : '';
@@ -62,46 +120,6 @@ if (isset($_POST['enviar'])) {
         $telefone2 = $dados_adv2['telefone1'];
         $emailAdvogado2 = $dados_adv2['email1'];
     }
-
-    // BUSCAR DADOS PROCESSO
-
-    if (isset($_POST[$numeroProcesso])) {
-    $sqlBuscaProcesso = "SELECT * FROM processo WHERE nprocesso='$numeroProcesso'";
-    $resultBusca = $conn->query($sqlBuscaProcesso);
-
-        while ($data = mysqli_fetch_assoc($resultBusca)) {
-            /*VERIFICAR STATUS DOS DADOS RECEBIDOS NO FORMULÁRIO*/
-            $fields = array(
-                'status' => $statusProcesso,
-                'fase' => $faseProcesso,
-                'poderjudiciario' => $poderProcesso,
-                'classe' => $classeProcesso,
-                'natureza' => $naturezaProcesso,
-                'ritoProcesso' => $ritoProcesso,
-                'nomedavara' => $varaProcesso,
-                'nomedacomarca' => $comarcaProcesso,
-                'valorCausa' => $valorCausaProcesso,
-                'dataa' => $aberturaProcesso,
-                'valorHonorario' => $valorHonorarioProcesso,
-                'parcelas' => $parcelasProcesso,
-                'observacoes' => $observacoesProcesso
-            );
-
-            $additionalRow = '';
-
-            foreach ($fields as $field => $value) {
-                if (isset($data[$field])) {
-                    ${$field} = $data[$field];
-                    $additionalRow .= '<tr>
-                                            <td style="border: 1px solid black; padding: 8px;">'. ucfirst($field) .'</td>
-                                            <td style="border: 1px solid black; padding: 8px;">'. ${$field} .'</td>
-                                    </tr>';
-                } else {
-                    ${$field} = 'null';
-                }
-            }
-        }
-
         // RENDERIZAR AS TABELAS PARTES
 
         $clienteRow = '
@@ -120,9 +138,6 @@ if (isset($_POST['enviar'])) {
             <td style="border: 1px solid black; padding: 8px;">'. $emailAdvogado1 .'</td>
         </tr>';
 
-        $advogadoRow = '';
-        $advogadoRow2 = '';
-
         if ($nomeAdvogado2 != 'Não consta') {
             $advogadoRow2 = '
                 <tr>
@@ -135,7 +150,6 @@ if (isset($_POST['enviar'])) {
         } else {
             $DadosTabelaPartes = $clienteRow . $advogadoRow;
         }
-    }
 
 require_once ('../dompdf/autoload.inc.php');
 
@@ -160,7 +174,7 @@ $html = '<div style="overflow: auto;">
 <h4 style="font-weight: bold; margin-top: 50px; margin-bottom: 0px;">Dados Processuais</h4>
 <hr style="clear: both; margin-top: 0px;"></hr>
 <table style="border-collapse: collapse; width: 100%;">
-    '.  $additionalRow .'
+   '. $DadosTabelaProcesso .'
 </table>
 <h4 style="font-weight: bold; margin-top: 20px; margin-bottom: 0px;">Partes</h4>
 <hr style="clear: both; margin-top: 0px;"></hr>

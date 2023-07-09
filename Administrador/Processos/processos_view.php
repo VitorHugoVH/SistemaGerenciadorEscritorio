@@ -331,6 +331,7 @@ $linha2 = mysqli_fetch_array($rs2);
                             <input type="hidden" name="nomePrimeiroAdvogado" value="<?php echo $nomePrimeiroAdvogado ?>">
                             <input type="hidden" name="nomeSegundoAdvogado" value="<?php echo $nomeSegundoAdvogado ?>">
                             <input type="hidden" name="nomeCliente" value="<?php echo $nomeCliente ?>">
+                            <input type="hidden" name="idProcesso" value="<?php echo $id ?>">
 
                         <!--ENVIO INPUTS COM INFORMAÇÕES IMPORTANTES-->
                     </form>
