@@ -28,6 +28,8 @@ if (isset($_POST['update'])) {
     $posicaocliente = $_POST['posicaocliente'];
     $nomecliente = $_POST['nomecliente'];
     $advogadoatuando = $_POST['advogadoatuando'];
+    $segundoAdvogado = $_POST['segundoAdvogado'];
+    $terceiroAdvogado = $_POST['terceiroAdvogado'];
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
 
@@ -203,7 +205,7 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
+    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
     WHERE id='$id'";
 
     $result = $conn->query($sqlUpdate);

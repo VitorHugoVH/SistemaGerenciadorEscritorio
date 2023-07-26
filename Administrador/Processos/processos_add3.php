@@ -34,6 +34,7 @@ if (isset($_POST['enviar'])) {
   $nomecliente = $_POST['nomecliente'];
   $nomeadvogado = $_POST['advogadoatuando'];
   $segundoAdvogado = $_POST['segundoAdvogado'];
+  $terceiroAdvogado = $_POST['terceiroAdvogado'];
   $nomefalecido = $_POST['nomefalecido'];
   $mes = $_POST['mes'];
 
@@ -189,8 +190,8 @@ if (isset($_POST['enviar'])) {
 
   $result = mysqli_query(
     $conn,
-    "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
-        VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+    "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
+        VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
   );
 
   header('Location: processos.php');

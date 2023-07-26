@@ -2,11 +2,11 @@
 
 // VERIFICAÇÃO LOGIN
 session_start();
-$logged = $_SESSION['logged'] ?? NULL;
+$logged = $_SESSION['logged'] ?? null;
 
 if (!$logged) {
     header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
-};
+}
 
 ?>
 <!DOCTYPE html>
@@ -47,90 +47,93 @@ if (!$logged) {
 </head>
 
 <body>
-<div class="wrapper">
-    <div class="section">
-        <div class="top_navbar">
-            <a href="../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button class="button button4">Voltar</button></a>
-        </div>
-        <div class="container" id='main'>
-            <form action="processos_add2.php" method="POST">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="bloco3">
-                            <h3 class="text-muted">Cadastrar Processo</h3>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div id="voltar">
-                            <a href="processos.php"><button type="button" class="btn btn-secondary" id='voltar1'>Volar</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="bloco4">
+    <div class="wrapper">
+        <div class="section">
+            <div class="top_navbar">
+                <a href="../../../Site Fraga e Melo BootsTrap/index.php" class="link"><button
+                        class="button button4">Voltar</button></a>
+            </div>
+            <div class="container" id='main'>
+                <form action="processos_add2.php" method="POST">
                     <div class="row">
-                        <div class="titulo">
-                            <h4 class="title"><b>Processo</b></h4>
+                        <div class="col-10">
+                            <div class="bloco3">
+                                <h3 class="text-muted">Cadastrar Processo</h3>
+                            </div>
                         </div>
-                        <div class="campos">
-                            <input type="text" name="cnjprocesso" id="cnjprocesso" class="form-control" maxlength="25"
-                                   placeholder="Número do processo - CNJ" required>
-                            <script>
-                                const cnjInput = document.getElementById('cnjprocesso');
-                                cnjInput.addEventListener('input', (event) => {
-                                    const input = event.target;
-                                    const value = input.value;
-                                    const newValue = value.replace(/[^\d]/g, ''); // Remove tudo que não for número
-                                    let maskedValue = '';
-                                    if (newValue.length > 7) {
-                                        maskedValue += `${newValue.substring(0, 7)}-`;
-                                        if (newValue.length > 9) {
-                                            maskedValue += `${newValue.substring(7, 9)}.`;
-                                            if (newValue.length > 13) {
-                                                maskedValue += `${newValue.substring(9, 13)}.`;
-                                                if (newValue.length > 14) {
-                                                    maskedValue += `${newValue.substring(13, 14)}.`;
-                                                    if (newValue.length > 18) {
-                                                        maskedValue += `${newValue.substring(14, 18)}-`;
+                        <div class="col-2">
+                            <div id="voltar">
+                                <a href="processos.php"><button type="button" class="btn btn-secondary"
+                                        id='voltar1'>Volar</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bloco4">
+                        <div class="row">
+                            <div class="titulo">
+                                <h4 class="title"><b>Processo</b></h4>
+                            </div>
+                            <div class="campos">
+                                <input type="text" name="cnjprocesso" id="cnjprocesso" class="form-control"
+                                    maxlength="25" placeholder="Número do processo - CNJ" required>
+                                <script>
+                                    const cnjInput = document.getElementById('cnjprocesso');
+                                    cnjInput.addEventListener('input', (event) => {
+                                        const input = event.target;
+                                        const value = input.value;
+                                        const newValue = value.replace(/[^\d]/g, ''); // Remove tudo que não for número
+                                        let maskedValue = '';
+                                        if (newValue.length > 7) {
+                                            maskedValue += `${newValue.substring(0, 7)}-`;
+                                            if (newValue.length > 9) {
+                                                maskedValue += `${newValue.substring(7, 9)}.`;
+                                                if (newValue.length > 13) {
+                                                    maskedValue += `${newValue.substring(9, 13)}.`;
+                                                    if (newValue.length > 14) {
+                                                        maskedValue += `${newValue.substring(13, 14)}.`;
                                                         if (newValue.length > 18) {
-                                                            maskedValue += `${newValue.substring(18)}`;
+                                                            maskedValue += `${newValue.substring(14, 18)}-`;
+                                                            if (newValue.length > 18) {
+                                                                maskedValue += `${newValue.substring(18)}`;
+                                                            }
+                                                        } else {
+                                                            maskedValue += `${newValue.substring(14)}`;
                                                         }
                                                     } else {
-                                                        maskedValue += `${newValue.substring(14)}`;
+                                                        maskedValue += `${newValue.substring(13)}`;
                                                     }
                                                 } else {
-                                                    maskedValue += `${newValue.substring(13)}`;
+                                                    maskedValue += `${newValue.substring(9)}`;
                                                 }
                                             } else {
-                                                maskedValue += `${newValue.substring(9)}`;
+                                                maskedValue += `${newValue.substring(7)}`;
                                             }
                                         } else {
-                                            maskedValue += `${newValue.substring(7)}`;
+                                            maskedValue = newValue;
                                         }
-                                    } else {
-                                        maskedValue = newValue;
-                                    }
-                                    input.value = maskedValue;
-                                });
-                            </script>
-                        </div>
-                    </div>
-                    <div class="final" style="margin-top: 2%;">
-                        <div class="row">
-                            <div class="col-10">
-
+                                        input.value = maskedValue;
+                                    });
+                                </script>
                             </div>
-                            <div class="col-2">
-                                <div id='voltar'>
-                                    <a href='processos_add2.php'><button type='submit' class='btn btn-success' name='enviar' id='salvar'>Próximo</button></a>
+                        </div>
+                        <div class="final" style="margin-top: 2%;">
+                            <div class="row">
+                                <div class="col-10">
+
+                                </div>
+                                <div class="col-2">
+                                    <div id='voltar'>
+                                        <a href='processos_add2.php'><button type='submit' class='btn btn-success'
+                                                name='enviar' id='salvar'>Próximo</button></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-            </form>
+                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y'); ?>">
+                </form>
+            </div>
         </div>
-    </div>
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
             <div class="profile">
@@ -156,14 +159,17 @@ if (!$logged) {
                         <a class="links">
                             <span class="icon"><i class="fas fa-calendar-days"></i></span>
                             <span class="item">Agenda</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 40%;" width="16"
+                                height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
                     <div class="dropdown-content">
                         <li>
-                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links" style="width: 100%;">
+                            <a href="../Agenda/Compromissos/agenda_compromissos.php" class="links"
+                                style="width: 100%;">
                                 <span class="item2" style="margin-left: 15%;">Compromissos</span>
                             </a>
                         </li>
@@ -190,8 +196,11 @@ if (!$logged) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                             <span class="item">Financeiro</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 27%;" width="16"
+                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
@@ -213,8 +222,11 @@ if (!$logged) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-users"></i></span>
                             <span class="item">Equipe</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 41%;" width="16"
+                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
@@ -236,8 +248,11 @@ if (!$logged) {
                         <a href="#" class="links">
                             <span class="icon"><i class="fas fa-file"></i></span>
                             <span class="item">Arquivos</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16" height="13" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 32%;" width="16"
+                                height="13" fill="currentColor" class="bi bi-caret-down-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                             </svg>
                         </a>
                     </li>
@@ -268,7 +283,7 @@ if (!$logged) {
             </ul>
         </div>
         <!--FIM NAVEGAÇÃO-->
-</div>
+    </div>
 </body>
 
 </html>

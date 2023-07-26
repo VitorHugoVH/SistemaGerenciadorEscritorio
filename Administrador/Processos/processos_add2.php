@@ -558,6 +558,9 @@ if (!empty($numerocnj)) {
                             <div class="titulo">
                                 <h4 class="title"><b>Advogado / Equipe</b></h4>
                             </div>
+
+                            <!--CAMPO PRIMEIRO ADVOGADO--->
+
                             <div class="campos">
                                 <div class="outro">
                                     <div class="input-group input-group-sm">
@@ -587,11 +590,18 @@ if (!empty($numerocnj)) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!--CAMPO SEGUNDO ADVOGADO--->
+
                             <div class="campos">
                                 <div id="outroAdvogado" style="display: none; margin-top: 2%;">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="campoMembro1">Membro</span>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado2" type="button" class="botaoAddAdvogado" onclick="outroAdvogado2()" style="dis
+                                            block;">Adicionar</button>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro2" style="display: none;">Membro</span>
                                         </div>
                                         <select name="segundoAdvogado" id="segundoAdvogado" class="form-select" required>
                                             <option selected>Não consta</option>
@@ -609,7 +619,36 @@ if (!empty($numerocnj)) {
                                             }
                                             ?>
                                         </select>
-                                        <button type="button" class="btn btn-danger" name="excluirAdvogado" id="excluirAdvogado" onclick="deletarAdvogado()"><i class="fa-solid fa-trash fa-spin fa-spin-reverse"></i></i></button>
+                                        <button type="button" class="btn btn-danger" name="excluirAdvogado1" id="excluirAdvogado1" onclick="deletarAdvogado()"><i class="fa-solid fa-trash fa-spin fa-spin-reverse"></i></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--CAMPO TERCEIRO ADVOGADO--->
+
+                            <div class="campos">
+                                <div id="terceiroAdvogado" style="display: none; margin-top: 2%;">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="campoMembro1">Membro</span>
+                                        </div>
+                                        <select name="terceiroAdvogado" id="terceiroAdvogado" class="form-select" required>
+                                            <option selected>Não consta</option>
+                                            <?php
+                                            include_once '../conexao_adm.php';
+                                            
+                                            $sqlAdvogado = 'SELECT * FROM usuario';
+                                            $resultAdvogado = $conn->query($sqlAdvogado);
+                                            
+                                            while ($advogado = mysqli_fetch_assoc($resultAdvogado)) {
+                                                $nomeadvogado = $advogado['nome'];
+                                                $numeroOAB = $advogado['oab'];
+                                            
+                                                echo "<option>" . $nomeadvogado . " - " . $numeroOAB . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        <button type="button" class="btn btn-danger" name="excluirAdvogado2" id="excluirAdvogado2" onclick="deletarAdvogado2()"><i class="fa-solid fa-trash fa-spin fa-spin-reverse"></i></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -630,6 +669,20 @@ if (!empty($numerocnj)) {
                             document.getElementById("botaoAddAdvogado").style.display = "block";
                             document.getElementById("campoMembro1").style.display = "none";
                             document.getElementById("segundoAdvogado").value = "Não consta";
+                        }
+
+                        function outroAdvogado2() {
+                           document.getElementById("botaoAddAdvogado2").style.display = "none";
+                           document.getElementById("campoMembro2").style.display = "block";
+                           document.getElementById("excluirAdvogado1").style.display = "none";
+                           document.getElementById("terceiroAdvogado").style.display = "block";
+                        }
+
+                        function deletarAdvogado2() {
+                            document.getElementById("botaoAddAdvogado2").style.display = "block";
+                           document.getElementById("campoMembro2").style.display = "none";
+                           document.getElementById("excluirAdvogado1").style.display = "block";
+                           document.getElementById("terceiroAdvogado").style.display = "none";
                         }
                     </script>
 
