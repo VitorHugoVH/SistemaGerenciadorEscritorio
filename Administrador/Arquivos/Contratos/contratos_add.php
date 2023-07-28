@@ -25,7 +25,9 @@ if (!empty($_POST['nprocesso'])) {
         $nprocesso = $data_pro['nprocesso'];
         $numerovara = $data_pro['numerovara'];
         $parcelas = $data_pro['parcelas'];
-        $valorcausa = $data_pro['valor'];
+        $valorcausa = $data_pro['valorHonorario'];
+        $nomeVara = $data_pro['nomedavara'];
+        $valorHonorario = $data_pro['valorHonorario'];
     }
 
     //DADOS TABELA CLIENTE
@@ -144,92 +146,11 @@ if (!empty($_POST['nprocesso'])) {
                                 </select>
                             </div>
                             <div class="campos">
-                                <label for="nomeadvogado"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Contratado(s)</h6>
-                                    </b></label>
-                                <?php
-                                include_once '../../conexao_adm.php';
-                                
-                                $sqlUsuario = 'SELECT * FROM usuario';
-                                $resultUsuario = $conn->query($sqlUsuario);
-                                
-                                while ($data_user = mysqli_fetch_assoc($resultUsuario)) {
-                                    $nomeadv = $data_user['nome'];
-                                
-                                    if ($nomeadv == $nomeadvogado) {
-                                        echo '<div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">' . $nomeadv .'</label>
-                                            </div>';
-                                    } else {
-                                        echo '<div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">' . $nomeadv .'</label>
-                                            </div>';
-                                    }
-                                }
-                                ?>
-                            </div>
-                            <div class="campos">
-                                <div class="row">
-                                    <label for="client1"><b>
-                                            <h6 style="font-family: arial, sans-serif; font-size: 16px;">Classe
-                                                processual</h6>
-                                        </b></label>
-                                    <div class="input-group">
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="classeprocesso" id="classeprocesso" onchange="nfalecido()">
-                                            <option <?= $classeprocesso == 'Ação de cobrança' ? 'selected' : ' ' ?>>Ação
-                                                de cobrança</option>
-                                            <option <?= $classeprocesso == 'Ação de despejo' ? 'selected' : ' ' ?>>Ação
-                                                de despejo</option>
-                                            <option <?= $classeprocesso == 'Ação de indenização' ? 'selected' : ' ' ?>>
-                                                Ação de indenização</option>
-                                            <option <?= $classeprocesso == 'Divórcio' ? 'selected' : ' ' ?>>Divórcio
-                                            </option>
-                                            <option
-                                                <?= $classeprocesso == 'Execução de alimentos' ? 'selected' : ' ' ?>>
-                                                Execução de alimentos</option>
-                                            <option
-                                                <?= $classeprocesso == 'Impugnação do valor da causa' ? 'selected' : ' ' ?>>
-                                                Impugnação do valor da causa</option>
-                                            <option
-                                                <?= $classeprocesso == 'Processo de inventário' ? 'selected' : ' ' ?>>
-                                                Processo de inventário</option>
-                                        </select>
-                                        <input type="hidden" name="outraclasse" id="outraclasse" class="form-control"
-                                            placeholder="Nome da classe">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-secondary" name="textclass" id="textclass"
-                                                type="button" onclick="classeadd()">Adicionar</button>
-                                            <button class="btn btn-secondary" name="selectclass" id="selectclass"
-                                                type="button" onclick="classeselect()"
-                                                style="display: none;">Selecionar</button>
-                                        </div>
-                                        <script>
-                                            function classeadd() {
-                                                document.getElementById('classeprocesso').style.display = "none";
-                                                document.getElementById('outraclasse').type = "text";
-                                                document.getElementById('textclass').style.display = "none";
-                                                document.getElementById('selectclass').style.display = "block";
-                                            }
-
-                                            function classeselect() {
-                                                document.getElementById('classeprocesso').style.display = "block";
-                                                document.getElementById('outraclasse').type = "hidden";
-                                                document.getElementById('textclass').style.display = "block";
-                                                document.getElementById('selectclass').style.display = "none";
-                                            }
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="campos">
-                                <label for="nomeadvogado"><b>
+                                <label for="numeroprocesso"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº Identificação
                                             processo</h6>
                                     </b></label>
-                                <input type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0"
+                                <input id="numeroprocesso" name="numeroprocesso" type="text" class="form-control" id="cnj" placeholder="0000.00.000000-0"
                                     oninput="this.value = mascaraCNJ(this.value)" maxlength="16" minlength="16"
                                     value="<?php echo $nprocesso; ?>" required>
                                 <script>
@@ -258,6 +179,58 @@ if (!empty($_POST['nprocesso'])) {
                                 </script>
                             </div>
                             <div class="campos">
+                                <label class="form-label" for="nomedavara">Vara do Processo</label>
+                                <div class="row">
+                                    <div class="input-group">
+                                        <select name="nomedavara" id="nomedavara" class="form-control" required>
+                                            <option <?= $nomeVara == 'Vara Cívil' ? 'selected' : '' ?>>Vara Cívil</option>
+                                            <option <?= $nomeVara == 'Vara Criminal' ? 'selected' : '' ?>>Vara Criminal</option>
+                                            <option <?= $nomeVara == 'Vara da Família' ? 'selected' : '' ?>>Vara da Família</option>
+                                            <option <?= $nomeVara == 'Vara do Trabalho' ? 'selected' : '' ?>>Vara do Trabalho</option>
+                                            <option <?= $nomeVara == 'Vara da Infância e Juventude' ? 'selected' : '' ?>>Vara da Infância e Juventude</option>
+                                            <option <?= $nomeVara == 'Vara de Execução Penal' ? 'selected' : '' ?>>Vara de Execução Penal</option>
+                                        </select>
+                                        <input type="hidden" name="outronomedavara" id="outronomedavara"
+                                            class="form-control" placeholder="Vara processo">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary" name="txtnomedavara" id="txtnomedavara"
+                                                type="button" onclick="adicionar()">Adicionar
+                                            </button>
+                                            <button class="btn btn-secondary" name="selnomedavara" id="selnomedavara"
+                                                type="button" onclick="selecionar()"
+                                                style="display: none;">Selecionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
+                                <script>
+                                    // RECEBER E DECLARAR VARIÁVEIS
+
+                                    let camposelectvara = document.getElementById('nomedavara');
+                                    let campotextvara = document.getElementById('outronomedavara');
+                                    let botaoadicionar = document.getElementById('txtnomedavara');
+                                    let botaoselecionar = document.getElementById('selnomedavara');
+
+                                    // DEFINIR AS FUNÇÕES
+
+                                    function adicionar() {
+                                        camposelectvara.style.display = 'none';
+                                        campotextvara.type = 'text';
+                                        botaoadicionar.style.display = 'none';
+                                        botaoselecionar.style.display = 'block';
+                                    }
+
+                                    function selecionar() {
+                                        camposelectvara.style.display = 'block';
+                                        campotextvara.type = 'hidden';
+                                        botaoadicionar.style.display = 'block';
+                                        botaoselecionar.style.display = 'none';
+                                    }
+                                </script>
+                                <!--FIM ADICIONAR OUTRO CAMPO VARA DO PROCESSO--->
+                            </div>
+                            <div class="campos">
                                 <label for="nomeadvogado"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº da Vara</h6>
                                     </b></label>
@@ -280,71 +253,74 @@ if (!empty($_POST['nprocesso'])) {
                                 </script>
                             </div>
                             <div class="campos">
-                                <label for="nomeadvogado"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Órgão Judicial</h6>
-                                    </b></label>
-                                <input type="text" class="form-control" name="orgaojudicial" id="orgaojudicial"
-                                    placeholder="Ex: Tribunal de Justiça do Estado de São Paulo">
-                            </div>
-                            <!---Javascript Falecido--->
-                            <div id="falecidoarea" style="  margin-top: 1%; margin-bottom: 2%; display: none;">
-                                <label class="form-label">Nome do falecido</label>
-                                <input type="text" name="nomefalecido" id="nomefalecido" class="form-control"
-                                    placeholder="Nome do falecido" value="<?php echo $nomefalecido; ?>">
+                                <label class="form-label" for="valorhonorario">Valor Honorário</label>
+                                <input type="text" id="valorhonorario" name="valorhonorario" class="form-control"
+                                    value="<?php echo $valorHonorario ?>" maxlength="14" required />
                             </div>
                             <script>
-                                function nfalecido() {
-                                    if (document.getElementById('classeprocesso').value == 'Processo de inventário') {
-                                        document.getElementById('falecidoarea').style.display = 'block';
-                                    } else {
-                                        document.getElementById('falecidoarea').style.display = 'none';
-                                    }
-                                }
-                            </script>
-                            <!---Javascript Falecido Final--->
-                            <div class="campos">
-                                <label class="form-label">Valor da causa</label>
-                                <input type="text" id="valorcausa" name="valorcausa" class="form-control"
-                                    value="<?php echo $valorcausa; ?>" />
-                            </div>
-                            <script>
-                                var input = document.getElementById('valorcausa');
-
-                                input.addEventListener('input', function() {
-                                    var valor = this.value;
-
+                                var inputHonorario = document.getElementById('valorhonorario');
+                            
+                                inputHonorario.addEventListener('input', function() {
+                                    formatarValor(this);
+                                });
+                            
+                                function formatarValor(input) {
+                                    var valor = input.value;
+                            
                                     // Remove tudo que não é dígito
                                     valor = valor.replace(/\D/g, '');
-
+                            
                                     // Adiciona a vírgula para separar os centavos
                                     valor = valor.slice(0, -2) + ',' + valor.slice(-2);
-
+                            
                                     // Adiciona o símbolo R$
                                     valor = 'R$ ' + valor;
-
+                            
                                     // Atualiza o valor do input
-                                    this.value = valor;
-
+                                    input.value = valor;
+                            
                                     // Verifica se o valor mínimo foi atingido
                                     var valorNumerico = parseFloat(valor.replace(/[^0-9,-]+/g, "").replace(",", "."));
                                     if (valorNumerico < 100) {
-                                        this.setCustomValidity('O valor mínimo é R$ 100,00');
+                                        input.setCustomValidity('O valor mínimo é R$ 100,00');
                                     } else {
-                                        this.setCustomValidity('');
+                                        input.setCustomValidity('');
                                     }
-                                });
+                                }
+                            
+                                // Chama a função de formatação inicialmente
+                                formatarValor(inputHonorario);
                             </script>
                             <div class="campos">
                                 <label for="nomeadvogado"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Parcelas</h6>
                                     </b></label>
                                 <input type="number" name="parcelas" id="parcelas" class="form-control"
-                                    placeholder="3" value="<?php echo $parcelas; ?>" />
+                                    placeholder="3" value="<?php echo $parcelas; ?>" max="24" min="1" maxlength="2" required />
                             </div>
+                            <div class="campos">
+                                <label for="primeiroPagamento"><b><h6 style="font-family: arial, sans-serif; font-size: 16px;">Data Primeiro Pagamento</h6></b></label>
+                                <input type="date" class="form-control" id="primeiroPagamento" name="primeiroPagamento" required>
+                            </div>
+                          
+                            <!--DEFINIR DATA PARA PAGAMENTO HOJE-->
+
+                            <script>
+                                // Obtém a data atual
+                                var dataAtual = new Date();
+                            
+                                // Formata a data atual para o formato 'YYYY-MM-DD'
+                                var ano = dataAtual.getFullYear();
+                                var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+                                var dia = String(dataAtual.getDate()).padStart(2, '0');
+                                var dataFormatada = `${ano}-${mes}-${dia}`;
+                            
+                                // Define o valor padrão da data no input
+                                document.getElementById('primeiroPagamento').value = dataFormatada;
+                            </script>
+                            
                         </div>
                     </div>
-                    <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y'); ?>">
-                    <input type="hidden" name="sexo" value="<?php echo $sexo; ?>">
                     <div class="final">
                         <div class="row">
                             <div class="col-8">
@@ -519,13 +495,4 @@ if (!empty($_POST['nprocesso'])) {
         <!--FIM NAVEGAÇÃO-->
     </div>
 </body>
-<script>
-    function add() {
-        document.getElementById('classeprocesso').style.display = 'none';
-        document.getElementById('outraclasse').type = 'text';
-        document.getElementById('adicionar').type = 'hidden';
-        document.getElementById('selecionar').type = 'button';
-    }
-</script>
-
 </html>

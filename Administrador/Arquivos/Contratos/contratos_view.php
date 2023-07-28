@@ -19,18 +19,62 @@ include_once('../../conexao_adm.php');
 if (isset($_POST['enviar'])) {
 
     $nomecliente = $_POST['nomecliente'];
-    $sexo = $_POST['sexo'];
-    $nacionalidade = $_POST['nacionalidade'];
-    $estadocivil = $_POST['estadocivil'];
-    $profissao = $_POST['profissaocliente'];
-    $portador = "portador";
-    $representar = 'representá-lo';
-    $cedula = $_POST['rg'];
-    $cpf = $_POST['cpf'];
-    $endereco = $_POST['endereco'];
-    $advogado = $_POST['nomeadvogado'];
-    $classeprocesso = $_POST['classeprocesso'];
-    $falecido = $_POST['nomefalecido'];
+    $numeroProcesso = $_POST['numeroprocesso'];
+    $varadoProcesso = $_POST['nomedavara'];
+    $numeroVara = $_POST['numerovara'];
+    $valorHonorario = $_POST['valorhonorario'];
+    $parcelas = $_POST['parcelas'];
+    $primeiroPagamento = $_POST['primeiroPagamento'];
+    
+    // Remover o "R$" da string
+    $valorSemCifrao = str_replace("R$", "", $valorHonorario);
+
+    // Converter o valor em float
+    $valorHonorarioFloat = floatval($valorSemCifrao);
+
+    // Formatar o valor com duas casas decimais
+    $valorHonorarioSemCifrao = number_format($valorHonorarioFloat, 2, ',', '');
+
+    // Array associativo com os valores por extenso de 1 a 12
+    $extenso = array(
+        1 => "um",
+        2 => "dois",
+        3 => "três",
+        4 => "quatro",
+        5 => "cinco",
+        6 => "seis",
+        7 => "sete",
+        8 => "oito",
+        9 => "nove",
+        10 => "dez",
+        11 => "onze",
+        12 => "doze",
+        13 => "treze",
+        14 => "catorze",
+        15 => "quinze",
+        16 => "dezesseis",
+        17 => "dezessete",
+        18 => "dezoito",
+        19 => "dezenove",
+        20 => "vinte",
+        21 => "vinte e um",
+        22 => "vinte e dois",
+        23 => "vinte e três",
+        24 => "vinte e quatro"
+    );
+    
+
+    // Verificar se o valor da variável $parcelas está no intervalo de 1 a 12
+    if ($parcelas >= 1 && $parcelas <= 24) {
+        // Atribuir o valor por extenso à variável $parcelasExtenso
+        $parcelasExtenso = $extenso[$parcelas];
+    } else {
+        // Caso o valor esteja fora do intervalo, atribuir uma mensagem padrão
+        $parcelasExtenso = "Valor inválido";
+    }
+
+    // FORMATAÇÃO DAS DATAS
+
     $dia = date('d');
     $mes = date('M');
     $ano = date('Y');
@@ -52,86 +96,31 @@ if (isset($_POST['enviar'])) {
         'Dec' => 'Dezembro'
     );
 
+        // FORMATAÇÃO DIAS DE PAGAMENTO HONORÁRIOS
 
-    //FORMATAÇÃO ESTADO CIVIL
+        // Tratamento do valor de $valorHonorarioSemCifrao para garantir que seja numérico
+        $valorHonorarioSemCifrao = str_replace(',', '.', $valorHonorarioSemCifrao);
 
-    switch ($estadocivil) {
-        case 'Solteiro(a)':
-            $estadocivil = 'solteiro';
-            break;
-        case 'Casado(a)':
-            $estadocivil = 'casado';
-            break;
-        case 'Separado(a) judicialmente':
-            $estadocivil = 'separado';
-            break;
-        case 'Divorciado(a)':
-            $estadocivil = 'divorciado';
-            break;
-        case 'Viúvo(a)':
-            $estadocivil = 'viúvo';
-            break;
-        case 'União estável':
-            $estadocivil = 'união estável';
-    }
+        // Verifica se $primeiroPagamento é uma data válida
+        if (strtotime($primeiroPagamento) !== false) {
+            $distribuicaoHonorarios = array();
+            $valorParcela = (float) $valorHonorarioSemCifrao / $parcelas;
+            $valorParcela = number_format($valorParcela, 2, '.', ''); // Arredonda para 2 casas decimais
 
-    //FORMATAÇÃO SEXO CARACTERES
+            // Converte a data do primeiro pagamento para um objeto DateTime
+            $dataPrimeiroPagamento = new DateTime($primeiroPagamento);
 
-    if ($sexo == 'Feminino') {
+            for ($i = 1; $i <= $parcelas; $i++) {
+                $dataVencimento = $dataPrimeiroPagamento->format('d/m/Y');
+                $valorParcelaFormatado = number_format($valorParcela, 2, ',', '.'); // Formata o valor com 2 casas decimais
+                $descricaoParcela = "{$i}) A ({$i}ª) parcela na quantia de R$ {$valorParcelaFormatado} a ser paga com vencimento para o dia {$dataVencimento};";
+                $distribuicaoHonorarios[] = $descricaoParcela;
 
-        //NACIONALIDADE
-        $letrafinalnacionalidade = substr($nacionalidade, -1);
-        $nacionalidade = str_replace($letrafinalnacionalidade, 'a', $nacionalidade);
-
-        //ESTADO CIVIL
-        if ($estadocivil != 'união estável') {
-            $letrafinalestadocivil = substr($estadocivil, -1);
-            $estadocivil = str_replace($letrafinalestadocivil, 'a', $estadocivil);
-        } else {
-            $estadocivil = $estadocivil;
+                // Adiciona um mês à data do primeiro pagamento para calcular a data da próxima parcela
+                $dataPrimeiroPagamento->modify('+1 month');
+            }
         }
 
-        //PROFISSAO
-        $letrafinalprofissao = substr($profissao, -1);
-        $profissao = str_replace($letrafinalprofissao, 'a', $profissao);
-
-        //PORTADOR
-        $letrafinalportador = substr($portador, -1);
-        $portador = str_replace($letrafinalportador, 'a', $portador);
-
-        //REPRESENTAR
-        $letrafinalrepresentar = substr($representar, -1);
-        $representar = str_replace($letrafinalrepresentar, 'a', $representar);
-    }
-
-    //FUNÇÃO ADVOGADO ATUANDO
-
-    if ($advogado == 'Sandro Carvalho de Fraga') {
-        $textooutorgado = "<b>OUTORGADOS: SANDRO CARVALHO DE FRAGA,</b> brasileiro, em união 
-        estável, advogado, inscrito na OAB\RS sob o nº52230, <b>ELISETE 
-        CAMARGO DE MELO,</b> brasileira, em união estável, advogada, inscrita 
-        na OAB/SC sob o n°65356-B, com escritório profissional na Rua 
-        Guatambu nº 833, Bairro Hípica - Zona Sul, na cidade de Porto ";
-    } else {
-        $textooutorgado = "<b>OUTORGADOS: ELISETE 
-        CAMARGO DE MELO,</b> brasileira, em união 
-        estável, advogada, inscrita na OAB\SC sob o nº65356-B, <b>SANDRO CARVALHO DE FRAGA,</b> brasileiro, em união estável, advogado, inscrito 
-        na OAB\RS sob o nº52230, com escritório profissional na Rua 
-        Guatambu nº 833, Bairro Hípica - Zona Sul, na cidade de Porto ";
-    }
-
-    //FUNÇÃO CLASSE PROCESSUAL
-
-    if ($classeprocesso == 'Processo de inventário') {
-        $textoclasse = "<b>P O D E R E S:</b> Por este instrumento particular de mandato, 
-        especialmente para " . $representar . " em <b>PROCESSO DE INVENTÁRIO</b> pelo 
-        falecimento de <b>" . mb_strtoupper($falecido) . ",</b> junto a Comarca de Porto 
-        Alegre-RS. ";
-    } else {
-        $textoclasse = "<b>P O D E R E S:</b> Por este instrumento particular de mandato, 
-        especialmente para " . $representar . " em <b>PROCESSO DE " . mb_strtoupper($classeprocesso) . "</b> junto a Comarca de Porto 
-        Alegre-RS.";
-    }
 }
 ?>
 
@@ -200,41 +189,89 @@ if (isset($_POST['enviar'])) {
                     </div>
                     <div class="campos">
                             <textarea id="editor" name="descricao">
-                                <h3 style="text-align: center;">PROCURAÇÃO</h3>
-                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><b>OUTORGANTE: <?php echo mb_strtoupper($nomecliente) ?>,</b> <?php echo $nacionalidade ?>, <?php echo $estadocivil ?>,
-                                <?php echo mb_strtolower($profissao) ?>, portador da cédula de identidade de nº <?php echo $cedula ?>,
-                                inscrito no CPF sob o nº <?php echo $cpf ?>, residente e domiciliado
-                                na <?php echo $endereco ?>.
+                                <h3 style="text-align: center;">CONTRATO DE HONORÁRIOS ADVOCATÍCIOS</h3>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><b>CONTRATANTE:</b></p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>CONTRATADOS: FRAGA E MELO ADVOGADOS ASSOCIADOS,</b> inscrita no OAB\RS sob o nº 4496, representada neste apto pelos sócios
+                                    <b>SANDRO CARVALHO DE FRAGA</b>, brasileiro, divorciado, advogado, inscrito na OAB\RS sob o nº52230 e ELISETE CAMARGO DE MELO, brasileira, solteira, 
+                                    advogada, inscrita na OAB/SC sob o n° 65356-B, com escritório profissional na Rua Juca Batista, 4625-
+                                    Guatambu, 833- Bairro Hípica- nesta Capital, neste Estado.
+
                                 </p>
-                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><?php echo $textooutorgado ?>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    O <b>CONTRATANTE</b>, acima qualificado, contrata os serviços profissionais de advocacia dos
+                                    <b>CONTRATADOS</b>, conforme as cláusulas e condições seguintes: 
+
                                 </p>
-                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;"><?php echo $textoclasse ?>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify; margin-top: 20px;">
+                                
+                                    <b>DA NATUREZA DOS SERVIÇOS CONTRATADOS:</b>
+
                                 </p>
-                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">Pelo presente instrumento particular de mandato e na melhor forma
-                                de direito, a <b>OUTORGANTE,</b> nomeia e constitui os <b>OUTORGADOS,</b> seus
-                                bastante procuradores para representá-los em juízo ou fora dele,
-                                bem como perante quaisquer repartições públicas Federais,
-                                Estaduais e Municipais, podendo o referido procurador tudo
-                                requerer e praticar a defesa do interesse da <b>OUTORGANTE,</b> para o
-                                que lhes outorgam todos os poderes em geral- “ad judicia”, para o
-                                foro e demais poderes que se fizerem necessários para o fiel
-                                desempenho deste mandato, para firmar compromisso, confessar,
-                                acordar, discordar, desistir, transigir, receber, dar quitação,
-                                reconhecer a procedência do pedido, renunciar ao direito sobre
-                                que se funda a ação, substabelecer, no todo ou em parte, com ou
-                                sem reserva de poderes.
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Primeira:</b> As partes pactuam o Contrato de Honorários com a finalidade de apresentar defesa 
+                                    em face da Ação proposta por <b> <?php  $nomecliente ?>, processo <?php echo $numeroProcesso ?>, a qual tramita junto a <?php echo $numeroVara ?> <?php echo mb_strtoupper($varadoProcesso) ?>
+                                    DE PORTO ALEGRE-RS.</b>
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Segunda:</b> A <b>CONTRATANTE</b> obriga-se a colocar à disposição dos <b>CONTRATADOS</b> toda a 
+                                    documentação solicitada, bem como outorgar procuração quando necessária.                                    
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify; margin-top: 20px;">
+                                
+                                    <b>DA REMUNERAÇÃO E DESPESA:</b>
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Terceira:</b> Como remuneração pelos serviços ora contratados o <b>CONTRATANTE</b> pagará aos <b>CONTRATADOS</b>
+                                    a quantia equivalte a <b><?php echo $valorHonorario ?> (<?php echo $valorHonorarioSemCifrao ?> reais), em <?php echo $parcelas ?> (<?php echo $parcelasExtenso ?>) parcelas mensais,
+                                    distribuidas da seguinte forma de pagamento: </b>
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify; font-size: 14px; white-space: nowrap;">
+                                    <?php
+                                        foreach ($distribuicaoHonorarios as $parcela) {
+                                            echo '<strong>' . $parcela . '</strong><br>';
+                                        }
+                                    ?>
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Parágrafo Segundo: Os pagamentos serão efetuados através de deposito mensal na conta corrente 
+                                    nº351033550-8, agência 0835, do Banco Banrisul, e nome de SANDRO CARVALHO DE FRAGA, 
+                                    CPF/MF606580290-53 ou pela CHAVE PIX 606580290-53.</b>
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Parágrafo Terceiro:</b> Sempre que necessário, o <b>CONTRATANTE</b> adiantará aos <b>CONTRATADOS</b> o 
+                                    valor estimado de custas e despesas, obrigando-se estes a prestarem contas ao final de cada caso
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Parágrafo Quarto:</b> Os honorários advocatícios percebidos em ações judiciais ou acordos extrajudiciais, 
+                                    reverterão sempre em favor dos CONTRATADOS, sem prejuízo do disposto no item “1”acima.
+
                                 </p>
                                 <p style="text-align: center;">Porto Alegre/RS, <?php echo $dia ?> de <?php echo $mes_extenso["$mes"] ?> de <?php echo $ano ?></p>
                                 <br>
                                 <hr style="width: 60%; color: black;">
-                                <p style="text-align: center;"><b>HILSON RICARDO GARNIER PIRES</b></p>
+                                <p style="text-align: center;"><b><?php echo $nomecliente ?></b></p>
                                 <br><br><br><br><br><br><br><br><br><br><br><br><br>
                                 <p style="font-size: 12px; margin-top:10px; text-align: center;">Rua Guatambú, nº833, Fone(051) 32129832- Hípica Porto Alegre/RS</p>
                             </textarea>
                     </div>
                 </div>
                 <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
-                <input type="hidden" name="nomecliente" id="nomecliente" value="<?php echo $nomecliente ?>">
+                <input type="hidden" name="nomecliente" id="nomecliente" value="<?php echo mb_strtoupper($nomecliente) ?>">
                 <div class="final">
                     <div class="row">
                         <div class="col-8">
@@ -242,7 +279,7 @@ if (isset($_POST['enviar'])) {
                         </div>
                         <div class="col-2">
                             <div id="voltar">
-                                <a href="procuracoes.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
+                                <a href="contratos.php"><button type="button" class="btn btn-secondary" id='salvar'>Volar</button></a>
                             </div>
                         </div>
                         <div class="col-2">

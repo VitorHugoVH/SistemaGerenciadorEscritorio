@@ -228,7 +228,7 @@ if (isset($_POST['enviar'])) {
                                 <p style="text-align: center;">Porto Alegre/RS, <?php echo $dia ?> de <?php echo $mes_extenso["$mes"] ?> de <?php echo $ano ?></p>
                                 <br>
                                 <hr style="width: 60%; color: black;">
-                                <p style="text-align: center;"><b>HILSON RICARDO GARNIER PIRES</b></p>
+                                <p style="text-align: center;"><b><?php echo mb_strtoupper($nomecliente) ?></b></p>
                                 <br><br><br><br><br><br><br><br><br><br><br><br><br>
                                 <p style="font-size: 12px; margin-top:10px; text-align: center;">Rua Guatambú, nº833, Fone(051) 32129832- Hípica Porto Alegre/RS</p>
                             </textarea>
