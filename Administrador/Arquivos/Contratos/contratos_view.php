@@ -261,11 +261,76 @@ if (isset($_POST['enviar'])) {
                                     reverterão sempre em favor dos CONTRATADOS, sem prejuízo do disposto no item “1”acima.
 
                                 </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Parágrafo Quinto:</b> O não pagamento liberará o contratado de dar seguimento na ação, independente de 
+                                    aviso, notificação ou interpelação.
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify; margin-top: 20px;">
+                                
+                                    <b>DO PRAZO DO CONTRATO E CONDIÇÕES GERAIS</b>
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Quarta:</b> O presente contrato começa a vigorar na data de sua assinatura e terá prazo
+                                    indeterminado, podendo a parte que quiser rescindí-lo, fazê-lo mediante simples carta protocolada com 
+                                    antecedência de 30(trinta) dias.
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Quinta:</b> Manifestada a rescisão contratual, as procurações outorgadas serão substabelecidas 
+                                    pelos CONTRATADOS, aos advogados indicados pelo CONTRATANTE, prestando-se imediatamente 
+                                    as contas das custas e despesas, liquidando eventuais diferenças, com que as partes dar-se-ão mútua e 
+                                    recíproca quitação.
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    <b>Cláusula Sexta:</b> O ajuizamento ou defesa em outra ação, será estipulado o preço e a forma de pagamento 
+                                    para esta nova medida, independente do valor ora ajustado.
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    Elegem o foro da cidade de Porto Alegre para questões resultantes deste contrato, com expressa renúncia 
+                                    de qualquer outro.
+
+                                </p>
+                                <p style="margin-left: 50px; margin-right: 50px; text-align: justify;">
+
+                                    E, por estarem assim justos e contratados, assinam o presente em (2)duas vias de igual teor e forma. 
+
+                                </p>
+                                <br>
                                 <p style="text-align: center;">Porto Alegre/RS, <?php echo $dia ?> de <?php echo $mes_extenso["$mes"] ?> de <?php echo $ano ?></p>
                                 <br>
                                 <hr style="width: 60%; color: black;">
-                                <p style="text-align: center;"><b><?php echo $nomecliente ?></b></p>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <p style="text-align: center;"><b><?php echo mb_strtoupper($nomecliente) ?></b></p>
+                                <br>
+                                <div style="display: flex; justify-content: center;">
+
+                                    <div style="text-align: center; margin: 0 100px;">
+                                        <p>
+                                            <b>SANDRO CARVALHO DE FRAGA</b>
+                                        </p>
+                                        <p>
+                                            <b>OAB/RS 52.230</b>
+                                        </p>
+                                    </div>
+
+                                    <div style="text-align: center; margin: 0 100px;">
+                                        <p>
+                                            <b>ELISETE CAMARGO DE MELO</b>
+                                        </p>
+                                        <p>
+                                            <b>OAB/SC Nº 65356-B</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br><br><br><br><br><br>
                                 <p style="font-size: 12px; margin-top:10px; text-align: center;">Rua Guatambú, nº833, Fone(051) 32129832- Hípica Porto Alegre/RS</p>
                             </textarea>
                     </div>
@@ -431,5 +496,4 @@ if (isset($_POST['enviar'])) {
         <!--FIM NAVEGAÇÃO-->
 </div>
 </body>
-
 </html>
