@@ -451,12 +451,6 @@ $linha2 = mysqli_fetch_array($rs2);
                             </li>
                         </div>
                     </div>
-                    <li>
-                        <a href="../Site_Marketing/site_marketing.php" class="links">
-                            <span class="icon"><i class="fas fa-network-wired"></i></span>
-                            <span class="item">Site</span>
-                        </a>
-                    </li>
                     <div class="dropdown">
                         <li>
                             <a href="#" class="links">
@@ -542,12 +536,6 @@ $linha2 = mysqli_fetch_array($rs2);
                             </li>
                         </div>
                     </div>
-                    <li>
-                        <a href="configuracoes.php" class="links">
-                            <span class="icon"><i class="fas fa-edit"></i></span>
-                            <span class="item">Editor de Texto</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
             <!--FIM NAVEGAÇÃO-->

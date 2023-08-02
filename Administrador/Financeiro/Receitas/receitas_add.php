@@ -106,11 +106,44 @@ if (!$logged) {
                                 <input type="date" name="vencimento" id="vencimento" class="form-control" placeholder="__/__/__">
                             </div>
                             <div class="campos">
-                                <label for="valor"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Valor</h6>
-                                    </b></label>
-                                <input type="number" name="valor" id="valor" class="form-control" placeholder="0,00">
+                                <label class="form-label" for="valor">Valor</label>
+                                <input type="text" id="valor" name="valor" class="form-control"
+                                    value="0,00" maxlength="14" required />
                             </div>
+                            <script>
+                                var inputHonorario = document.getElementById('valor');
+                            
+                                inputHonorario.addEventListener('input', function() {
+                                    formatarValor(this);
+                                });
+                            
+                                function formatarValor(input) {
+                                    var valor = input.value;
+                            
+                                    // Remove tudo que não é dígito
+                                    valor = valor.replace(/\D/g, '');
+                            
+                                    // Adiciona a vírgula para separar os centavos
+                                    valor = valor.slice(0, -2) + ',' + valor.slice(-2);
+                            
+                                    // Adiciona o símbolo R$
+                                    valor = 'R$ ' + valor;
+                            
+                                    // Atualiza o valor do input
+                                    input.value = valor;
+                            
+                                    // Verifica se o valor mínimo foi atingido
+                                    var valorNumerico = parseFloat(valor.replace(/[^0-9,-]+/g, "").replace(",", "."));
+                                    if (valorNumerico < 100) {
+                                        input.setCustomValidity('O valor mínimo é R$ 100,00');
+                                    } else {
+                                        input.setCustomValidity('');
+                                    }
+                                }
+                            
+                                // Chama a função de formatação inicialmente
+                                formatarValor(inputHonorario);
+                            </script>
                             <div class="campos">
                                 <div class="row">
                                     <label for="categoria1"><b>
@@ -288,12 +321,6 @@ if (!$logged) {
                         </li>
                     </div>
                 </div>
-                <li>
-                    <a href="../../Site_Marketing/site_marketing.php" class="links">
-                        <span class="icon"><i class="fas fa-network-wired"></i></span>
-                        <span class="item">Site</span>
-                    </a>
-                </li>
                 <div class="dropdown">
                     <li>
                         <a href="#" class="active">
@@ -368,12 +395,6 @@ if (!$logged) {
                         </li>
                     </div>
                 </div>
-                <li>
-                    <a href="configuracoes.php" class="links">
-                        <span class="icon"><i class="fas fa-edit"></i></span>
-                        <span class="item">Editor de Texto</span>
-                    </a>
-                </li>
             </ul>
         </div>
         <!--FIM NAVEGAÇÃO-->

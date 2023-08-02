@@ -110,6 +110,24 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
 }
 
 /*FUNÇÃO GRÁFICO PROCESSOS*/
+
+/*FUNÇÃO COBRANÇAS*/
+
+$sqlCobrancas = "SELECT * FROM receita WHERE statuss='Recebido' AND MONTH(vencimento) = MONTH(CURRENT_DATE)";
+$resultCobranca = $conn->query($sqlCobrancas);
+
+$valorCobrancaTotal = 0;
+
+while($data_combranca = mysqli_fetch_assoc($resultCobranca)){
+    
+    $valorCombrancas = $data_combranca['valor'];
+
+    $valorCombrancas = floatval(preg_replace('/[^\d.,]/', '', $valorCombrancas));
+    $valorCobrancaTotal += $valorCombrancas;
+}
+
+$valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
+
 ?>
 
 <!DOCTYPE html>
@@ -181,7 +199,7 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                     <div class="col">
                         <div class="area1">
                             <span class="icon"><i class="fas fa-barcode"></i></span>
-                            <span class="item"><b>R$500,00</b></span>
+                            <span class="item"><b>R$ <?php echo $valorCobrancaTotal; ?></b></span>
                             <p class="info"><small>Cobrança(s) recebidas este mês</small></p>
                         </div>
                         <div class="area1">
@@ -361,12 +379,6 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                         </li>
                     </div>
                 </div>
-                <li>
-                    <a href="../Site_Marketing/site_marketing.php" class="links">
-                        <span class="icon"><i class="fas fa-network-wired"></i></span>
-                        <span class="item">Site</span>
-                    </a>
-                </li>
                 <div class="dropdown">
                     <li>
                         <a href="#" class="links">
@@ -441,12 +453,6 @@ while ($user_grafico = mysqli_fetch_assoc($result2)) {
                         </li>
                     </div>
                 </div>
-                <li>
-                    <a href="configuracoes.php" class="links">
-                        <span class="icon"><i class="fas fa-edit"></i></span>
-                        <span class="item">Editor de Texto</span>
-                    </a>
-                </li>
             </ul>
         </div>
         <!--FIM NAVEGAÇÃO-->
