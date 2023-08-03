@@ -32,7 +32,7 @@ if (isset($_SESSION['erro'])) {
         <a href="index.php"><img src="imagens/advogado3.jpeg" width="100%" margin-bottom="0px"></a>
       </div>
       <div class="form">
-        <form class="login-form" action="login2.php" method="POST">
+        <form class="login-form" action="login2.php" method="POST" onsubmit="return validarFormulario();">
           <input type="email" placeholder="email" id="user" name="usuario" />
           <input type="password" placeholder="senha" id="pass" name="senha" />
           <a><button class="btn btn-primary" type="submit">Entrar</button></a>
@@ -40,6 +40,19 @@ if (isset($_SESSION['erro'])) {
       </div>
     </div>
   </div>
+  <script>
+    function validarFormulario() {
+      var usuario = document.getElementById("user").value;
+      var senha = document.getElementById("pass").value;
+
+      if (usuario.trim() === "" || senha.trim() === "") {
+        alert("Por favor, preencha todos os campos.");
+        return false; // Impede o envio do formulário
+      }
+
+      return true; // Permite o envio do formulário
+    }
+  </script>
 </body>
 
 </html>

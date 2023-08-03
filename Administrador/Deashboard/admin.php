@@ -263,11 +263,11 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
                                             $datacomp = $comp['datafinal'];
                                             $datacomp = date('d/m/Y', strtotime($datacomp));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $comp['id'] . ' - ' . $comp['nomecompromisso'] . '</b> - ' . $datacomp . '</small></td>';
+                                            echo '<td style="white-space: nowrap;"><small><b>' . $comp['id'] . ' - ' . $comp['nomecompromisso'] . '</b> - ' . $datacomp . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
-                                        echo '<td><small>Nenhum compromisso próximo</small></td>';
+                                        echo '<td style="white-space: nowrap;"><small>Nenhum compromisso próximo</small></td>';
                                     }
                                     ?>
                                 </tbody>
@@ -289,11 +289,11 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
                                             $datatarefa = $tarefa['prazo'];
                                             $datatarefa = date('d/m/Y', strtotime($datatarefa));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $tarefa['id'] . ' - ' . $tarefa['titulo'] . '</b> - ' . $datatarefa . '</small></td>';
+                                            echo '<td style="white-space: nowrap;"><small><b>' . $tarefa['id'] . ' - ' . $tarefa['titulo'] . '</b> - ' . $datatarefa . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
-                                        echo '<td><small>Nenhum compromisso próximo</small></td>';
+                                        echo '<td style="white-space: nowrap;"><small>Nenhuma tarefa próxima</small></td>';
                                     }
                                     ?>
                                 </tbody>
@@ -315,11 +315,11 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
                                             $dataprazo = $prazo['datafinal'];
                                             $dataprazo = date('d/m/Y', strtotime($dataprazo));
                                             echo '<tr>';
-                                            echo '<td><small><b>' . $prazo['id'] . ' - ' . $prazo['cliente'] . '</b> - ' . $dataprazo . '</small></td>';
+                                            echo '<td style="white-space: nowrap;"><small><b>' . $prazo['id'] . ' - ' . $prazo['cliente'] . '</b> - ' . $dataprazo . '</small></td>';
                                         }
                                     } else {
                                         echo '<tr>';
-                                        echo '<td><small>Nenhum compromisso próximo</small></td>';
+                                        echo '<td style="white-space: nowrap;"><small>Nenhum prazo próximo</small></td>';
                                     }
                                     ?>
                                 </tbody>
@@ -342,7 +342,7 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
                 <li>
                     <a class="active" href="admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">Deashboard</span>
+                        <span class="item">Dashboard</span>
                     </a>
                 </li>
                 <li>

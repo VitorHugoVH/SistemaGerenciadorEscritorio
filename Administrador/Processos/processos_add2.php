@@ -727,7 +727,7 @@ if (!empty($numerocnj)) {
                 <li>
                     <a class="links" href="../Deashboard/admin.php">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">Deashboard</span>
+                        <span class="item">Dashboard</span>
                     </a>
                 </li>
                 <li>
