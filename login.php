@@ -52,6 +52,15 @@ if (isset($_SESSION['erro'])) {
 
       return true; // Permite o envio do formulário
     }
+
+    function mostrarSenha() {
+      var input = document.getElementById("pass");
+      if (input.getAttribute("type") == "password") {
+        input.setAttribute("type", "text");
+      } else {
+        input.setAttribute("type", "password");
+      }
+    }
   </script>
 </body>
 

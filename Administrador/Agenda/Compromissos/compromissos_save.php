@@ -1,6 +1,10 @@
 <?php
 
     include_once('../../conexao_adm.php');
+    require('../../sessao_usuarios.php');
+
+    // VERIFICAÇÃO LOGIN E NÍVEL DE USUÁRIO
+    verificarAcesso($conn);
 
     if(isset($_POST['up'])){
 

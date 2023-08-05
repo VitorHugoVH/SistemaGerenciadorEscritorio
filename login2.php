@@ -11,7 +11,7 @@ if (empty($_POST['usuario']) || empty($_POST['senha'])) {
 $usuario = mysqli_real_escape_string($conexao, $_POST['usuario']);
 $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
-$query = "SELECT * from usuario where usuario = '{$usuario}' and senha = '{$senha}' and status = 'Ativo'";
+$query = "SELECT * FROM usuario WHERE usuario = '{$usuario}' AND senha = '{$senha}' AND status = 'Ativo'";
 
 $result = mysqli_query($conexao, $query);
 
@@ -23,7 +23,20 @@ if ($row == 1) {
     $_SESSION['logged'] = true;
     header('Location: Administrador/Deashboard/admin.php');
 } else {
-    $_SESSION['erro'] = "Email ou Senha inválidos!";
-    header('Location: login.php');
-    exit();
+    // Consulta na tabela "clientes" caso a primeira consulta não tenha retornado resultados
+    $query_clientes = "SELECT * FROM clientes WHERE login = '{$usuario}' AND senha = '{$senha}'";
+
+    $result_clientes = mysqli_query($conexao, $query_clientes);
+    $row_clientes = mysqli_num_rows($result_clientes);
+
+    if ($row_clientes == 1) {
+        $_SESSION['usuariologado'] = $usuario;
+        $_SESSION['senhalogado'] = $senha;
+        $_SESSION['logged'] = true;
+        header('Location: Cliente/index.php');
+    } else {
+        $_SESSION['erro'] = "Email ou Senha inválidos!";
+        header('Location: login.php');
+        exit();
+    }
 }

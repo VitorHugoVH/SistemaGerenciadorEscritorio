@@ -1,13 +1,12 @@
 <?php
 include_once('../conexao_adm.php');
+include('../sessao_usuarios.php');
 
-// VERIFICAÇÃO LOGIN
-session_start();
-$logged = $_SESSION['logged'] ?? null;
+// VERIFICAÇÃO LOGIN E NÍVEL DE USUÁRIO
 
-if (!$logged) {
-    header('Location: /FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/login.php');
-}
+verificarAcesso($conn);
+
+$username = $_SESSION['username'] ?? '';
 
 $mesatual = date('F/Y');
 
@@ -138,9 +137,11 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -148,6 +149,7 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Fraga e Melo Advogados Associados</title>
     <style>
         /*INICIO ESTILO BARRA DE ROLAGEM NAVBAR*/
@@ -189,10 +191,26 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
     <!--ÍNICIO NAV BAR-->
     <div class="wrapper">
         <div class="section">
-            <div class="top_navbar">
-                <a href="http://localhost/FragaeMelo/Site%20Fraga%20e%20Melo%20BootsTrap/index.php"
-                    class="link"><button class="button button4">Voltar</button></a>
-            </div>
+            <div class="top_navbar d-flex justify-content-end dropdown">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-user-circle fa-2x text-white"></i>
+                    <p class="m-0 ms-2" style="font-size: 14px; color: white;"><?php echo $username; ?></p>
+                </div>
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="z-index: 9999;">
+                  <!-- Opções do menu suspenso -->
+                  <div style="backgroud-color: gray;"><p style="text-align: center; text-color: white; text-style: bold;">PERFIL</p></div>
+                  <li><hr class="dropdown-divider"></li>
+                  <a class="dropdown-item" href="#">Meus dados</a>
+                  <a class="dropdown-item" href="#">Alterar login</a>
+                  <a class="dropdown-item" href="#">Alterar senha</a>
+                  <!-- Mais opções, se necessário -->
+                  <li><hr class="dropdown-divider"></li>
+                  <a class="dropdown-item" href="#">Sair</a>
+                </div>
+              </div>
             <!--INÍCIO CONTEÚDO-->
             <div class="container">
                 <div class="row">

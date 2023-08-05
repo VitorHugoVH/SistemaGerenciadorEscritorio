@@ -1,6 +1,10 @@
 <?php
 
-include('conexao_adm.php');
+include_once('../conexao_adm.php');
+require('../sessao_usuarios.php');
+
+// VERIFICAÇÃO LOGIN E NÍVEL DE USUÁRIO
+verificarAcesso($conn);
 
 $stat = isset($_POST['statusfiltro'])?$_POST['statusfiltro']:1;
 $bnome = isset($_POST['buscanome'])?$_POST['buscanome']:"";
