@@ -19,11 +19,16 @@ function verificarAcesso($conn) {
     $result = mysqli_query($conn, $query);
     $row = mysqli_num_rows($result);
 
+    while($dados_usuario = mysqli_fetch_assoc($result)){
+        $idUsuario = $dados_usuario['idusuario']; 
+    }
+
     // Se o usuário for encontrado na tabela "usuario"
     if ($row == 1) {
         // Continua o código normalmente para usuários encontrados na tabela "usuario"
         $_SESSION['logged'] = true;
         $_SESSION['username'] = $usuario;
+        $_SESSION['idUsuario'] = $idUsuario;
         return true;
     } else {
         // Consulta na tabela "clientes" para verificar se o cliente existe

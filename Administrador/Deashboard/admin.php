@@ -7,6 +7,7 @@ include('../sessao_usuarios.php');
 verificarAcesso($conn);
 
 $username = $_SESSION['username'] ?? '';
+$idUsuario = $_SESSION['idUsuario'] ?? '';
 
 $mesatual = date('F/Y');
 
@@ -127,6 +128,26 @@ while($data_combranca = mysqli_fetch_assoc($resultCobranca)){
 
 $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
 
+/*BUSCAR DADOS PARA OS MODAIS*/
+
+$sqlBuscaModal = "SELECT * FROM usuario WHERE idusuario='$idUsuario'";
+$resultBuscaModal = $conn->query($sqlBuscaModal);
+
+while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
+    $nomeUsuario = $data_usuario['nome'];
+    $cpfUsuario = $data_usuario['cpf'];
+    $emailUsuario = $data_usuario['email1'];
+    $telefoneUsuario = $data_usuario['telefone1'];
+    $profissaoUsuario = $data_usuario['profissao'];
+    $cepUsuario = $data_usuario['cep1'];
+    $enderecoUsuario = $data_usuario['endereco1'];
+    $numeroUsuario = $data_usuario['numerocasa1'];
+    $complementoUsuario = $data_usuario['complemento1'];
+    $bairroUsuario = $data_usuario['bairro1'];
+    $cidadeUsuario = $data_usuario['cidade1'];
+    $estadoUsuario = $data_usuario['estado1'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -150,6 +171,7 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <title>Fraga e Melo Advogados Associados</title>
     <style>
         /*INICIO ESTILO BARRA DE ROLAGEM NAVBAR*/
@@ -184,6 +206,35 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
             border-radius: 10px;
             opacity: 0.7;
         }
+
+        /*ESTILIZAÇÂO BOTÂO SAIR*/
+
+        /* Estilize o item "Sair" para o estado normal */
+        .dropdown-item.btn-logout {
+            background-color: transparent;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Efeito de hover para o item "Sair" */
+        .dropdown-item.btn-logout:hover {
+            background-color: red;
+            color: white;
+        }
+
+        /*ESTILIZAÇÃO OUTROAS OPÇÕES*/
+
+        .dropdown-item.btn-option {
+            background-color: transparent;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Efeito de hover para o item "Sair" */
+        .dropdown-item.btn-option:hover {
+            background-color: #0769b9;
+            color: white;
+        }
     </style>
 </head>
 
@@ -203,16 +254,130 @@ $valorCobrancaTotal = number_format($valorCobrancaTotal, 2, ',', '.');
                   <!-- Opções do menu suspenso -->
                   <div style="backgroud-color: gray;"><p style="text-align: center; text-color: white; text-style: bold;">PERFIL</p></div>
                   <li><hr class="dropdown-divider"></li>
-                  <a class="dropdown-item" href="#">Meus dados</a>
-                  <a class="dropdown-item" href="#">Alterar login</a>
-                  <a class="dropdown-item" href="#">Alterar senha</a>
+                  <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#meusDadosModal">Meus dados</a>
+                  <a class="dropdown-item btn-option" href="#">Alterar login</a>
+                  <a class="dropdown-item btn-option" href="#">Alterar senha</a>
                   <!-- Mais opções, se necessário -->
                   <li><hr class="dropdown-divider"></li>
-                  <a class="dropdown-item" href="#">Sair</a>
+                  <a class="dropdown-item btn-logout" href="../sessao_destroy.php">Sair</a>
                 </div>
               </div>
             <!--INÍCIO CONTEÚDO-->
             <div class="container">
+
+                <!-- Modal "Meus Dados" -->
+
+                <div class="modal fade" id="meusDadosModal" tabindex="-1" aria-labelledby="meusDadosModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="meusDadosModalLabel">Meus Dados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form action="../MeusDados/meus_dados.php" method="POST">
+                            <div class="campos">
+                                <div class="form-group">
+                                    <label for="nomeUsuario">Nome</label>
+                                    <input name="nomeUsuario" type="text" class="form-control" placeholder="Nome completo" id="nomeUsuario" value="<?php echo $nomeUsuario; ?>">
+                                </div>
+                            </div>
+                            <div class="campos">
+                                <label for="numerocpfUsuario">CPF</label>
+                                <input name="cpfUsuario" type="text" name="numerocpf" id="numerocpf" class="form-control" placeholder="Número do CPF" maxlength="11" oninput="mascara(this)" value="<?php echo $cpfUsuario; ?>">
+                                <script>
+                                    function mascara(i) {
+
+                                        var v = i.value;
+
+                                        if (isNaN(v[v.length - 1])) { // impede entrar outro caractere que não seja número
+                                            i.value = v.substring(0, v.length - 1);
+                                            return;
+                                        }
+
+                                        i.setAttribute("maxlength", "14");
+                                        if (v.length == 3 || v.length == 7) i.value += ".";
+                                        if (v.length == 11) i.value += "-";
+
+                                    }
+                                </script>
+                            </div>
+                            <div class="campos">
+                                <label for="emailUsuario">E-mail</label>
+                                <input name="emailUsuario" type="email" class="form-control" placeholder="E-mail" id="emailUsuario" value="<?php echo $emailUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="telefoneUsuario">Telefone</label>
+                                <input name="telefoneUsuario" type="tel" class="form-control phone" placeholder="Telefone" id="telefoneUsuario" data-inputmask="'mask': '(99) 99999-9999'" value="<?php echo $emailUsuario; ?>">
+                                <script>
+                                    $(document).ready(function() {
+                                        // Inicialize o inputmask para o campo de telefone
+                                        $('.phone').inputmask();
+                                    });
+                                </script>
+                            </div>
+                            <div class="campos">
+                                <label for="profissaoUsuario">Profissao</label>
+                                <input name="profissaoUsuario" type="text" class="form-control" placeholder="" id="profissaoUsuario" value="<?php echo $profissaoUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="cepUsuario">CEP</label>
+                                <input name="cepUsuario" type="text" class="form-control" placeholder="" id="cepUsuario" value="<?php echo $cepUsuario; ?>">
+                                <script>
+                                    $(document).ready(function() {
+                                    // Aplica a máscara de CEP no campo de CEP
+                                    $('#cepUsuario').inputmask('99999-999');
+                                    });
+                                </script>
+                            </div>
+                            <div class="campos">
+                                <label for="enderecoUsuario">Endereço</label>
+                                <input name="enderecoUsuario" type="text" class="form-control" placeholder="" id="enderecoUsuario" value="<?php echo $enderecoUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="numeroUsuario">Número</label>
+                                <input name="numeroUsuario" type="number" class="form-control" placeholder="" id="numeroUsuario" value="<?php echo $numeroUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="complementoUsuario">Complemento</label>
+                                <input name="complementoUsuario" type="text" class="form-control" placeholder="" id="complementoUsuario" value="<?php echo $complementoUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="bairroUsuario">Bairro</label>
+                                <input name="bairroUsuario" type="text" class="form-control" placeholder="" id="bairroUsuario" value="<?php echo $bairroUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="cidadeUsuario">Cidade</label>
+                                <input name="cidadeUsuario" type="text" class="form-control" placeholder="" id="cidadeUsuario" value="<?php echo $cidadeUsuario; ?>">
+                            </div>
+                            <div class="campos">
+                                <label for="estadoUsuario">Estado</label>
+                                <input name="estadoUsuario" type="text" class="form-control" placeholder="" id="estadoUsuario" value="<?php echo $estadoUsuario; ?>">
+                            </div>
+                            <input type="hidden" value="<?php echo $idUsuario; ?>" name="idUsuario">
+                            </div>
+                            <div class="modal-footer">
+                                <div class="final">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div id="salvar">
+                                                <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div id="voltar">
+                                                <a href="advogados_insert.php"><button type="submit" class="btn btn-success" name="salvar" id="salvar">Salvar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- VISUALIZAÇÃO ÁREA DASHBOARD -->
                 <div class="row">
                     <div class="col">
                         <div class="area1">
