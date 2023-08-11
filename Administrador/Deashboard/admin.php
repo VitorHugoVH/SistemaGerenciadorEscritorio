@@ -134,6 +134,9 @@ $sqlBuscaModal = "SELECT * FROM usuario WHERE idusuario='$idUsuario'";
 $resultBuscaModal = $conn->query($sqlBuscaModal);
 
 while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
+
+    // Buscar Dados Para o modal Meus Dados
+
     $nomeUsuario = $data_usuario['nome'];
     $cpfUsuario = $data_usuario['cpf'];
     $emailUsuario = $data_usuario['email1'];
@@ -146,6 +149,11 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     $bairroUsuario = $data_usuario['bairro1'];
     $cidadeUsuario = $data_usuario['cidade1'];
     $estadoUsuario = $data_usuario['estado1'];
+
+    // Buscar Dados Para o modal Alterar Login
+
+    $loginUsuario = $data_usuario['usuario'];
+    $senhaUsuario = $data_usuario['senha'];
 }
 
 ?>
@@ -255,7 +263,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                   <div style="backgroud-color: gray;"><p style="text-align: center; text-color: white; text-style: bold;">PERFIL</p></div>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#meusDadosModal">Meus dados</a>
-                  <a class="dropdown-item btn-option" href="#">Alterar login</a>
+                  <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#meuLoginModal">Alterar login</a>
                   <a class="dropdown-item btn-option" href="#">Alterar senha</a>
                   <!-- Mais opções, se necessário -->
                   <li><hr class="dropdown-divider"></li>
@@ -271,8 +279,8 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="meusDadosModalLabel">Meus Dados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="meusDadosModalLabel">Meus Dados</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                         <form action="../MeusDados/meus_dados.php" method="POST">
@@ -361,7 +369,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                     <div class="row">
                                         <div class="col-6">
                                             <div id="salvar">
-                                                <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
+                                                <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Voltar</button></a>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -374,6 +382,80 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             </div>
                         </form>
                     </div>
+                    </div>
+                </div>
+
+                <!-- Modal "Alterar Login" -->
+
+                <div class="modal fade" id="meuLoginModal" tabindex="-1" aria-labelledby="meuLoginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="meuLoginModalLabel">Alterar login</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="../MeusDados/meu_login.php" method="POST">
+                                    <input type="hidden" name="idUsuario" value="<?php echo $idUsuario ?>">
+                                    <input type="hidden" name="senhaUsuario" value="<?php echo $senhaUsuario ?>">
+                                    <div class="campos">
+                                        <label for="usuario">Novo login</label>
+                                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Login usuário" value="<?php echo $loginUsuario ?>" required>
+                                    </div>
+                                    <div class="campos">
+                                    <label for="senha">Senha atual</label>
+                                        <div class="input-group">
+                                            <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required>
+                                            <div class="input-group-append" name="notview" id="notview" style="display: block;">
+                                                <a class='btn btn-sm btn-primary' onclick="view()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <div class="input-group-append" name="view" id="view" style="display: none;">
+                                                <a class='btn btn-sm btn-primary' onclick="notview()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function view() {
+                                                document.getElementById('senha').type = 'text';
+                                                document.getElementById('notview').style.display = 'none';
+                                                document.getElementById('view').style.display = 'block';
+                                            }
+
+                                            function notview() {
+                                                document.getElementById('senha').type = 'password';
+                                                document.getElementById('notview').style.display = 'block';
+                                                document.getElementById('view').style.display = 'none';
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <div class="final">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div id="salvar">
+                                                    <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Voltar</button></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div id="voltar">
+                                                    <a href="../MeusDados/meu_login.php"><button type="submit" class="btn btn-success" name="enviar" id="enviar">Salvar</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
