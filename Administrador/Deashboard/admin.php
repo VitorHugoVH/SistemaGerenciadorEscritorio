@@ -264,7 +264,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#meusDadosModal">Meus dados</a>
                   <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#meuLoginModal">Alterar login</a>
-                  <a class="dropdown-item btn-option" href="#">Alterar senha</a>
+                  <a class="dropdown-item btn-option" href="#" data-bs-toggle="modal" data-bs-target="#minhaSenhaModal">Alterar senha</a>
                   <!-- Mais opções, se necessário -->
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item btn-logout" href="../sessao_destroy.php">Sair</a>
@@ -452,7 +452,127 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal "Alterar Senha" -->
+
+                <div class="modal fade" id="minhaSenhaModal" tabindex="-1" aria-labelledby="minhaSenhaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="minhaSenhaModal">Alterar senha</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="../MeusDados/minha_senha.php" method="POST" id="formMinhaSenha">
+                                    <input type="hidden" name="idUsuario" value="<?php echo $idUsuario ?>">
+                                    <input type="hidden" name="senhaUsuario" value="<?php echo $senhaUsuario ?>">
+                                    <div class="campos">
+                                        <label for="senhaAtual">Senha atual</labeL>
+                                        <input type="password" name="senhaAtual" id="senhaAtual" class="form-control" placeholder="Senha atual" required>
+                                    </div>
+                                    <div class="campos">
+                                        <label for="novaSenha">Nova senha</labeL>
+                                        <div class="input-group">
+                                            <input type="password" name="novaSenha" id="novaSenha" class="form-control" placeholder="Nova senha" required>
+                                            <div class="input-group-append" name="naover" id="naover" style="display: block;">
+                                                <a class='btn btn-sm btn-primary' onclick="ver()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <div class="input-group-append" name="ver" id="ver" style="display: none;">
+                                                <a class='btn btn-sm btn-primary' onclick="naover()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function ver() {
+                                                document.getElementById('novaSenha').type = 'text';
+                                                document.getElementById('naover').style.display = 'none';
+                                                document.getElementById('ver').style.display = 'block';
+                                            }
+
+                                            function naover() {
+                                                document.getElementById('novaSenha').type = 'password';
+                                                document.getElementById('naover').style.display = 'block';
+                                                document.getElementById('ver').style.display = 'none';
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="campos">
+                                        <label for="confirmarSenha">Confirmar senha</labeL>
+                                        <div class="input-group">
+                                            <input type="password" name="confirmarSenha" id="confirmarSenha" class="form-control" placeholder="Confirmar senha" required>
+                                            <div class="input-group-append" name="naover2" id="naover2" style="display: block;">
+                                                <a class='btn btn-sm btn-primary' onclick="ver2()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <div class="input-group-append" name="ver2" id="ver2" style="display: none;">
+                                                <a class='btn btn-sm btn-primary' onclick="naover2()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function ver2() {
+                                                document.getElementById('confirmarSenha').type = 'text';
+                                                document.getElementById('naover2').style.display = 'none';
+                                                document.getElementById('ver2').style.display = 'block';
+                                            }
+
+                                            function naover2() {
+                                                document.getElementById('confirmarSenha').type = 'password';
+                                                document.getElementById('naover2').style.display = 'block';
+                                                document.getElementById('ver2').style.display = 'none';
+                                            }
+                                            function validatePasswords() {
+                                                var novaSenha = document.getElementById("novaSenha").value;
+                                                var confirmarSenha = document.getElementById("confirmarSenha").value;
+
+                                                if (novaSenha !== confirmarSenha) {
+                                                    alert("As senhas não coincidem!");
+                                                } else {
+                                                    // Agora você pode enviar o formulário manualmente
+                                                    document.getElementById("formMinhaSenha").submit();
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <div class="final">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div id="salvar">
+                                                    <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Voltar</button></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div id="voltar">
+                                                    <a href="#"><button type="submit" class="btn btn-success" name="send" id="send" onclick="validatePasswords()">Salvar</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
