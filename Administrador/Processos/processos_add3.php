@@ -189,6 +189,6 @@ if (isset($_POST['enviar'])) {
     "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
         VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
   );
-
+  
   header('Location: processos.php');
 }

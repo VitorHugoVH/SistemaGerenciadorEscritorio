@@ -33,7 +33,7 @@ if (isset($_SESSION['erro'])) {
       </div>
       <div class="form">
         <form class="login-form" action="login2.php" method="POST" onsubmit="return validarFormulario();">
-          <input type="email" placeholder="email" id="user" name="usuario" />
+          <input type="text" placeholder="usuario" id="user" name="usuario" />
           <input type="password" placeholder="senha" id="pass" name="senha" />
           <a><button class="btn btn-primary" type="submit">Entrar</button></a>
         </form>

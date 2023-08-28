@@ -21,13 +21,12 @@
         $newtotal = $_POST['total'];
         $newrepetir = $_POST['repetir'];
         $newparcelas = $_POST['parcelas'];
-        $newanexo = $_POST['anexo'];
 
         if(!empty($newvencimento)){
             $newvencimento2 = date('d/m/Y', strtotime($newvencimento));
         }
 
-        $sqlUpdate = "UPDATE despesa SET datavencimento='$newvencimento2', valor='$newvalor', categoria='$newcategoria', categoria2='$newcategoria2', subcategoria='$newsubcategoria', subcategoria2='$newsubcategoria2', observacao='$newobservacoes', situacao='$newstatus', datapagamento='$newdatapagamento', juros='$newjuros', total='$newtotal', repetir='$newrepetir', parcelas='$newparcelas', anexo='$newanexo'
+        $sqlUpdate = "UPDATE despesa SET datavencimento='$newvencimento2', valor='$newvalor', categoria='$newcategoria', categoria2='$newcategoria2', subcategoria='$newsubcategoria', subcategoria2='$newsubcategoria2', observacao='$newobservacoes', situacao='$newstatus', datapagamento='$newdatapagamento', juros='$newjuros', total='$newtotal', repetir='$newrepetir', parcelas='$newparcelas'
         WHERE id='$id'";
 
         $resultUpdate = $conn->query($sqlUpdate);

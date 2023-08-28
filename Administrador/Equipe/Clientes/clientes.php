@@ -44,7 +44,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="../../imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../../imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -401,28 +401,29 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 
                                                 if (novaSenha !== confirmarSenha) {
                                                     alert("As senhas não coincidem!");
-                                                } else {
-                                                    // Agora você pode enviar o formulário manualmente
-                                                    document.getElementById("formMinhaSenha").submit();
+                                                    return false; 
                                                 }
+                                                return true;
                                             }
                                         </script>
                                     </div>
                                     <div class="modal-footer">
-                                    <div class="final">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div id="salvar">
-                                                    <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Voltar</button></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div id="voltar">
-                                                    <a href="#"><button type="submit" class="btn btn-success" name="send" id="send" onclick="validatePasswords()">Salvar</button></a>
+                                        <div class="modal-footer">
+                                            <div class="final">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div id="salvar">
+                                                            <a href="admin.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Voltar</button></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div id="voltar">
+                                                            <button type="submit" class="btn btn-success" name="send" id="send" onclick="return validatePasswords();">Salvar</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </form>
                             </div>
@@ -656,7 +657,9 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 <script>
     function confirma(id) {
         if (confirm("Deseja realmente excluir este processo?")) {
-            location.href = "processos_delete.php?id=" + id;
+            location.href = "clientes_delete.php?id=" + id;
+        } else {
+            // O usuário clicou em "Cancelar", então não fazemos nada.
         }
     }
 </script>

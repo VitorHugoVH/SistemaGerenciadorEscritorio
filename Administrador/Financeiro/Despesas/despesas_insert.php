@@ -20,7 +20,6 @@ if (isset($_POST['salvar'])) {
     $total = $_POST['total'];
     $repetir = $_POST['repetir'];
     $parcelas = $_POST['parcelas'];
-    $anexo = $_POST['anexo'];
     $datacriacao = $_POST['datacriacao'];
 
     if ($categoria == 'Impostos') {
@@ -59,8 +58,8 @@ if (isset($_POST['salvar'])) {
         $repetir = "Repetir";
     }
 
-    $sqlEnviar = "INSERT INTO despesa (datavencimento, valor, categoria, categoria2, subcategoria, subcategoria2, observacao, situacao, datapagamento, juros, total, repetir, parcelas, anexo, datacriacao)
-        VALUES ('$vencimento', '$valor', '$categoria', '$categoria2', '$subcategoria', '$subcategoria2', '$observacoes', '$status', '$datapagamento', '$juros', '$total', '$repetir', '$parcelas', '$anexo', '$datacriacao')";
+    $sqlEnviar = "INSERT INTO despesa (datavencimento, valor, categoria, categoria2, subcategoria, subcategoria2, observacao, situacao, datapagamento, juros, total, repetir, parcelas, datacriacao)
+        VALUES ('$vencimento', '$valor', '$categoria', '$categoria2', '$subcategoria', '$subcategoria2', '$observacoes', '$status', '$datapagamento', '$juros', '$total', '$repetir', '$parcelas', '$datacriacao')";
 
     $resultEnviar = $conn->query($sqlEnviar);
 
@@ -74,8 +73,8 @@ if (isset($_POST['salvar'])) {
         while ($repeticao <= 0) {
 
             if ($nextmonth = $mesatual) {
-                $sqlEnviar2 = "INSERT INTO despesa (datavencimento, valor, categoria, categoria2, subcategoria, subcategoria2, observacao, situacao, datapagamento, juros, total, repetir, parcelas, anexo)
-                                VALUES ('$vencimento', '$valor', '$categoria', '$categoria2', '$subcategoria', '$subcategoria2', '$observacoes', '$status', '$datapagamento', '$juros', '$total', '$repetir', '$parcelas', '$anexo')";
+                $sqlEnviar2 = "INSERT INTO despesa (datavencimento, valor, categoria, categoria2, subcategoria, subcategoria2, observacao, situacao, datapagamento, juros, total, repetir, parcelas)
+                                VALUES ('$vencimento', '$valor', '$categoria', '$categoria2', '$subcategoria', '$subcategoria2', '$observacoes', '$status', '$datapagamento', '$juros', '$total', '$repetir', '$parcelas')";
 
                 $resultEnviar2 = $conn->query($sqlEnviar2);
             }

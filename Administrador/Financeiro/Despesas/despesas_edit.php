@@ -35,7 +35,6 @@ if (!empty($_GET['id'])) {
             $total = $data['total'];
             $repetir = $data['repetir'];
             $parcelas = $data['parcelas'];
-            $anexo = $data['anexo'];
             $datacriacao = $data['datacriacao'];
         }
     }
@@ -79,7 +78,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
-    <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+    <link rel="icon" type="image/x-icon" href="../../imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -594,16 +593,6 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº de parcelas:</h6>
                                     </b></label>
                                 <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas; ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bloco5">
-                        <div class="row">
-                            <div class="titulo">
-                                <h4 class="title"><b>Anexo</b></h4>
-                            </div>
-                            <div class="campos">
-                                <input type="file" name="anexo" id="anexo" class="form-control" value="<?php echo $anexo ?>" placeholder="<?php echo $anexo ?>">
                             </div>
                         </div>
                     </div>
