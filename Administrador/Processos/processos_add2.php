@@ -944,8 +944,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <div class="outro">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="dis
-                                            block;">Adicionar</button>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="display:block;">Adicionar</button>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="campoMembro1" style="display: none;">Membro</span>
@@ -976,8 +975,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <div id="outroAdvogado" style="display: none; margin-top: 2%;">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-primary" id="botaoAddAdvogado2" type="button" class="botaoAddAdvogado" onclick="outroAdvogado2()" style="dis
-                                            block;">Adicionar</button>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado2" type="button" class="botaoAddAdvogado" onclick="outroAdvogado2()" style="display:block;">Adicionar</button>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="campoMembro2" style="display: none;">Membro</span>

@@ -184,11 +184,31 @@ if (isset($_POST['enviar'])) {
       $natureza = 'Não definido';
   }
 
-  $result = mysqli_query(
-    $conn,
-    "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
-        VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
-  );
-  
-  header('Location: processos.php');
+  // VERIFICAÇÃO CASO O CADASTRAR RECEITA FOI ATIVADO
+
+  if($cadreceita == 'Ligado'){
+    $result = mysqli_query(
+      $conn,
+      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
+          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+    );
+
+    // DEFININDO AS VARIÁVEIS DE SESSÃO
+    
+    $_SESSION['nomeClienteProcesso'] = $nomecliente;
+    $_SESSION['valorHonorarioProcesso'] = $valorhonorario;
+    $_SESSION['observacoesProcesso'] = $ob;
+
+    header('Location: ../Financeiro/Receitas/receitas_add.php');
+    exit;
+  }else{
+    $result = mysqli_query(
+      $conn,
+      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
+          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+    );
+
+    header('Location: processos.php');
+    exit;
+  }
 }

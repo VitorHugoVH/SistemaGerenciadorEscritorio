@@ -749,9 +749,102 @@ $linha2 = mysqli_fetch_array($rs2);
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
-                            <hr style="border-color:#aaaaaa !important; margin-bottom: 30px; margin-top: 10px;">
-                        </div>
+
+                        <!--VERIFICAÇÃO TABELA COMPROMISSO---->
+                        <?php
+                            $sqlVerificarCompromisso = "SELECT COUNT(*) AS count FROM compromisso WHERE processo='$id'";
+                            $resultVerificarCompromisso = $conn->query($sqlVerificarCompromisso);
+                            $rowVerificarCompromisso = $resultVerificarCompromisso->fetch_assoc();
+                            $countCompromissos = $rowVerificarCompromisso['count'];
+                        ?>
+                         <!--VERIFICAÇÃO TABELA COMPROMISSO---->
+
+                        <?php if ($countCompromissos >= 1): ?>
+                            <div class="compromissos" style="margin-top: 3%; display: block;">
+                                <div class="row">
+                                    <p id="txti"><b>Compromissos</b></p>
+                                </div>
+                                <div class="row">
+                                    <hr style="border-color:#aaaaaa !important;">
+                                </div>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" style="white-space: nowrap;">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Protocolo</strong></td>
+                                                    <td><strong>Data</strong></td>
+                                                    <td><strong>Compromisso com</strong></td>
+                                                    <td><strong>Classificação</strong></td>
+                                                    <td><strong>Descrição</strong></td>
+                                                </tr>
+                                                <?php
+                                                    $sqlCompromisso = "SELECT * FROM compromisso WHERE processo='$id'";
+                                                    $resultCompromisso = $conn->query($sqlCompromisso);
+
+                                                    while($data_comp = mysqli_fetch_assoc($resultCompromisso)){
+                                                        echo '<tr>';
+                                                        echo '<td>'. $data_comp['id'] .'</td>';
+                                                        echo '<td>'. $data_comp['datafinal'] .'</td>';
+                                                        echo '<td>'. $data_comp['nomecompromisso'] .'</td>';
+                                                        echo '<td>'. $data_comp['classificacao'] .'</td>';
+                                                        echo '<td>'. $data_comp['observacoes'] .'</td>';
+                                                        echo '</tr>';
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!--VERIFICAÇÃO TABELA PRAZOS---->
+                            <?php
+                                $sqlVerificarPrazo = "SELECT * FROM prazo WHERE processo='$id'";
+                                $resultVerificarPrazo = $conn->query($sqlVerificarPrazo);
+                                $countPrazos = $resultVerificarPrazo->num_rows;
+                            ?>
+                        <!--VERIFICAÇÃO TABELA PRAZOS---->
+
+                        <?php if ($countPrazos >= 1): ?>
+                            <div class="row">
+                                <p id="txti"><b>Prazos</b></p>
+                            </div>
+                            <div class="row">
+                                <hr style="border-color:#aaaaaa !important;">
+                            </div>
+
+                            <?php while ($rowPrazo = $resultVerificarPrazo->fetch_assoc()): ?>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered" style="white-space: nowrap;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 150px;"><strong>Protocolo</strong></td>
+                                                    <td><?php echo $rowPrazo['id']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;"><strong>Data</strong></td>
+                                                    <td><?php echo $rowPrazo['datafinal']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;"><strong>Descrição</strong></td>
+                                                    <td><?php echo $rowPrazo['descricao']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;"><strong>Prazo atendido</strong></td>
+                                                    <td><?php echo $rowPrazo['atendido']; ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr style="border-color:#aaaaaa !important;">
+                                </div>
+                            <?php endwhile; ?>
+                        <?php endif; ?>
                         <div class="row">
                             <div class="col-10">
 

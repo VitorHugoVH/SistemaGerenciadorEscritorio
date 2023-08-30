@@ -9,7 +9,7 @@ $username = $_SESSION['username'] ?? '';
 $idUsuario = $_SESSION['idUsuario'] ?? '';
 
 if (!empty($_GET['id'])) {
-    include_once '../conexao_adm.php';
+    include_once('../conexao_adm.php');
 
     $id = $_GET['id'];
 
@@ -494,8 +494,8 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1"
                                         <?= $privado == '(O cliente não poderá visualizar)' ? 'checked' : '' ?>
-                                        id="flexCheckDefault" name="naovisualizar">
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                        id="flexCheckDefault1" name="naovisualizar">
+                                    <label class="form-check-label" for="flexCheckDefault1">
                                         (O cliente não poderá visualizar)
                                     </label>
                                 </div>
@@ -874,19 +874,16 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                         <!--REFATORAçÃO VALORES CUSA E HONORÁRIOS---->
                         <div class="campos">
                           <label class="form-label">Valor da causa</label>
-                          <input type="text" id="valorCausa" name="valorCausa" class="form-control"
-                              value="<?php echo $valorCausa; ?>" required />
+                          <input type="text" id="valorCausa" name="valorCausa" class="form-control" value="<?php echo $valorCausa; ?>" required />
                         </div>
                         <div class="campos">
                             <label class="form-label">Data da abertura</label>
-                            <input type="date" name="dateabertura" id="dateabertura" class="form-control"
-                                value="<?php echo $dataa; ?>" required>
+                            <input type="date" name="dateabertura" id="dateabertura" class="form-control" value="<?php echo $dataa; ?>" required>
                         </div>
                         <div class="campos">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Observações</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações"
-                                    name="observacoes" required><?php echo $ob; ?></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observações" name="observacoes" required><?php echo $ob; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -960,9 +957,9 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             <div class="campos">
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault"
-                                        name="cadreceita" <?= $cadreceita == 'Ligado' ? 'checked' : ' ' ?>>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault2"
+                                        name="cadreceita" <?= $cadreceita == 'Ligado' ? 'checked' : 'Desligado' ?>>
+                                    <label class="form-check-label" for="flexCheckDefault2">
                                         Cadastrar como nova receita após finalização
                                     </label>
                                 </div>
@@ -976,28 +973,18 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             </div>
                             <div class="campos">
                                 <label class="form-label">Posição do cliente</label>
-                                <select class="form-select" aria-label="Default select example" name="posicaocliente"
-                                    required>
-                                    <option value="1" <?= $posicao == 'Adverso' ? 'selected' : '' ?>>Adverso
-                                    </option>
-                                    <option value="2" <?= $posicao == 'Advogado' ? 'selected' : '' ?>>Advogado
-                                    </option>
-                                    <option value="3" <?= $posicao == 'Advogado Adverso' ? 'selected' : '' ?>>
-                                        Advogado Adverso</option>
+                                <select class="form-select" aria-label="Default select example" name="posicaocliente" required>
+                                    <option value="1" <?= $posicao == 'Adverso' ? 'selected' : '' ?>>Adverso</option>
+                                    <option value="2" <?= $posicao == 'Advogado' ? 'selected' : '' ?>>Advogado</option>
+                                    <option value="3" <?= $posicao == 'Advogado Adverso' ? 'selected' : '' ?>>Advogado Adverso</option>
                                     <option value="4" <?= $posicao == 'Autor' ? 'selected' : '' ?>>Autor</option>
-                                    <option value="5" <?= $posicao == 'Reclamada' ? 'selected' : '' ?>>Reclamada
-                                    </option>
-                                    <option value="6" <?= $posicao == 'Reclamante' ? 'selected' : '' ?>>Reclamante
-                                    </option>
-                                    <option value="7" <?= $posicao == 'Relator' ? 'selected' : '' ?>>Relator
-                                    </option>
-                                    <option value="8" <?= $posicao == 'Requerente' ? 'selected' : '' ?>>Requerente
-                                    </option>
-                                    <option value="9" <?= $posicao == 'Requerido' ? 'selected' : '' ?>>Requerido
-                                    </option>
+                                    <option value="5" <?= $posicao == 'Reclamada' ? 'selected' : '' ?>>Reclamada</option>
+                                    <option value="6" <?= $posicao == 'Reclamante' ? 'selected' : '' ?>>Reclamante</option>
+                                    <option value="7" <?= $posicao == 'Relator' ? 'selected' : '' ?>>Relator</option>
+                                    <option value="8" <?= $posicao == 'Requerente' ? 'selected' : '' ?>>Requerente</option>
+                                    <option value="9" <?= $posicao == 'Requerido' ? 'selected' : '' ?>>Requerido</option>
                                     <option value="10" <?= $posicao == 'Réu' ? 'selected' : '' ?>>Réu</option>
-                                    <option value="11" <?= $posicao == 'Testemunha' ? 'selected' : '' ?>>Testemunha
-                                    </option>
+                                    <option value="11" <?= $posicao == 'Testemunha' ? 'selected' : '' ?>>Testemunha</option>
                                 </select>
                             </div>
                             <div class="campos">
@@ -1050,8 +1037,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <div class="outro">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="dis
-                                            block;">Adicionar</button>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado" type="button" class="botaoAddAdvogado" onclick="outroAdvogado1()" style="display:block;">Adicionar</button>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="campoMembro1" style="display: none;">Membro</span>
@@ -1086,8 +1072,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <div id="outroAdvogado" style="display: none; margin-top: 2%;">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-primary" id="botaoAddAdvogado2" type="button" class="botaoAddAdvogado" onclick="outroAdvogado2()" style="dis
-                                            block;">Adicionar</button>
+                                            <button class="btn btn-primary" id="botaoAddAdvogado2" type="button" class="botaoAddAdvogado" onclick="outroAdvogado2()" style="display:block;">Adicionar</button>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="campoMembro2" style="display: none;">Membro</span>
@@ -1192,14 +1177,12 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             </div>
                             <div class="col-2">
                                 <div id="salvar">
-                                    <a href="processos.php"><button type="button" class="btn btn-outline-secondary"
-                                            id="voltar2">Cancelar</button></a>
+                                    <a href="processos.php"><button type="button" class="btn btn-outline-secondary" id="voltar2">Cancelar</button></a>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div id="voltar">
-                                    <a href="processos.php"><button type="submit" class="btn btn-success"
-                                            name="update" id='update'>Atualizar</button></a>
+                                    <a href="processos.php"><button type="submit" class="btn btn-success" name="update" id='update'>Atualizar</button></a>
                                 </div>
                             </div>
                         </div>

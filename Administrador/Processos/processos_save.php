@@ -8,7 +8,6 @@ verificarAcesso($conn);
 if (isset($_POST['update'])) {
 
     $id = $_POST['id'];
-    $mes = $_POST['mes'];
     $naovisualizar = $_POST['naovisualizar'];
     $status = $_POST['statusprocesso'];
     $faseprocesso = $_POST['faseprocesso'];
@@ -37,11 +36,17 @@ if (isset($_POST['update'])) {
     $nomefalecido = $_POST['nomefalecido'];
     $outraclasse = $_POST['outraclasse'];
 
-      if ($ritoProcessoAdd != ''){
-            $ritoProcesso = $ritoProcessoAdd;
-        }else {
-            $ritoProcesso = $ritoProcessoSelect;
-        }
+    if ($cadreceita != 'on') {
+        $cadreceita = 'Desligado';
+    } else {
+        $cadreceita = 'Ligado';
+    }
+
+    if ($ritoProcessoAdd != ''){
+        $ritoProcesso = $ritoProcessoAdd;
+    }else {
+        $ritoProcesso = $ritoProcessoSelect;
+    }
 
     if(!empty($outracomarca)) {
         $nomecomarca = $outracomarca;
@@ -54,16 +59,10 @@ if (isset($_POST['update'])) {
     }else {
         $varadoprocesso = $nomedavara;
     }
-
-        if(!empty($nprocesso)){
+        
+    if(!empty($nprocesso)){
         $poderjudiciario = substr($nprocesso, 16, 1);
-    }
-
-    if($cadreceita != 'on'){
-        $cadreceita = "Desligado";
-    }else{
-        $cadreceita = "Ligado";
-    }
+    };
 
     switch ($naovisualizar) {
         case 1:
@@ -209,9 +208,37 @@ if (isset($_POST['update'])) {
             $naturezaprocesso = 'Não definido';
     }
 
-    $sqlUpdate = "UPDATE processo SET valor='$valorcausa', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido', mes='$mes'
-    WHERE id='$id'";
+  // VERIFICAÇÃO CASO O CADASTRAR RECEITA FOI ATIVADO
 
-    $result = $conn->query($sqlUpdate);
+  if($cadreceita == 'Ligado'){
+
+    $sqlVerificarCliente = "SELECT COUNT(*) AS count FROM receita WHERE cliente1 = '$nomecliente'";
+    $resultVerificarCliente = $conn->query($sqlVerificarCliente);
+    $rowVerificarCliente = $resultVerificarCliente->fetch_assoc();
+    $countClientes = $rowVerificarCliente['count'];
+
+    if ($countClientes > 0) {
+        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso',nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+        WHERE id='$id'";
+    
+        $result = $conn->query($sqlUpdate);
+    
+        header('Location: processos.php');
+        exit;
+    }else {
+        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso',nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+        WHERE id='$id'";
+    
+        $result = $conn->query($sqlUpdate);
+    
+        // DEFININDO AS VARIÁVEIS DE SESSÃO
+        
+        $_SESSION['nomeClienteProcesso'] = $nomecliente;
+        $_SESSION['valorHonorarioProcesso'] = $valorhonorario;
+        $_SESSION['observacoesProcesso'] = $observacoes;
+    
+        header('Location: ../Financeiro/Receitas/receitas_add.php');
+        exit;
+    }
+  }
 }
-header('Location: processos.php');

@@ -9,6 +9,12 @@ verificarAcesso($conn);
 $username = $_SESSION['username'] ?? '';
 $idUsuario = $_SESSION['idUsuario'] ?? '';
 
+// RECEBENDO DADOS PROCESSO CADRECEITA
+
+$nomeCliente = isset($_SESSION['nomeClienteProcesso']) ? $_SESSION['nomeClienteProcesso'] : '';
+$valorHonorarioProcesso = isset($_SESSION['valorHonorarioProcesso']) ? $_SESSION['valorHonorarioProcesso'] : '';
+$observacoesProcesso = isset($_SESSION['observacoesProcesso']) ? $_SESSION['observacoesProcesso'] : '';
+
 /*BUSCAR DADOS PARA OS MODAIS*/
 
 $sqlBuscaModal = "SELECT * FROM usuario WHERE idusuario='$idUsuario'";
@@ -465,8 +471,8 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                             $resultClient = $conn->query($sqlClient);
 
                                             while ($data_client = mysqli_fetch_assoc($resultClient)) {
-
-                                                echo "<option>" . $data_client['nomecliente'] . "</option>";
+                                                $selected = ($data_client['nomecliente'] == $nomeCliente) ? "selected" : "";
+                                                echo "<option $selected>" . $data_client['nomecliente'] . "</option>";
                                             }
                                             ?>
                                         </select>
@@ -487,7 +493,8 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             <div class="campos">
                                 <label class="form-label" for="valor">Valor</label>
                                 <input type="text" id="valor" name="valor" class="form-control"
-                                    value="0,00" maxlength="14" required />
+                                    value="<?php echo $valorHonorarioProcesso !== ' ' ? $valorHonorarioProcesso : '0,00'; ?>"
+                                    maxlength="14" required />
                             </div>
                             <script>
                                 var inputHonorario = document.getElementById('valor');
@@ -563,7 +570,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <label for="observacoes"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Observações</h6>
                                     </b></label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Observação" name="observacoes" id="observacoes"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Observação" name="observacoes" id="observacoes"><?php echo $observacoesProcesso !== ' ' ? $observacoesProcesso : ''; ?></textarea>
                             </div>
                             <div class="campos">
                                 <label for="flexCheckDefault"><b>

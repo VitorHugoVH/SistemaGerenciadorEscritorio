@@ -139,6 +139,69 @@ while ($dados_adv3 = mysqli_fetch_assoc($resultBuscaTerceiroAdvogado)) {
     $emailAdvogado3 = $dados_adv3['email1'];
 }
 
+// BUSCAR DADOS COMPROMISSOS
+
+$sqlCompromissos = "SELECT * FROM compromisso WHERE processo='$idProcesso'";
+$resultCompromissos = $conn->query($sqlCompromissos);
+
+$compromissoRows = '';
+
+if ($resultCompromissos->num_rows >= 1) {
+    $compromissoRows .='
+    <h4 style="font-weight: bold; margin-top: 20px; margin-bottom: 0px;">Compromissos</h4>
+    <hr style="clear: both; margin-top: 0px;"></hr>
+    <table style="border-collapse: collapse; width: 100%;">
+    <tr>
+        <th style="border: 1px solid black; padding: 8px;">Protocolo</th>
+        <th style="border: 1px solid black; padding: 8px;">Data</th>
+        <th style="border: 1px solid black; padding: 8px;">Compromisso com</th>
+        <th style="border: 1px solid black; padding: 8px;">Classificação</th>
+        <th style="border: 1px solid black; padding: 8px;">Descrição</th>
+    </tr>
+    ';
+    while ($rowCompromisso = mysqli_fetch_assoc($resultCompromissos)) {
+        $compromissoRows .= '
+        <tr>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowCompromisso['id'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowCompromisso['datainicial'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowCompromisso['nomecompromisso'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowCompromisso['classificacao'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowCompromisso['observacoes'] . '</td>
+        </tr>';
+    }
+}
+
+// BUSCAR DADOS PRAZOS
+
+$sqlPrazos = "SELECT * FROM prazo WHERE processo='$idProcesso'";
+$resultPrazos = $conn->query($sqlPrazos);
+
+$prazoRows = '';
+
+if ($resultPrazos->num_rows >= 1) {
+    $prazoRows .='
+    <h4 style="font-weight: bold; margin-top: 20px; margin-bottom: 0px;">Prazos</h4>
+    <hr style="clear: both; margin-top: 0px;"></hr>
+    <table style="border-collapse: collapse; width: 100%;">
+        <tr>
+            <th style="border: 1px solid black; padding: 8px;">Protocolo</th>
+            <th style="border: 1px solid black; padding: 8px;">Data</th>
+            <th style="border: 1px solid black; padding: 8px;">Descrição</th>
+            <th style="border: 1px solid black; padding: 8px;">Prazo atendido</th>
+        </tr>
+    ';
+    while ($rowPrazo = mysqli_fetch_assoc($resultPrazos)) {
+        $prazoRows .= '
+        <tr>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowPrazo['id'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowPrazo['datafinal'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowPrazo['descricao'] . '</td>
+            <td style="border: 1px solid black; padding: 8px;">' . $rowPrazo['atendido'] . '</td>
+        </tr>';
+    }
+}
+
+
 // RENDERIZAR AS TABELAS PARTES
 
 $clienteRow = '
@@ -220,9 +283,11 @@ $html =
   <th style="border: 1px solid black; padding: 8px;">Telefone</th>
   <th style="border: 1px solid black; padding: 8px;">E-mail</th>
  </tr>
- ' .
-    $DadosTabelaPartes .
-    '
+ '.$DadosTabelaPartes .'
+</table>
+    '. $compromissoRows .'
+</table>
+    '.$prazoRows.'
 </table>';
 
 $dompdf->loadHtml($html);
