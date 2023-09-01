@@ -21,9 +21,6 @@
         $newrecebimentodata = $_POST['recebimentodata'];
         $newjuros = $_POST['juros'];
         $newmulta = $_POST['multa'];
-        $newrepetir = $_POST['repetir'];
-        $newparcelas = $_POST['parcelas'];
-        $newanexo = $_POST['anexo'];
 
         if($newrecebimentodata == ''){
             $newrecebimentodata = "";
@@ -53,7 +50,7 @@
             $newsubcategoria1 = "";
         }
 
-        $sqlUpdate = "UPDATE receita SET cliente1='$newcliente1', cliente2='$newcliente2', vencimento='$newvencimento', valor='$newvalor', categoria1='$newcategoria1', categoria2='$newcategoria2', subcategoria1='$newsubcategoria1', subcategoria2='$newsubcategoria2', observacoes='$newobservacoes', statuss='$newstatus', recebimentodata='$newrecebimentodata', juros='$newjuros', multa='$newmulta', repetir='$newrepetir', parcelas='$newparcelas', anexo='$newanexo'
+        $sqlUpdate = "UPDATE receita SET cliente1='$newcliente1', cliente2='$newcliente2', vencimento='$newvencimento', valor='$newvalor', categoria1='$newcategoria1', categoria2='$newcategoria2', subcategoria1='$newsubcategoria1', subcategoria2='$newsubcategoria2', observacoes='$newobservacoes', statuss='$newstatus', recebimentodata='$newrecebimentodata', juros='$newjuros', multa='$newmulta'
         WHERE id='$id'";
 
         $resultUpdate = $conn->query($sqlUpdate); 

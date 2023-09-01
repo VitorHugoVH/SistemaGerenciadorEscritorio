@@ -607,36 +607,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                     </b></label>
                                 <input type="number" name="multa" id="multa" placeholder="0,00" class="form-control">
                             </div>
-                            <div class="campos">
-                                <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Repetir valor?</h6>
-                                    </b></label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="uma" id="flexChe" name="repetir">
-                                    <label class="form-check-label" for="flexChe">
-                                        Desejo inserir este valor apenas um vez
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="repetir" id="flexCheck" onclick="isChecked()" name="repetir">
-                                    <label class="form-check-label" for="flexCheck">
-                                        Desejo repetir este valor
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="campos2" style="margin-top: 2%; margin-bottom: 2%; display: none;">
-                                <label for="parcelas"><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº de parcelas:</h6>
-                                    </b></label>
-                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3">
-                            </div>
                         </div>
-                    </div>
-                    <div class="bloco5">
-                        <label for="anexo"><b>
-                                <h6 style="font-family: arial, sans-serif; font-size: 16px;">Anexo</h6>
-                            </b></label>
-                        <input type="file" name="anexo" id="anexo" class="form-control">
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
                     <div class="final">
@@ -833,14 +804,6 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                 document.getElementById('campos3').style.display = "block";
             } else {
                 document.getElementById('campos3').style.display = "none";
-            }
-        }
-
-        function isChecked() {
-            if (document.getElementById("flexCheck").checked) {
-                document.getElementById("campos2").style.display = "block";
-            } else {
-                document.getElementById("campos2").style.display = "none";
             }
         }
     </script>
