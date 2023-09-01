@@ -915,7 +915,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                 </a>
                             </li>
                             <li>
-                                <a href="agenda_prazos.php" class="links">
+                                <a href="../Agenda/Prazos/agenda_prazos.php" class="links">
                                     <span class="item2" style="margin-left: 15%;">Prazos</span>
                                 </a>
                             </li>
@@ -936,12 +936,12 @@ $linha2 = mysqli_fetch_array($rs2);
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="../../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
+                                <a href="../Financeiro/Despesas/despesas.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Despesas</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="../../Financeiro/Receitas/receitas.php" class="links">
+                                <a href="../Financeiro/Receitas/receitas.php" class="links">
                                     <span class="item2" style="margin-left: 15%; width: 100%;">Receitas</span>
                                 </a>
                             </li>
@@ -962,12 +962,12 @@ $linha2 = mysqli_fetch_array($rs2);
                         </li>
                         <div class="dropdown-content">
                             <li>
-                                <a href="clientes.php" class="links" style="width: 100%;">
+                                <a href="../Equipe/Clientes/clientes.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Clientes</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="advogados.php" class="links" style="width: 100%;">
+                                <a href="../Equipe/Advogados/advogados.php" class="links" style="width: 100%;">
                                     <span class="item2" style="margin-left: 15%;">Advogados</span>
                                 </a>
                             </li>
