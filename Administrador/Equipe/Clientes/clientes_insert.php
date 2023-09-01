@@ -69,7 +69,8 @@ if (isset($_POST['enviar'])) {
 
     ##DADOS LOGIN##
     $login = $_POST['login'];
-    $senha = $_POST['senha'];
+    $senha = $_POST['senhaUser'];
+    $enviarEmail = $_POST['enviarEmailUsuario'];
 
     ##PRÉ ENVIO##
     if (!empty($senha)) {
@@ -92,6 +93,8 @@ if (isset($_POST['enviar'])) {
 
 
     ##ENVIAR EMAIL CLIENTE##
+
+    if($enviarEmail == 'true'){
 
     try {
         //Server settings
@@ -134,4 +137,8 @@ if (isset($_POST['enviar'])) {
             header('Location: clientes.php');
             exit;
         }
+    }else{
+        header('Location: clientes.php');
+        exit;
+    }
 }

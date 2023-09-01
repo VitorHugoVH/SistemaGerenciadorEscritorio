@@ -1,6 +1,15 @@
 <?php
     include_once('../../conexao_adm.php');
 
+    require '../../../../vendor/autoload.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
     // VERIFICAÇÃO LOGIN
     session_start();
     $logged = $_SESSION['logged'] ?? NULL;
@@ -67,8 +76,9 @@
 
         ##LOGIN##
         $newlogin = $_POST['login'];
-        $newsenha = $_POST['senha'];
+        $newsenha = $_POST['senhaUser'];
         $newstatus = $_POST['status'];
+        $enviarEmail = $_POST['enviarEmailUsuario'];
 
         ##COMANDOS SQL##
 
@@ -77,6 +87,52 @@
 
         $resultUpdate = $conn->query($sqlUpdate);
 
-        header('location: advogados.php');
+        if($enviarEmail == 'true'){
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = false;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'fragaemeloadvocacia@gmail.com';                     //SMTP username
+                $mail->Password   = 'jefjshmigdlbsxyj';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+                //Recipients
+                $mail->setFrom('fragaemeloadvocacia@gmail.com', 'Fraga e Melo Advogados Associados');
+                $mail->addAddress($email1, $nomeadvogado);     //Add a recipient
+                $mail->addReplyTo('fragaemeloadvocacia@gmail.com', 'Information');
+        
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Dados acesso sistema - Fraga e Melo';
+                $mail->Body    = "
+                    <html>
+                    <body>
+                        <h1>Olá Caro Cliente,</h1>
+                        <p>Segue abaixo os seus dados de acesso ao Sistema do Escritório Fraga e Melo:</p>
+                        <p><strong>Login:</strong> $login</p>
+                        <p><strong>Senha:</strong> $senha</p>
+                        <p>Por favor, mantenha esses dados em segurança e não os compartilhe com ninguém.</p>
+                        <p>Agradecemos pela confiança em nossos serviços.</p>
+                        <p>Atenciosamente,</p>
+                        <p>Fraga e Melo - Escritório de Advocacia</p>
+                    </body>
+                    </html>
+                ";
+        
+                $mail->send();
+                header('Location: advogados.php');
+                exit;
+                } catch (Exception $e) {
+                    header('Location: advogados.php');
+                    exit;
+                }
+            }else{
+                header('Location: advogados.php');
+                exit;
+            }
     }
 ?>

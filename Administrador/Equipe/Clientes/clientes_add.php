@@ -973,12 +973,12 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
             <input type="text" name="login" id="login" class="form-control" placeholder="Login">
           </div>
           <div class="campos">
-            <label for="senha"><b>
+            <label for="senhaUser"><b>
                 <h6 style="font-family: arial, sans-serif; font-size: 16px;">Senha</h6>
               </b></label>
             <div class="input-group">
-              <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha">
-              <div class="input-group-append" name="notview" id="notview" style="display: block;">
+              <input type="password" name="senhaUser" id="senhaUser" class="form-control" placeholder="Senha">
+              <div class="input-group-append" name="notviewSenhaUser" id="notviewSenhaUser" style="display: block;">
                 <a class='btn btn-sm btn-primary' onclick="view()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor"
                        class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
@@ -987,7 +987,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                   </svg>
                 </a>
               </div>
-              <div class="input-group-append" name="view" id="view" style="display: none;">
+              <div class="input-group-append" name="viewSenhaUser" id="viewSenhaUser" style="display: none;">
                 <a class='btn btn-sm btn-primary' onclick="notview()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor"
                        class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -996,6 +996,14 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                   </svg>
                 </a>
               </div>
+            </div>
+          </div>
+          <div class="campos">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" name="enviarEmailUsuario" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Enviar dados para o email do usuario
+              </label>
             </div>
           </div>
         </div>
@@ -1280,15 +1288,15 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     }
 
     function view() {
-        document.getElementById('senha').type = 'text';
-        document.getElementById('notview').style.display = 'none';
-        document.getElementById('view').style.display = 'block';
+        document.getElementById('senhaUser').type = 'text';
+        document.getElementById('notviewSenhaUser').style.display = 'none';
+        document.getElementById('viewSenhaUser').style.display = 'block';
     }
 
     function notview() {
-        document.getElementById('senha').type = 'password';
-        document.getElementById('notview').style.display = 'block';
-        document.getElementById('view').style.display = 'none';
+        document.getElementById('senhaUser').type = 'password';
+        document.getElementById('notviewSenhaUser').style.display = 'block';
+        document.getElementById('viewSenhaUser').style.display = 'none';
     }
 </script>
 

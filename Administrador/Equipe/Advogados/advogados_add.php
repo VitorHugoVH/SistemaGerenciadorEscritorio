@@ -985,6 +985,14 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 </div>
                             </div>
                         </div>
+                        <div class="campos">
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="flexCheckChecked" name="enviarEmailUsuario" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Enviar dados para o email do usuario
+                            </label>
+                            </div>
+                        </div>
                     </div>
                     <input type="hidden" name="datacriacao" value="<?php echo date('d/m/Y') ?>">
                     <div class="final">
