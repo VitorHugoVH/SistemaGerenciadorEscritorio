@@ -1031,12 +1031,12 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             <input type="text" name="login" id="login" class="form-control" placeholder="Login" value="<?php echo $login ?>">
                         </div>
                         <div class="campos">
-                            <label for="senha"><b>
+                            <label for="senhaUser"><b>
                                     <h6 style="font-family: arial, sans-serif; font-size: 16px;">Senha</h6>
                                 </b></label>
                             <div class="input-group">
-                                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" value="<?php echo $senha; ?>">
-                                <div class="input-group-append" name="notview" id="notview" style="display: block;">
+                                <input type="password" name="senhaUser" id="senhaUser" class="form-control" placeholder="Senha" value="<?php echo $senha; ?>">
+                                <div class="input-group-append" name="notviewSenhaUser" id="notviewSenhaUser" style="display: block;">
                                     <a class='btn btn-sm btn-primary' onclick="view()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
                                             <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
@@ -1044,7 +1044,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="input-group-append" name="view" id="view" style="display: none;">
+                                <div class="input-group-append" name="viewSenhaUser" id="viewSenhaUser" style="display: none;">
                                     <a class='btn btn-sm btn-primary' onclick="notview()">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                             <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
@@ -1332,16 +1332,18 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
         estado2.value = resposta2.uf;
     }
 
+    // FUNÇÃO MOSTRAR SENHA
+
     function view() {
-        document.getElementById('senha').type = 'text';
-        document.getElementById('notview').style.display = 'none';
-        document.getElementById('view').style.display = 'block';
+        document.getElementById('senhaUser').type = 'text';
+        document.getElementById('notviewSenhaUser').style.display = 'none';
+        document.getElementById('viewSenhaUser').style.display = 'block';
     }
 
     function notview() {
-        document.getElementById('senha').type = 'password';
-        document.getElementById('notview').style.display = 'block';
-        document.getElementById('view').style.display = 'none';
+        document.getElementById('senhaUser').type = 'password';
+        document.getElementById('notviewSenhaUser').style.display = 'block';
+        document.getElementById('viewSenhaUser').style.display = 'none';
     }
 </script>
 
