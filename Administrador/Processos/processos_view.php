@@ -573,6 +573,16 @@ $linha2 = mysqli_fetch_array($rs2);
                                             <td class="custom-control"><?php echo $linha['valorCausa']; ?></td>
                                         </tr>
                                     </div>
+                                    <div class="row">
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <input type="checkbox" class="form-check-input" id="customCheck10"
+                                                    name="valorDividaProcesso" value="on" checked>
+                                            </td>
+                                            <td class="custom-control">Valor da divida</td>
+                                            <td class="custom-control"><?php echo $linha['valorDivida']; ?></td>
+                                        </tr>
+                                    </div>
                                     <!-- INÍCIO FORMATAÇÃO DATA BRASIL-->
                                     <?php
                                     $data = $linha['dataa'];
@@ -583,7 +593,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                     <div class="row">
                                         <tr>
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <input type="checkbox" class="form-check-input" id="customCheck10"
+                                                <input type="checkbox" class="form-check-input" id="customCheck11"
                                                     name="aberturaProcesso" value="on" checked>
                                             </td>
                                             <td class="custom-control">Data de abertura</td>
@@ -593,7 +603,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                     <div class="row">
                                         <tr>
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <input type="checkbox" class="form-check-input" id="customCheck11"
+                                                <input type="checkbox" class="form-check-input" id="customCheck12"
                                                     name="valorHonorarioProcesso" value="on" checked>
                                             </td>
                                             <td class="custom-control">Valor honorário</td>
@@ -603,7 +613,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                     <div class="row">
                                         <tr>
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <input type="checkbox" class="form-check-input" id="customCheck12"
+                                                <input type="checkbox" class="form-check-input" id="customCheck13"
                                                     name="parcelasProcesso" value="on" checked>
                                             </td>
                                             <td class="custom-control">Nº Parcelas</td>
@@ -613,7 +623,7 @@ $linha2 = mysqli_fetch_array($rs2);
                                     <div class="row">
                                         <tr>
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <input type="checkbox" class="form-check-input" id="customCheck13"
+                                                <input type="checkbox" class="form-check-input" id="customCheck14"
                                                     name="observacoesProcesso" value="on" checked>
                                             </td>
                                             <td class="custom-control">Observações</td>

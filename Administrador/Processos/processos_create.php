@@ -18,6 +18,7 @@ if (isset($_POST['enviar'])) {
     $varaProcesso = isset($_POST['varaProcesso']) ? 'on' : '';
     $comarcaProcesso = isset($_POST['comarcaProcesso']) ? 'on' : '';
     $valorCausaProcesso = isset($_POST['valorCausaProcesso']) ? 'on' : '';
+    $valorDividaProcesso = isset($_POST['valorDividaProcesso']) ? 'on' : '';
     $aberturaProcesso = isset($_POST['aberturaProcesso']) ? 'on' : '';
     $valorHonorarioProcesso = isset($_POST['valorHonorarioProcesso']) ? 'on' : '';
     $parcelasProcesso = isset($_POST['parcelasProcesso']) ? 'on' : '';
@@ -37,6 +38,7 @@ if (isset($_POST['enviar'])) {
         'nomedavara' => $varaProcesso,
         'nomedacomarca' => $comarcaProcesso,
         'valorCausa' => $valorCausaProcesso,
+        'valorDivida' => $valorDividaProcesso,
         'dataa' => $aberturaProcesso,
         'valorHonorario' => $valorHonorarioProcesso,
         'parcelas' => $parcelasProcesso,
@@ -54,6 +56,7 @@ if (isset($_POST['enviar'])) {
         'nomedavara' => 'Nome da Vara',
         'nomedacomarca' => 'Nome da Comarca',
         'valorCausa' => 'Valor da Causa',
+        'valorDivida' => 'Valor da Divida',
         'dataa' => 'Data de Abertura',
         'valorHonorario' => 'Valor do Honorário',
         'parcelas' => 'Parcelas',
