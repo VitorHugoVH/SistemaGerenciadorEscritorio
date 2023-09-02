@@ -20,6 +20,7 @@ if (isset($_POST['enviar'])) {
   $outravara = $_POST['outronomedavara'];
   $nomedacomarca = $_POST['nomedacomarca'];
   $outronomedacomarca = $_POST['outronomedacomarca'];
+  $valorDivida = $_POST['valorDivida'];
   $valorCausa = $_POST['valorCausa'];
   $dataa = $_POST['dateabertura'];
   $valorhonorario = $_POST['valorhonorario'];
@@ -189,8 +190,8 @@ if (isset($_POST['enviar'])) {
   if($cadreceita == 'Ligado'){
     $result = mysqli_query(
       $conn,
-      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
-          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorDivida, valorCausa, fase, dataa, classe, falecido, mes)
+          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorDivida', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
     );
 
     // DEFININDO AS VARIÁVEIS DE SESSÃO
@@ -204,8 +205,8 @@ if (isset($_POST['enviar'])) {
   }else{
     $result = mysqli_query(
       $conn,
-      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorCausa, fase, dataa, classe, falecido, mes)
-          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
+      "INSERT INTO processo (valorHonorario, parcelas, cadreceita, stat, privado, posicaocliente, observacoes, nomecliente, nomeadvogado, segundoAdvogado, terceiroAdvogado, natureza, ritoProcesso, nprocesso, poderjudiciario, numerovara, nomedavara, nomedacomarca, valorDivida, valorCausa, fase, dataa, classe, falecido, mes)
+          VALUES ('$valorhonorario', '$parcelas', '$cadreceita', '$status', '$privado', '$posicao', '$ob', '$nomecliente', '$nomeadvogado', '$segundoAdvogado', '$terceiroAdvogado', '$natureza', '$ritoProcesso', '$nprocesso', '$poderjudiciario', '$numerovara', '$varadoprocesso', '$nomecomarca', '$valorDivida', '$valorCausa', '$fase', '$dataa', '$classeprocesso', '$nomefalecido', '$mes')",
     );
 
     header('Location: processos.php');

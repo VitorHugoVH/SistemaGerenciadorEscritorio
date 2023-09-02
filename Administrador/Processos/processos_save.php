@@ -22,6 +22,7 @@ if (isset($_POST['update'])) {
     $outravara = $_POST['outronomedavara'];
     $nomedacomarca = $_POST['nomedacomarca'];
     $outracomarca = $_POST['outronomedacomarca'];
+    $valorDivida = $_POST['valorDivida'];
     $valorCausa = $_POST['valorCausa'];
     $dateabertura = $_POST['dateabertura'];
     $valorhonorario = $_POST['valorhonorario'];
@@ -218,7 +219,7 @@ if (isset($_POST['update'])) {
     $countClientes = $rowVerificarCliente['count'];
 
     if ($countClientes > 0) {
-        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso',nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorDivida='$valorDivida', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
         WHERE id='$id'";
     
         $result = $conn->query($sqlUpdate);
@@ -226,7 +227,7 @@ if (isset($_POST['update'])) {
         header('Location: processos.php');
         exit;
     }else {
-        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita',stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso',nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+        $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorDivida='$valorDivida', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
         WHERE id='$id'";
     
         $result = $conn->query($sqlUpdate);

@@ -30,6 +30,7 @@ if (!empty($_GET['id'])) {
             $numerovara = $user_data['numerovara'];
             $nomedavara = $user_data['nomedavara'];
             $nomedacomarca = $user_data['nomedacomarca'];
+            $valorDivida = $user_data['valorDivida'];
             $valorCausa = $user_data['valorCausa'];
             $dataa = $user_data['dataa'];
             $valorhonorario = $user_data['valorHonorario'];
@@ -869,9 +870,14 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 
                                 $valorCausa = substr($valorCausa, 2);
                                 $valorhonorario = substr($valorhonorario, 2);
+                                $valorDivida = substr($valorDivida, 2);
 
                             ?>
                         <!--REFATORAçÃO VALORES CUSA E HONORÁRIOS---->
+                        <div class="campos">
+                                <label class="form-label" for="valorDivida">Valor da Divida</label>
+                                <input type="text" id="valorDivida" name="valorDivida" class="form-control" value="<?php echo $valorDivida; ?>" required />
+                            </div>
                         <div class="campos">
                           <label class="form-label">Valor da causa</label>
                           <input type="text" id="valorCausa" name="valorCausa" class="form-control" value="<?php echo $valorCausa; ?>" required />
@@ -900,6 +906,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                               <script>
                                 var inputCausa = document.getElementById('valorCausa');
                                 var inputHonorario = document.getElementById('valorhonorario');
+                                var inputDivida =document.getElementById('valorDivida');
 
                                 inputCausa.addEventListener('input', function() {
                                   formatarValor(this);
@@ -907,6 +914,10 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 
                                 inputHonorario.addEventListener('input', function() {
                                   formatarValor(this);
+                                });
+
+                                inputDivida.addEventListener('input', function() {
+                                    formatarValor(this);
                                 });
 
                                 function formatarValor(input) {
@@ -936,6 +947,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 // Chama a função de formatação inicialmente
                                 formatarValor(inputCausa);
                                 formatarValor(inputHonorario);
+                                formatarValor(inputDivida);
                               </script>
                             <div class="campos">
                                 <label for="parcelas">Parcelas</label>
