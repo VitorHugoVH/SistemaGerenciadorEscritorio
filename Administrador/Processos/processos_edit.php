@@ -957,9 +957,9 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             <div class="campos">
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault2"
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault"
                                         name="cadreceita" <?= $cadreceita == 'Ligado' ? 'checked' : 'Desligado' ?>>
-                                    <label class="form-check-label" for="flexCheckDefault2">
+                                    <label class="form-check-label" for="flexCheckDefault">
                                         Cadastrar como nova receita após finalização
                                     </label>
                                 </div>

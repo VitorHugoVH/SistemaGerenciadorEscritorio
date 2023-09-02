@@ -29,11 +29,16 @@ if ($row == 1) {
     $result_clientes = mysqli_query($conexao, $query_clientes);
     $row_clientes = mysqli_num_rows($result_clientes);
 
+    while($data_cli = mysqli_fetch_assoc($result_clientes)){
+        $idCliente = $data_cli['id'];
+    }
+
     if ($row_clientes == 1) {
-        $_SESSION['usuariologado'] = $usuario;
+        $_SESSION['clientelogado'] = $usuario;
         $_SESSION['senhalogado'] = $senha;
+        $_SESSION['idCliente'] = $idCliente;
         $_SESSION['logged'] = true;
-        header('Location: Cliente/index.php');
+        header('Location: Cliente/AreaCliente.php');
     } else {
         $_SESSION['erro'] = "Email ou Senha inválidos!";
         header('Location: login.php');

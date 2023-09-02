@@ -240,5 +240,8 @@ if (isset($_POST['update'])) {
         header('Location: ../Financeiro/Receitas/receitas_add.php');
         exit;
     }
+  }else {
+    header('Location: processos.php');
+    exit;
   }
 }
