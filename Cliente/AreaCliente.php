@@ -390,7 +390,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="../MeusDados/minha_senha.php" method="POST" id="formMinhaSenha">
+                                <form action="./AlterarDados/minha_senhaCliente.php" method="POST" id="formMinhaSenha">
                                     <input type="hidden" name="idCliente" value="<?php echo $idCliente ?>">
                                     <input type="hidden" name="senhaCliente" value="<?php echo $senhaCliente ?>">
                                     <div class="campos">

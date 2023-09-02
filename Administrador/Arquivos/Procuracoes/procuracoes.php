@@ -482,7 +482,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                         <div class='col-2'></div>
                                         <div class='col-3'></div>
                                         <div class='col-3'>
-                                            <a href='/Processos//Processos/processos.php'><button type='button' class='btn btn-outline-secondary'>Cadastrar processo</button></a>
+                                            <a href='../../Processos/processos_add1.php'><button type='button' class='btn btn-outline-secondary'>Cadastrar processo</button></a>
                                         </div>
                                     </div>";
                                 }

@@ -11,8 +11,11 @@ function verificarAcesso($conn) {
         exit();
     }
 
-    $usuario = $_SESSION['usuariologado'];
-    $senha = $_SESSION['senhalogado'];
+    $usuario = $_SESSION['usuariologado'] ?? '';
+    $senha = $_SESSION['senhalogado'] ?? '';
+
+    $cliente = $_SESSION['clientelogado'] ?? '';
+    $senhacliente = $_SESSION['senhaCliente'] ?? '';
 
     // Consulta na tabela "usuario"
     $query = "SELECT * FROM usuario WHERE usuario = '{$usuario}' AND senha = '{$senha}' AND status = 'Ativo'";
@@ -32,10 +35,10 @@ function verificarAcesso($conn) {
         return true;
     } else {
         // Consulta na tabela "clientes" para verificar se o cliente existe
-        $cliente = isset($_SESSION['clientelogado']) ? $_SESSION['clientelogado'] : null;
-        $senhaCliente = isset($_SESSION['senhalogado']) ? $_SESSION['senhalogado'] : null;
+        $usuarioCliente = $cliente ? $cliente : null;
+        $senhaCliente = $senhacliente ? $senhacliente : null;
 
-        $query_clientes = "SELECT * FROM clientes WHERE login = '{$cliente}' AND senha = '{$senhaCliente}'";
+        $query_clientes = "SELECT * FROM clientes WHERE login = '{$usuarioCliente}' AND senha = '{$senhaCliente}'";
         $result_clientes = mysqli_query($conn, $query_clientes);
         $row_clientes = mysqli_num_rows($result_clientes);
 
@@ -47,7 +50,7 @@ function verificarAcesso($conn) {
         if ($row_clientes == 1) {
             // Redireciona o cliente para a página do cliente
             $_SESSION['logged'] = true;
-            $_SESSION['usernameCliente'] = $cliente;
+            $_SESSION['usernameCliente'] = $usuarioCliente;
             $_SESSION['idCliente'] = $idCliente;
         } else {
             // Usuário ou cliente não encontrado em nenhuma tabela

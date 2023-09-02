@@ -9,7 +9,7 @@ if (isset($_POST['send'])) {
     $novaSenha = $_POST['novaSenha'];
 
     // Verificar se a senha atual inserida corresponde à senha no banco de dados
-    $sqlSenha = "SELECT senha FROM usuario WHERE idusuario = ?";
+    $sqlSenha = "SELECT senha FROM clientes WHERE id = ?";
     $stmtSenha = $conn->prepare($sqlSenha);
     $stmtSenha->bind_param("i", $id);
     $stmtSenha->execute();
@@ -19,22 +19,22 @@ if (isset($_POST['send'])) {
 
     if ($senhaAtual == $senhaDoBanco) {
         // Atualizar a senha
-        $sqlUpdate = "UPDATE usuario SET senha = ? WHERE idusuario = ?";
+        $sqlUpdate = "UPDATE clientes SET senha = ? WHERE id = ?";
         $stmtUpdate = $conn->prepare($sqlUpdate);
         $stmtUpdate->bind_param("si", $novaSenha, $id);
 
         if ($stmtUpdate->execute()) {
             $stmtUpdate->close();
             // Atualizar a variável de sessão com a nova senha
-            $_SESSION['senhalogado'] = $novaSenha;
+            $_SESSION['senhaCliente'] = $novaSenha;
 
-            header('Location: ../Deashboard/admin.php');
+            header('Location: ../AreaCliente.php');
             exit();
         } else {
             echo "Erro na execução da consulta: " . $stmtUpdate->error;
         }
     } else {
-        echo '<script>alert("Senha atual incorreta!"); window.location.href="../Deashboard/admin.php";</script>';
+        echo '<script>alert("Senha atual incorreta!"); window.location.href="../AreaCliente.php";</script>';
     }
 }
 ?>

@@ -35,7 +35,7 @@ if ($row == 1) {
 
     if ($row_clientes == 1) {
         $_SESSION['clientelogado'] = $usuario;
-        $_SESSION['senhalogado'] = $senha;
+        $_SESSION['senhaCliente'] = $senha;
         $_SESSION['idCliente'] = $idCliente;
         $_SESSION['logged'] = true;
         header('Location: Cliente/AreaCliente.php');
