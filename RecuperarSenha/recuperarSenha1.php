@@ -16,8 +16,8 @@ if (isset($_SESSION['erro'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="estilos.css">
-  <link rel="icon" type="image/x-icon" href="imagens/icon.png" />
+  <link rel="stylesheet" type="text/css" href="../estilos.css">
+  <link rel="icon" type="image/x-icon" href="../imagens/icon.png" />
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <!-- JavaScript Bundle with Popper -->
@@ -29,38 +29,27 @@ if (isset($_SESSION['erro'])) {
   <div class="container">
     <div class="login-page">
       <div class="text-center">
-        <a href="index.php"><img src="imagens/advogado3.jpeg" width="100%" margin-bottom="0px"></a>
+        <a href="../index.php"><img src="../imagens/advogado3.jpeg" width="100%" margin-bottom="0px"></a>
       </div>
       <div class="form">
-        <form class="login-form" action="login2.php" method="POST" onsubmit="return validarFormulario();">
-          <input type="text" placeholder="usuario" id="user" name="usuario" />
-          <input type="password" placeholder="senha" id="pass" name="senha" />
-          <a><button class="btn btn-primary" type="submit">Entrar</button></a>
+        <form class="enviar" action="enviaCodigo.php" method="POST" onsubmit="return validarFormulario();">
+          <input type="email" class="form-control" name="emailRecuperacao" id="emailRecuperacao" placeholder="Digite seu email">
+          <a><button class="btn btn-primary" type="submit" name="enviarCodigo">Enviar código</button></a>
         </form>
-        <a href="./RecuperarSenha/recuperarSenha1.php" style="text-decoration: none;"><p style="text-decoration: none; margin-top: 5%;">Esqueci minha senha</p></a>
+        <a href="../login.php" style="text-decoration: none;"><p style="text-decoration: none; margin-top: 5%;">Retornar para o login</p></a>
       </div>
     </div>
   </div>
   <script>
     function validarFormulario() {
-      var usuario = document.getElementById("user").value;
-      var senha = document.getElementById("pass").value;
+      var email = document.getElementById("emailRecuperacao").value;
 
-      if (usuario.trim() === "" || senha.trim() === "") {
+      if (email.trim() === "") {
         alert("Por favor, preencha todos os campos.");
         return false; // Impede o envio do formulário
       }
 
       return true; // Permite o envio do formulário
-    }
-
-    function mostrarSenha() {
-      var input = document.getElementById("pass");
-      if (input.getAttribute("type") == "password") {
-        input.setAttribute("type", "text");
-      } else {
-        input.setAttribute("type", "password");
-      }
     }
   </script>
 </body>

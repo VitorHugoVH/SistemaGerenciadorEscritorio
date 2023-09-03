@@ -6,7 +6,6 @@ require('../Administrador/sessao_usuarios.php');
 // VERIFICAÇÃO LOGIN E NÍVEL DE USUÁRIO
 verificarAcesso($conn);
 
-$username = $_SESSION['usernameCliente'] ?? '';
 $idCliente = $_SESSION['idCliente'] ?? '';
 
 // RECEBER NOME DO CLIENTE
@@ -26,6 +25,7 @@ $nomeCliente = "";
 // Obtenha o nome do cliente se a consulta retornar resultados
 if ($data_cli = mysqli_fetch_assoc($resultBuscaNomeCliente)) {
     $nomeCliente = $data_cli['nomecliente'];
+    $username = $data_cli['login'];
 }
 
 // Consulta SQL principal para buscar processos
