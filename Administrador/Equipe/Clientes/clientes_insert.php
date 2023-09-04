@@ -72,12 +72,6 @@ if (isset($_POST['enviar'])) {
     $senha = $_POST['senhaUser'];
     $enviarEmail = $_POST['enviarEmailUsuario'];
 
-    ##PRÉ ENVIO##
-    if (!empty($senha)) {
-        $md5senha = md5($senha);
-        $sha1senha = sha1($md5senha);
-    }
-
     ##COMANDOS SQL INSERT##
     $sql = "INSERT INTO clientes (nomecliente, tipodocumento, cpf, cnpj, sexo, responsavel, datanascimento, datafundacao, rg, tipoempresa, 
         estadocivil, atividade, profissao, inscricao, nacionalidade ,observacao, email1, email2, email3, tipocontato1, ddi1, ddd1, numero1, tipocontato2, 
@@ -87,7 +81,7 @@ if (isset($_POST['enviar'])) {
         VALUES ('$nome', '$documento', '$cpf', '$cnpj', '$sexo', '$resposavel', '$datanascimento', '$datafundacao', '$numerorg', '$tipoempresa', 
         '$estadocivil', '$atividadeprincipal', '$profissao', '$inscricao', '$nacionalidade', '$observacoes', '$email1', '$email2', '$email3', '$tipocontato1', '$ddi1', 
         '$ddd1', '$numero1', '$tipocontato2', '$ddi2', '$ddd2', '$numero2', '$tipocontato3', '$ddi3', '$ddd3', '$numero3', '$cep1', '$numerocasa1', '$complemento1', 
-        '$bairro1', '$cidade1', '$estado1', '$cep2', '$numerocasa2', '$complemento2', '$bairro2', '$cidade2', '$estado2', '$login', '$sha1senha')";
+        '$bairro1', '$cidade1', '$estado1', '$cep2', '$numerocasa2', '$complemento2', '$bairro2', '$cidade2', '$estado2', '$login', '$senha')";
 
     $result = $conn->query($sql);
 

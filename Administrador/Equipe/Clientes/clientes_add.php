@@ -468,11 +468,11 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                   </select>
                 </div>
                 <div class="col-8">
-                  <input type="text" name="numerocpf" id="numerocpf" class="form-control" placeholder="Número do CPF"
+                  <input type="text" name="numerocpf" id="numerocpfCliente" class="form-control" placeholder="Número do CPF"
                          maxlength="11" oninput="mascara(this)">
                   <!-- Javascript--->
                   <input type="hidden" name="numerocnpj" id="numerocnpj" class="form-control"
-                         placeholder="Número do CNPJ" maxlength="11" oninput="mascara(this)">
+                         placeholder="Número do CNPJ" maxlength="18" oninput="mascaraCNPJ(this)">
                   <!-- Javascript--->
                 </div>
                 <script>
@@ -489,6 +489,22 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                         if (v.length == 3 || v.length == 7) i.value += ".";
                         if (v.length == 11) i.value += "-";
 
+                    }
+
+                    function mascaraCNPJ(input) {
+                        let value = input.value.replace(/\D/g, '');
+                        
+                        if (value.length <= 2) {
+                            input.value = value;
+                        } else if (value.length <= 5) {
+                            input.value = value.replace(/(\d{2})(\d{0,3})/, '$1.$2');
+                        } else if (value.length <= 8) {
+                            input.value = value.replace(/(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                        } else if (value.length <= 12) {
+                            input.value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
+                        } else {
+                            input.value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, '$1.$2.$3/$4-$5');
+                        }
                     }
                 </script>
               </div>
@@ -1161,7 +1177,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 <script>
     function documento() {
         if (document.getElementById('tipodocumento').value == 'CNPJ') {
-            document.getElementById('numerocpf').type = 'hidden';
+            document.getElementById('numerocpfCliente').type = 'hidden';
             document.getElementById('numerocnpj').type = 'text';
 
             /*Javascript CPF*/
@@ -1180,7 +1196,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
             document.getElementById('segundacampos7').style.display = 'block';
 
         } else {
-            document.getElementById('numerocpf').type = 'text';
+            document.getElementById('numerocpfCliente').type = 'text';
             document.getElementById('numerocnpj').type = 'hidden';
 
             document.getElementById('campos3').style.display = 'block';

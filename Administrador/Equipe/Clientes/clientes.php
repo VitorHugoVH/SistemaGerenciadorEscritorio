@@ -542,7 +542,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                     </a>
                 </li>
                 <li>
-                    <a href="processos.php" class="links">
+                    <a href="../../Processos/processos.php" class="links">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>
