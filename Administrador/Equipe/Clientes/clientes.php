@@ -513,7 +513,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                             <a class='btn btn-light' href='../../Processos/processos.php?statusfiltro=Todos&buscanome=$data_client[nomecliente]&termobusca='>
                                                 <i class='fa-solid fa-scale-balanced' width='16' height='16'></i>
                                             </a>
-                                            <a class='btn btn-sm btn-danger' href='clientes_delete.php?id=$data_client[id]' onclick='confirma()'>
+                                            <a class='btn btn-sm btn-danger' href='clientes_delete.php?id=$data_client[id]' onclick='return confirma($data_client[id])'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                                     <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
                                                 </svg>
@@ -656,10 +656,10 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 </body>
 <script>
     function confirma(id) {
-        if (confirm("Deseja realmente excluir este processo?")) {
+        if (confirm("Deseja realmente excluir este cliente?")) {
             location.href = "clientes_delete.php?id=" + id;
         } else {
-            // O usuário clicou em "Cancelar", então não fazemos nada.
+            return false;
         }
     }
 </script>
