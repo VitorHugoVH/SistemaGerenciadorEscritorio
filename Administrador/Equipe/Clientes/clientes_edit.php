@@ -32,6 +32,7 @@ if (!empty($_GET['id'])) {
         $inscricao = $data['inscricao'];
         $nacionalidade = $data['nacionalidade'];
         $observacoa = $data['observacao'];
+        $status = $data['status'];
 
         ##EMAILS##
         $email1 = $data['email1'];
@@ -706,6 +707,15 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Observação</h6>
                                     </b></label>
                                 <textarea name="observacoes" id="observacoes" col="3" class="form-control" placeholder="Observação"><?php echo $observacoa; ?></textarea>
+                            </div>
+                            <div class="campos">
+                                <label><b>
+                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Status do usuario</h6>
+                                    </b></label>
+                                <select class="form-select" name="status" id="status">
+                                    <option <?= ($status == 'Ativo') ? 'selected' : ' ' ?>>Ativo</option>
+                                    <option <?= ($status == 'Inativo') ? 'selected' : ' ' ?>>Inativo</option>
+                                </select>
                             </div>
                         </div>
                     </div>

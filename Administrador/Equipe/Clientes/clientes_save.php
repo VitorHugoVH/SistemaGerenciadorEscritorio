@@ -30,6 +30,7 @@
         $newprofissao = $_POST['profissao'];
         $newinscricao = $_POST['inscricao'];
         $newobservacoes= $_POST['observacoes'];
+        $newstatus = $_POST['status'];
 
         ##EMAILS##
         $newemail1 = $_POST['email'];
@@ -70,7 +71,7 @@
         $enviarEmail = $_POST['enviarEmailUsuario'];
 
         ##COMANDOS UPDATE##
-        $sqlUpdate = "UPDATE clientes SET nomecliente='$newnome', tipodocumento='$newdocumento', cpf='$newnumerocpf', cnpj='$newnumerocnpj', sexo='$newsexo', responsavel='$newresposavel', datanascimento='$newdatanascimento', datafundacao='$newdatafundacao', rg='$newnumerorg', tipoempresa='$newtipoempresa', estadocivil='$newestadocivil', atividade='$newatividadeprincipal', profissao='$newprofissao', inscricao='$newinscricao', observacao='$newobservacoes', email1='$newemail1', email2='$newemail2', email3='$newemail3', tipocontato1='$newtipocontato1', ddi1='$newddd1', ddd1='$newddd1', numero1='$newnumero', tipocontato2='$newtipocontato2', ddi2='$newddi2', ddd2='$newddd2', numero2='$newnumero2', tipocontato3='$newtipocontato3', ddi3='$newddi3', ddd3='$newddd3', numero3='$newnumero3', cep1='$newcep1', endereco1='$newendereco1', numerocasa1='$newnumerocasa1', complemento1='$newcomplemento1', bairro1='$newbairro1', cidade1='$newcidade1', estado1='$newestado1', cep2='$newcep2', endereco2='$newendereco2', numerocasa2='$newnumerocasa2', complemento2='$newcomplemento2', bairro2='$newbairro2', cidade2='$newcidade2', estado2='$newestado2', login='$newlogin', senha='$newsenha'
+        $sqlUpdate = "UPDATE clientes SET nomecliente='$newnome', tipodocumento='$newdocumento', cpf='$newnumerocpf', cnpj='$newnumerocnpj', sexo='$newsexo', responsavel='$newresposavel', datanascimento='$newdatanascimento', datafundacao='$newdatafundacao', rg='$newnumerorg', tipoempresa='$newtipoempresa', estadocivil='$newestadocivil', atividade='$newatividadeprincipal', profissao='$newprofissao', inscricao='$newinscricao', observacao='$newobservacoes', email1='$newemail1', email2='$newemail2', email3='$newemail3', tipocontato1='$newtipocontato1', ddi1='$newddd1', ddd1='$newddd1', numero1='$newnumero', tipocontato2='$newtipocontato2', ddi2='$newddi2', ddd2='$newddd2', numero2='$newnumero2', tipocontato3='$newtipocontato3', ddi3='$newddi3', ddd3='$newddd3', numero3='$newnumero3', cep1='$newcep1', endereco1='$newendereco1', numerocasa1='$newnumerocasa1', complemento1='$newcomplemento1', bairro1='$newbairro1', cidade1='$newcidade1', estado1='$newestado1', cep2='$newcep2', endereco2='$newendereco2', numerocasa2='$newnumerocasa2', complemento2='$newcomplemento2', bairro2='$newbairro2', cidade2='$newcidade2', estado2='$newestado2', login='$newlogin', senha='$newsenha', status='$newstatus'
         WHERE id='$id'";
 
         $resultUpdate = $conn->query($sqlUpdate);

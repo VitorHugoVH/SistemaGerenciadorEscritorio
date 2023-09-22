@@ -644,6 +644,15 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
               <textarea name="observacoes" id="observacoes" col="3" class="form-control"
                         placeholder="Observação"></textarea>
             </div>
+            <div class="campos">
+              <label><b>
+                <h6 style="font-family: arial, sans-serif; font-size: 16px;">Status do usuario</h6>
+              </b></label>
+              <select class="form-select" name="status" id="status">
+                <option>Ativo</option>
+                <option>Inativo</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="bloco5">

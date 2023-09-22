@@ -28,6 +28,7 @@ if (isset($_POST['enviar'])) {
     $inscricao = $_POST['inscricao'];
     $nacionalidade = $_POST['nacionalidade'];
     $observacoes = $_POST['observacoes'];
+    $statusUsuario = $_POST['status'];
 
     #EMAILS##
     $email1 = $_POST['email'];
@@ -76,12 +77,12 @@ if (isset($_POST['enviar'])) {
     $sql = "INSERT INTO clientes (nomecliente, tipodocumento, cpf, cnpj, sexo, responsavel, datanascimento, datafundacao, rg, tipoempresa, 
         estadocivil, atividade, profissao, inscricao, nacionalidade ,observacao, email1, email2, email3, tipocontato1, ddi1, ddd1, numero1, tipocontato2, 
         ddi2, ddd2, numero2, tipocontato3, ddi3, ddd3, numero3, cep1, numerocasa1, complemento1, bairro1, cidade1, estado1, cep2, numerocasa2, 
-        complemento2, bairro2, cidade2, estado2, login, senha)
+        complemento2, bairro2, cidade2, estado2, login, senha, status)
 
         VALUES ('$nome', '$documento', '$cpf', '$cnpj', '$sexo', '$resposavel', '$datanascimento', '$datafundacao', '$numerorg', '$tipoempresa', 
         '$estadocivil', '$atividadeprincipal', '$profissao', '$inscricao', '$nacionalidade', '$observacoes', '$email1', '$email2', '$email3', '$tipocontato1', '$ddi1', 
         '$ddd1', '$numero1', '$tipocontato2', '$ddi2', '$ddd2', '$numero2', '$tipocontato3', '$ddi3', '$ddd3', '$numero3', '$cep1', '$numerocasa1', '$complemento1', 
-        '$bairro1', '$cidade1', '$estado1', '$cep2', '$numerocasa2', '$complemento2', '$bairro2', '$cidade2', '$estado2', '$login', '$senha')";
+        '$bairro1', '$cidade1', '$estado1', '$cep2', '$numerocasa2', '$complemento2', '$bairro2', '$cidade2', '$estado2', '$login', '$senha', '$statusUsuario')";
 
     $result = $conn->query($sql);
 

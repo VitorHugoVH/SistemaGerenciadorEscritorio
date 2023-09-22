@@ -24,7 +24,7 @@ if ($row == 1) {
     header('Location: Administrador/Deashboard/admin.php');
 } else {
     // Consulta na tabela "clientes" caso a primeira consulta não tenha retornado resultados
-    $query_clientes = "SELECT * FROM clientes WHERE login = '{$usuario}' AND senha = '{$senha}'";
+    $query_clientes = "SELECT * FROM clientes WHERE login = '{$usuario}' AND senha = '{$senha}' AND status = 'Ativo'";
 
     $result_clientes = mysqli_query($conexao, $query_clientes);
     $row_clientes = mysqli_num_rows($result_clientes);
