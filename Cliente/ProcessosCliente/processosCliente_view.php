@@ -2,13 +2,9 @@
 
 include_once('../conexao_cliente.php');
 require('../../Administrador/sessao_usuarios.php');
-
-// VERIFICAÇÃO LOGIN E NÍVEL DE USUÁRIO
 verificarAcesso($conn);
 
 $idCliente = $_SESSION['idCliente'] ?? '';
-
-// RECEBER NOME DO CLIENTE
 
 $sqlBuscaNomeCliente = "SELECT * FROM clientes WHERE id='$idCliente'";
 $resultBuscaNomeCliente = $conn->query($sqlBuscaNomeCliente);
@@ -121,14 +117,23 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 $id = $_GET['id'];
 $sql = "SELECT * FROM processo WHERE id=$id";
 $rs = mysqli_query($conn, $sql);
-$linha = mysqli_fetch_array($rs);
 
-$numeroProcesso = $linha['nprocesso'];
-$nomePrimeiroAdvogado = $linha['nomeadvogado'];
-$nomeSegundoAdvogado = $linha['segundoAdvogado'];
-$nomeTerceiroAdvogado = $linha['terceiroAdvogado'];
-$nomeCliente = $linha['nomecliente'];
+if ($rs) {
+    $linha = mysqli_fetch_array($rs);
 
+    if ($linha['nomecliente'] === $nomeUsuario) {
+        $numeroProcesso = $linha['nprocesso'];
+        $nomePrimeiroAdvogado = $linha['nomeadvogado'];
+        $nomeSegundoAdvogado = $linha['segundoAdvogado'];
+        $nomeTerceiroAdvogado = $linha['terceiroAdvogado'];
+        $nomeCliente = $linha['nomecliente'];
+    } else {
+        header('Location: ../AreaCliente.php');
+        exit();
+    }
+} else {
+    die('Erro na consulta SQL: ' . mysqli_error($conn));
+}
 ?>
 
 <body>

@@ -11,26 +11,32 @@ $idUsuario = $_SESSION['idUsuario'] ?? '';
 $id = $_GET['id'];
 
 if (!empty($_GET['id'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
 
-    $sql = "SELECT * FROM receita WHERE id=$id";
+    $sql = "SELECT * FROM receita WHERE id='$id'";
     $result = $conn->query($sql);
 
-    while ($data = mysqli_fetch_assoc($result)) {
-        $cliente1 = $data['cliente1'];
-        $cliente2 = $data['cliente2'];
-        $vencimento = $data['vencimento'];
-        $valor = $data['valor'];
-        $categoria1 = $data['categoria1'];
-        $categoria2 = $data['categoria2'];
-        $subcategoria1 = $data['subcategoria1'];
-        $subcategoria2 = $data['subcategoria2'];
-        $observacoes = $data['observacoes'];
-        $status = $data['statuss'];
-        $recebimentodata = $data['recebimentodata'];
-        $juros = $data['juros'];
-        $multa = $data['multa'];
+    if (mysqli_num_rows($result) > 0) {
+        while ($data = mysqli_fetch_assoc($result)) {
+            $cliente1 = $data['cliente1'];
+            $cliente2 = $data['cliente2'];
+            $vencimento = $data['vencimento'];
+            $valor = $data['valor'];
+            $categoria1 = $data['categoria1'];
+            $categoria2 = $data['categoria2'];
+            $subcategoria1 = $data['subcategoria1'];
+            $subcategoria2 = $data['subcategoria2'];
+            $observacoes = $data['observacoes'];
+            $status = $data['statuss'];
+            $recebimentodata = $data['recebimentodata'];
+            $juros = $data['juros'];
+            $multa = $data['multa'];
+        }
+    } else {
+        header('Location: receitas.php');
     }
 }
+
 
 /*BUSCAR DADOS PARA OS MODAIS*/
 
@@ -596,13 +602,13 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Situação</h6>
                                     </b></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="receber" id="flexCheckDefault" name="status" <?= ($status == 'A receber') ? "checked" : ' '; ?>>
+                                    <input class="form-check-input" type="checkbox" value="receber" id="flexCheckDefault" name="status" <?= ($status == 'A receber')?'checked':' ' ?>>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         A receber
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="recebido" id="flexCheckChecked" onclick="rece()" name="status" <?= ($status == 'Recebido') ? "checked" : ' '; ?>>
+                                    <input class="form-check-input" type="checkbox" value="recebido" id="flexCheckChecked" onclick="rece()" name="status" <?= ($status == 'Recebido')?'checked':' ' ?>>
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Recebido
                                     </label>
@@ -612,7 +618,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <label><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Data do recebimento</h6>
                                     </b></label>
-                                <input type="date" name="recebimentodata" id="recebimentodata" class="form-control" placeholder="__/__/__" value="<?php echo $recebimentodata; ?>">
+                                <input type="date" name="recebimentodata" id="recebimentodata" class="form-control" placeholder="__/__/__" value="<?php echo $recebimentodata ?>">
                             </div>
                             <div class="campos">
                                 <label for="juros"><b>
@@ -820,11 +826,23 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
         }
 
         function rece() {
-            if (document.getElementById('flexCheckChecked').checked) {
-                document.getElementById('campos3').style.display = "block";
-            } else {
-                document.getElementById('campos3').style.display = "none";
-            }
+            const checkboxAReceber = document.getElementById("flexCheckDefault");
+            const checkboxRecebido = document.getElementById("flexCheckChecked");
+            const campos3 = document.getElementById("campos3");
+
+            checkboxAReceber.addEventListener("change", function() {
+                if (checkboxAReceber.checked) {
+                    checkboxRecebido.checked = false;
+                    campos3.style.display = "none";
+                }
+            });
+
+            checkboxRecebido.addEventListener("change", function() {
+                if (checkboxRecebido.checked) {
+                    checkboxAReceber.checked = false;
+                    campos3.style.display = "block";
+                }
+            });
         }
     </script>
 </body>

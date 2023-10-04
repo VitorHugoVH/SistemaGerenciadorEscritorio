@@ -10,18 +10,15 @@ $username = $_SESSION['username'] ?? '';
 $idUsuario = $_SESSION['idUsuario'] ?? '';
 
 if (!empty($_GET['id'])) {
-
     include_once('../../conexao_adm.php');
 
-    $id = $_GET['id'];
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
 
-    $sqlEdit = "SELECT * FROM despesa WHERE id=$id";
+    $sqlEdit = "SELECT * FROM despesa WHERE id='$id'";
     $resultEdit = $conn->query($sqlEdit);
 
     if ($resultEdit->num_rows > 0) {
-
         while ($data = mysqli_fetch_assoc($resultEdit)) {
-
             $datavencimento = $data['datavencimento'];
             $valor = $data['valor'];
             $categoria = $data['categoria'];
@@ -37,6 +34,8 @@ if (!empty($_GET['id'])) {
             $parcelas = $data['parcelas'];
             $datacriacao = $data['datacriacao'];
         }
+    } else {
+        echo "Nenhum resultado encontrado para o ID fornecido.";
     }
 }
 
@@ -537,22 +536,40 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Observação" name="observacoes" id="observacoes"><?php echo $observacao; ?></textarea>
                             </div>
                             <div class="campos">
-                                <label><b>
+                                <label>
+                                    <b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Situação</h6>
-                                    </b></label>
+                                    </b>
+                                </label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="Apagar" id="pagar" name="status" <?= ($situacao == 'Á pagar') ? "checked" : ''; ?> placeholder=".">
+                                    <input class="form-check-input" type="radio" value="Apagar" id="pagar" onclick="Check()" name="status" <?= ($situacao == 'Á pagar') ? "checked" : '' ?>>
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        A pagar
+                                        Á pagar
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="Pago" id="pago" onclick="Check()" name="status" <?= ($situacao == 'Pago') ? "checked" : ''; ?> placeholder=".">
+                                    <input class="form-check-input" type="radio" value="Pago" id="pago" onclick="Check()" name="status" <?= ($situacao == 'Pago') ? "checked" : '' ?>>
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Pago
                                     </label>
                                 </div>
                             </div>
+                            <!--VERIFICAÇÃO CAMPOS STATUS--->
+                            <script>
+                                function Check() {
+                                    var pagarRadio = document.getElementById("pagar");
+                                    var pagoRadio = document.getElementById("pago");
+                                    var campos3 = document.getElementById("campos3");
+
+                                    // Se o radio "Pago" estiver selecionado, mostre o campo "campos3"
+                                    if (pagoRadio.checked) {
+                                        campos3.style.display = "block";
+                                    } else {
+                                        campos3.style.display = "none";
+                                    }
+                                }
+                            </script>
+                            <!--VERIFICAÇÃO CAMPOS STATUS--->
                             <div id="campos3" style="margin-top: 2%; margin-bottom: 2%; display: none;">
                                 <label for="datapagamento"><b>
                                         <h6 style="font-family: arial, sans-serif; font-size: 16px;">Data do pagamento</h6>
@@ -573,26 +590,26 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             </div>
                             <div class="campos">
                                 <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Repetir valor?</h6>
-                                    </b></label>
+                                    <h6 style="font-family: arial, sans-serif; font-size: 16px;">Repetir valor?</h6>
+                                </b></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="uma" id="flexCheckDefault" name="repetir" <?= ($repetir == 'Não Repetir') ? "checked" : '' ?>>
+                                    <input class="form-check-input" type="checkbox" value="uma" id="flexCheckDefault" name="repetir" onclick="isChecked()" <?= ($repetir == 'uma') ? "checked" : '' ?>>
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        Desejo inserir este valor apenas um vez
+                                        Desejo inserir este valor apenas uma vez
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="repetir" id="flexCheckChecked" onclick="isChecked()" name="repetir" <?= ($repetir == 'Repetir') ? "checked" : '' ?>>
+                                    <input class="form-check-input" type="checkbox" value="repetir" id="flexCheckChecked" name="repetir" onclick="isChecked()" <?= ($repetir == 'repetir') ? "checked" : '' ?>>
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Desejo repetir este valor
                                     </label>
                                 </div>
                             </div>
-                            <div id="campos2" style="margin-top: 2%; margin-bottom: 2%; display: none;">
+                            <div id="campos2" class="campos" style="margin-top: 2%; margin-bottom: 2%; display: none;">
                                 <label><b>
-                                        <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº de parcelas:</h6>
-                                    </b></label>
-                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php echo $parcelas; ?>">
+                                    <h6 style="font-family: arial, sans-serif; font-size: 16px;">Nº de parcelas:</h6>
+                                </b></label>
+                                <input type="number" name="parcelas" id="parcelas" class="form-control" placeholder="3" value="<?php $parcelas; ?>">
                             </div>
                         </div>
                     </div>
@@ -773,19 +790,19 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
             document.getElementById('botao4').style.display = "none";
         }
 
-        function Check() {
-            if (document.getElementById("pago").checked) {
-                document.getElementById("campos3").style.display = "block";
-            } else {
-                document.getElementById("campos3").style.display = "none";
-            }
-        }
-
         function isChecked() {
-            if (document.getElementById("flexCheckChecked").checked) {
-                document.getElementById("campos2").style.display = "block";
+            var checkboxDefault = document.getElementById("flexCheckDefault");
+            var checkboxChecked = document.getElementById("flexCheckChecked");
+            var campos2 = document.getElementById("campos2");
+
+            if (checkboxDefault.checked) {
+                checkboxChecked.checked = false; // Desmarca o outro checkbox
+                campos2.style.display = "none";
+            } else if (checkboxChecked.checked) {
+                checkboxDefault.checked = false; // Desmarca o outro checkbox
+                campos2.style.display = "block";
             } else {
-                document.getElementById("campos2").style.display = "none";
+                campos2.style.display = "none";
             }
         }
     </script>

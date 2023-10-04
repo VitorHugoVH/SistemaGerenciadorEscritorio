@@ -8,13 +8,11 @@ verificarAcesso($conn);
 $username = $_SESSION['username'] ?? '';
 $idUsuario = $_SESSION['idUsuario'] ?? '';
 
-if (!empty($_GET['id'])) {
+if (!empty($_GET['id'])){
     include_once('../conexao_adm.php');
 
     $id = $_GET['id'];
-
     $sqlSelect = "SELECT * FROM processo WHERE id=$id";
-
     $result = $conn->query($sqlSelect);
 
     if ($result->num_rows > 0) {

@@ -800,11 +800,23 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
         }
 
         function rece() {
-            if (document.getElementById('flexCheckChecked').checked) {
-                document.getElementById('campos3').style.display = "block";
-            } else {
-                document.getElementById('campos3').style.display = "none";
-            }
+            const checkboxAReceber = document.getElementById("flexCheckDefault");
+            const checkboxRecebido = document.getElementById("flexCheckChecked");
+            const campos3 = document.getElementById("campos3");
+
+            checkboxAReceber.addEventListener("change", function() {
+                if (checkboxAReceber.checked) {
+                    checkboxRecebido.checked = false;
+                    campos3.style.display = "none";
+                }
+            });
+
+            checkboxRecebido.addEventListener("change", function() {
+                if (checkboxRecebido.checked) {
+                    checkboxAReceber.checked = false;
+                    campos3.style.display = "block";
+                }
+            });
         }
     </script>
 </body>

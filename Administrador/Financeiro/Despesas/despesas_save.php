@@ -22,6 +22,12 @@
         $newrepetir = $_POST['repetir'];
         $newparcelas = $_POST['parcelas'];
 
+        if ($newstatus == 'Apagar') {
+            $newstatus = 'Á pagar';
+        } elseif ($status == 'Pago') {
+            $newstatus = 'Pago';
+        }
+
         if(!empty($newvencimento)){
             $newvencimento2 = date('d/m/Y', strtotime($newvencimento));
         }
