@@ -134,6 +134,7 @@ if (isset($_POST['enviar'])) {
     <link rel="stylesheet" type="text/css" href="../../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="../../imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../../fontawesome/css/all.css" />
+    <script src="../../../reloadIcon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
@@ -196,6 +197,11 @@ if (isset($_POST['enviar'])) {
 </head>
 
 <body>
+    <div id="loading-container">
+        <div id="loading-icon" class="centered" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; z-index: 999;">
+            <img src="../../../loading-gif.gif" alt="Carregando..." style="width: 32px; height: 32px;" />
+        </div>
+    </div>
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar d-flex justify-content-end dropdown">

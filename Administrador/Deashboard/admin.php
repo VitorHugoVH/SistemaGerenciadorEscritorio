@@ -168,6 +168,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     <link rel="stylesheet" type="text/css" href="../estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="../imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../fontawesome/css/all.css" />
+    <script src="../../reloadIcon.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -607,6 +608,9 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                             <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
                         </div>
                     </div>
+                </div>
+                <div id="loading-icon" class="centered" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px;">
+                    <img src="../../loading-gif.gif" alt="Carregando..." style="width: 32px; height: 32px;" />
                 </div>
                 <div class="row">
                     <div class="col-4">
