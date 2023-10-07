@@ -33,7 +33,6 @@ if (!empty($_GET['id'])){
             $dataa = $user_data['dataa'];
             $valorhonorario = $user_data['valorHonorario'];
             $parcelas = $user_data['parcelas'];
-            $cadreceita = $user_data['cadreceita'];
             $ob = $user_data['observacoes'];
             $posicao = $user_data['posicaocliente'];
             $nomecliente = $user_data['nomecliente'];
@@ -974,7 +973,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
                                 <label class="form-label">Adicionar Receita</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="flexCheckDefault"
-                                        name="cadreceita" <?= $cadreceita == 'Ligado' ? 'checked' : 'Desligado' ?>>
+                                        name="cadreceita">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Cadastrar como nova receita após finalização
                                     </label>

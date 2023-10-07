@@ -242,6 +242,11 @@ if (isset($_POST['update'])) {
         exit;
     }
   }else {
+    $sqlUpdate = "UPDATE processo SET valorHonorario='$valorhonorario', parcelas='$parcelas', cadreceita='$cadreceita', stat='$status', privado='$naovisualizar', posicaocliente='$posicaocliente', observacoes='$observacoes', nomecliente='$nomecliente', nomeadvogado='$advogadoatuando', segundoAdvogado='$segundoAdvogado', terceiroAdvogado='$terceiroAdvogado', natureza='$naturezaprocesso', ritoProcesso='$ritoProcesso', nprocesso='$nprocesso', poderjudiciario='$poderjudiciario', numerovara='$numerovara', nomedavara='$varadoprocesso', nomedacomarca='$nomecomarca', valorDivida='$valorDivida', valorCausa='$valorCausa', fase='$faseprocesso', dataa='$dateabertura', classe='$classeprocesso', falecido='$nomefalecido'
+    WHERE id='$id'";
+
+    $result = $conn->query($sqlUpdate);
+
     header('Location: processos.php');
     exit;
   }
