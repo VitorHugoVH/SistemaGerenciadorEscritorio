@@ -57,6 +57,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     <link rel="stylesheet" type="text/css" href="../../Administrador//estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="../../Administrador/imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../../Administrador/fontawesome/css/all.css" />
+    <script src="../../reloadIcon.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -137,6 +138,11 @@ if ($rs) {
 ?>
 
 <body>
+    <div id="loading-container">
+        <div id="loading-icon" class="centered" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; z-index: 999;">
+            <img src="../../loading-gif.gif" alt="Carregando..." style="width: 32px; height: 32px;" />
+        </div>
+    </div>
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar d-flex justify-content-end dropdown">

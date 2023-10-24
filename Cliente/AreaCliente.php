@@ -115,6 +115,7 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
     <link rel="stylesheet" type="text/css" href="../Administrador/estilosAdm.css" />
     <link rel="icon" type="image/x-icon" href="../Administrador/imagensADM/logoadmin.png" />
     <link rel="stylesheet" type="text/css" href="../Administrador/fontawesome/css/all.css" />
+    <script src="../reloadIcon.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -172,6 +173,11 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
 </head>
 
 <body>
+    <div id="loading-container">
+        <div id="loading-icon" class="centered" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 20px; z-index: 999;">
+            <img src="../loading-gif.gif" alt="Carregando..." style="width: 32px; height: 32px;" />
+        </div>
+    </div>
     <div class="wrapper">
         <div class="section">
             <div class="top_navbar d-flex justify-content-end dropdown">
@@ -609,14 +615,17 @@ while($data_usuario = mysqli_fetch_assoc($resultBuscaModal)){
         </div>
         <!--INÍCIO NAVEGAÇÃO-->
         <div class="sidebar" style="overflow-y: auto;">
-            <div class="profile">
+            <button class="btn btn-link hamburger-icon d-md-none" type="button">
+                <i class="fas fa-bars fa-2x text-white"></i>
+            </button>
+            <div class="d-none d-md-block profile">
                 <img src="../Administrador/imagensADM/logoadmin.png" alt="profile_picture" width="35%">
                 <h3>Advocacia</h3>
                 <p>Fraga e Melo Advogados</p>
             </div>
-            <ul class="lista">
+            <ul class="d-none d-md-block lista">
                 <li>
-                    <a href="processos.php" class="active">
+                    <a href="AreaCliente.php" class="active">
                         <span class="icon"><i class="fas fa-scale-balanced"></i></span>
                         <span class="item">Processos</span>
                     </a>

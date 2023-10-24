@@ -53,7 +53,6 @@
     <hr>
     <h1 style="color: black; text-align: center;">NOTÍCIAS JURÍDICAS</h1>
     <br>
-    <div class="container">
         <div class="texto">
             <h2>Cantor sertanejo Luciano condenado a pagar R$ 30 mil por dano moral</h2>
             <br>
@@ -77,7 +76,6 @@
             <p class="fontes">Atuou em nome do autor o advogado <a href="contato.php" id="contatosandro"><b>Sandro Carvalho de Fraga</b></a>. (Proc. nº 70033952011 - com informações do TJRS e da redação do Espaço Vital).</p>
             <p class="fontes">fonte: <a href="encurtador.com.br/cjqGZ" id="contatosandro">encurtador.com.br/cjqGZ</a></p>
         </div>
-    </div>
     <!--INICIO NOTICIAS JURIDICAS-->
     <br>
     <hr>
